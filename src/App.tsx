@@ -1,11 +1,19 @@
+import AppHeader from "./components/AppHeader";
+import "./App.css";
+import { Grid } from "@mui/material";
+import { Sidebar } from "./components/Sidebar/Sidebar";
 
-function App() {
-
+const App = () => {
   return (
     <div>
-      Hello World
+      <AppHeader />
+      <Grid container spacing={2}>
+        <Grid item xs={2}>
+          <Sidebar />
+        </Grid>
+      </Grid>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

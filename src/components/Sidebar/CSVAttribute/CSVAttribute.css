@@ -1,0 +1,10 @@
+.container {
+    padding: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.container:hover {
+    background-color: #e5e5e5;
+}
