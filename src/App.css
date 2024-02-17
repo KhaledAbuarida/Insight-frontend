@@ -2,3 +2,7 @@ body {
     margin: 0;
     font-family: 'Inconsolata', monospace;
 }
+
+.app-container {
+    background-color: #F3F4F5;
+}

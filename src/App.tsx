@@ -1,15 +1,33 @@
-import AppHeader from "./components/AppHeader";
+import AppHeader from "./components/app-header/AppHeader";
 import "./App.css";
-import { Grid } from "@mui/material";
-import { Sidebar } from "./components/Sidebar/Sidebar";
+import { Box, Grid } from "@mui/material";
+import { Sidebar } from "./components/side-bar/Sidebar";
+import { DynamicChart } from "./components/charts/DynamicChart";
 
 const App = () => {
   return (
-    <div>
+    <div className="app-container">
       <AppHeader />
-      <Grid container spacing={2}>
-        <Grid item xs={2}>
+      <Grid container spacing={3}>
+        <Grid item xs={1.5}>
           <Sidebar />
+        </Grid>
+        <Grid item>
+          <Grid container direction="column" spacing={3}>
+            <Grid item>sss</Grid>
+            <Grid item>
+              {/* Chart */}
+              <Box
+                sx={{
+                  border: "1px solid gray",
+                  padding: "20px",
+                  backgroundColor: "#fff",
+                }}
+              >
+                <DynamicChart />
+              </Box>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </div>

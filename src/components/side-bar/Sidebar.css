@@ -1,10 +1,10 @@
 .sidebar {
-    flex: 3;
     height: calc(100vh - 70px);
     overflow-y: scroll;
     position: -webkit-sticky;
     position: sticky;
     top: 70px;
+    background-color: #2D3540;
 }
 ::-webkit-scrollbar {
     width: 5px;
@@ -23,6 +23,8 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    color: #BBC5CF;
+    font-size: 14px;
 }
 .sidebarListItem {
     display: flex;
@@ -46,8 +48,11 @@
 
 /* --------------- */
 .sidebarHeader {
-    font-size: 20px;
-    padding: 5px;
-    font-weight: bolder;
-    color: gray;
+    font-size: 10px;
+    font-weight: normal;
+    /* margin: 10px 0 0 0; */
+    color: rgba(255, 255, 255, 0.5);
+    padding: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }

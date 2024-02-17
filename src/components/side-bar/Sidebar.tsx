@@ -1,5 +1,5 @@
 import Attributes from "../../utils/attributes";
-import { CSVAttribute } from "./CSVAttribute/CSVAttribute";
+import { CSVAttribute } from "../csv-attributes/CSVAttribute";
 import "./Sidebar.css";
 
 export const Sidebar = () => {
