@@ -5,11 +5,13 @@ import { Sidebar } from "./components/side-bar/Sidebar";
 import { DynamicChart } from "./components/charts/DynamicChart";
 import Upload from "./components/upload/Upload";
 import UploadPage from "./pages/uploadPage/UploadPage";
+import DataTable from "./components/DataTable";
 
 const App = () => {
   return (
     <div>
       <UploadPage />
+      <DataTable />
     </div>
     // <div className="app-container">
     //   <AppHeader />

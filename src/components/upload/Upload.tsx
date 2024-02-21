@@ -56,12 +56,12 @@ const Upload = () => {
         </button>
       </form>
       {/* show csv in json formate */}
-      {/* {jsonData.length > 0 && (
+      {jsonData.length > 0 && (
         <div>
           <h2>Converted JSON Data</h2>
           <pre>{JSON.stringify(jsonData, null, 2)}</pre>
         </div>
-      )} */}
+      )}
     </div>
   );
 };
