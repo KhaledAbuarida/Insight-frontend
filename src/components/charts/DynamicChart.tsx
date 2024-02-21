@@ -10,7 +10,7 @@ export interface DataItem {
   red?: number;
 }
 
-export const color = ["#8884d8", "#82ca9d", "orange", "pink"];
+export const color = ["purple", "green", "orange", "red"];
 
 export const DynamicChart = () => {
   const [type, setType] = useState<string>("Line");

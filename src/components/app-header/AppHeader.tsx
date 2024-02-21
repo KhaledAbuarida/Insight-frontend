@@ -11,8 +11,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
-import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -41,43 +39,17 @@ const AppHeader = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor: "#737373" }}>
       <Container maxWidth={false}>
         <Toolbar disableGutters>
-          <AutoGraphIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            // href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".2rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            Insights
-          </Typography>
+          <img src="./assets/logo.png" width="130px" />
 
+          {/* menu icon button */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
             <Menu
-              id="menu-appbar"
+              id="menu-app-bar"
               anchorEl={anchorElNav}
-              anchorOrigin={{ 
+              anchorOrigin={{
                 vertical: "bottom",
                 horizontal: "left",
               }}
@@ -98,25 +70,18 @@ const AppHeader = () => {
                 </MenuItem>
               ))}
             </Menu>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-app-bar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
@@ -129,7 +94,8 @@ const AppHeader = () => {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          {/* user profile */}
+          <Box sx={{ flexGrow: 0, mr: "10px" }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -137,7 +103,7 @@ const AppHeader = () => {
             </Tooltip>
             <Menu
               sx={{ mt: "45px" }}
-              id="menu-appbar"
+              id="menu-app-bar"
               anchorEl={anchorElUser}
               anchorOrigin={{
                 vertical: "top",
