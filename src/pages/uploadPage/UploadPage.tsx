@@ -6,7 +6,7 @@ const UploadPage = () => {
     <div className="uploadPageContainer">
       <div className="uploadContainer">
         <div className="upperPart">
-          <img src="./assets/logo.png" width="200px" />
+          <img src="./assets/logo.png" width={300} />
         </div>
         <div className="lowerPart">
           <Upload />

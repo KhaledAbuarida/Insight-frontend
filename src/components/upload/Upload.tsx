@@ -1,5 +1,6 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import csvtojson from "csvtojson";
+import "./Upload.css";
 
 interface CSVData {
   [key: string]: string;
@@ -44,12 +45,15 @@ const Upload = () => {
     <div style={{ textAlign: "center" }}>
       <form>
         <input
+          className="chooseFile"
           type={"file"}
           id={"csvFileInput"}
           accept={".csv"}
           onChange={handleOnChange}
         />
-        <button onClick={handleOnSubmit}>Upload CSV</button>
+        <button className="uploadBtn" onClick={handleOnSubmit}>
+          Upload CSV
+        </button>
       </form>
       {/* show csv in json formate */}
       {/* {jsonData.length > 0 && (
