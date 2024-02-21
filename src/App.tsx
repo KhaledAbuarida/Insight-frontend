@@ -6,12 +6,13 @@ import { DynamicChart } from "./components/charts/DynamicChart";
 import Upload from "./components/upload/Upload";
 import UploadPage from "./pages/uploadPage/UploadPage";
 import DataTable from "./components/DataTable";
+import DataSourcePage from "./pages/dataSourcePage/DataSourcePage";
 
 const App = () => {
   return (
     <div>
-      <UploadPage />
-      <DataTable />
+      {/* <UploadPage /> */}
+      <DataSourcePage />
     </div>
     // <div className="app-container">
     //   <AppHeader />

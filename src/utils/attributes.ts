@@ -1,4 +1,10 @@
-const Attributes = [
+interface Attribute {
+  field: string;
+  headerName: string;
+  width: number;
+}
+
+const Attributes: Attribute[] = [
   { field: "CustomerId", headerName: "Customer Id", width: 150 },
   { field: "FirstName", headerName: "First Name", width: 150 },
   { field: "LastName", headerName: "Last Name", width: 150 },

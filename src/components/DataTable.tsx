@@ -1,8 +1,6 @@
-import {
-  DataGrid,
-  GridToolbar,
-} from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Attributes from "../utils/attributes";
+import { Typography } from "@mui/material";
 
 const data = [
   {
@@ -1408,16 +1406,17 @@ const data = [
 ];
 
 const columns = [
-  { field: 'id', headerName: 'ID' },
-  { field: 'title', headerName: 'Title', width: 300 },
-  { field: 'body', headerName: 'Body', width: 600 }
-]
+  { field: "id", headerName: "ID" },
+  { field: "title", headerName: "Title", width: 300 },
+  { field: "body", headerName: "Body", width: 600 },
+];
 
 const DataTable = () => {
-
-  
   return (
-    <div style={{ height: 600, width: '100%' }}>
+    <div style={{ width: "90vw" }}>
+      <Typography variant="h5" sx={{mb:'20px', color: 'gray'}}>
+        Your Dataset
+      </Typography>
       <DataGrid
         rows={data}
         columns={Attributes}
@@ -1430,9 +1429,9 @@ const DataTable = () => {
         }}
         slots={{ toolbar: GridToolbar }}
         autoHeight
-        rowsPerPageOptions={[10]}
+        // rowsPerPageOptions={[10, 25, 50]}
         checkboxSelection
-        disableSelectionOnClick
+        disableRowSelectionOnClick // Here's the corrected property name
       />
     </div>
   );
