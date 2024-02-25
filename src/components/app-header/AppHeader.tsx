@@ -37,19 +37,35 @@ const AppHeader = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#737373" }}>
+    <AppBar
+      position="fixed"
+      sx={{ backgroundColor: "#737373" }}
+    >
       <Container maxWidth={false}>
         <Toolbar disableGutters>
           {/* logo */}
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <img src="./assets/logo.png" width="130px" />
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+            }}
+          >
+            <Typography variant="h5">
+              <b>INSIGHTS</b>
+            </Typography>
           </Box>
 
           {/* user profile */}
           <Box sx={{ flexGrow: 0, mr: "10px" }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              <IconButton
+                onClick={handleOpenUserMenu}
+                sx={{ p: 0 }}
+              >
+                <Avatar
+                  alt="Remy Sharp"
+                  src="/static/images/avatar/2.jpg"
+                />
               </IconButton>
             </Tooltip>
             <Menu
@@ -69,7 +85,10 @@ const AppHeader = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem
+                  key={setting}
+                  onClick={handleCloseUserMenu}
+                >
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}

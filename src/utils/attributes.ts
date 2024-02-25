@@ -1,10 +1,10 @@
-interface Attribute {
+export interface IAttribute {
   field: string;
   headerName: string;
-  width: number;
+  width?: number;
 }
 
-const Attributes: Attribute[] = [
+const Attributes: IAttribute[] = [
   { field: "CustomerId", headerName: "Customer Id", width: 150 },
   { field: "FirstName", headerName: "First Name", width: 150 },
   { field: "LastName", headerName: "Last Name", width: 150 },

@@ -7,12 +7,14 @@ import Upload from "./components/upload/Upload";
 import UploadPage from "./pages/uploadPage/UploadPage";
 import DataTable from "./components/DataTable";
 import DataSourcePage from "./pages/dataSourcePage/DataSourcePage";
+import VisualizePage from "./pages/dataSourcePage/visualizePage/VisualizePage";
 
 const App = () => {
   return (
     <div>
       {/* <UploadPage /> */}
-      <DataSourcePage />
+      {/* <DataSourcePage /> */}
+      <VisualizePage />
     </div>
     // <div className="app-container">
     //   <AppHeader />
