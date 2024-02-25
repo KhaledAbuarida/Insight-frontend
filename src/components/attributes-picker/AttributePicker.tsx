@@ -31,6 +31,7 @@ export const AttributesPicker = ({ attributes }: Props) => {
           width: "100%",
           backgroundColor: "#fff",
           borderRadius: "20px",
+          mt: 2,
         }}
         size="small"
       >

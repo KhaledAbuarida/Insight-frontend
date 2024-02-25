@@ -3,6 +3,7 @@ import { AttributesPicker } from "../../../components/attributes-picker/Attribut
 import Attributes from "../../../utils/attributes";
 import Graph from "../../../components/graph/Graph";
 import Comment from "../../../components/graph-comment/Comment";
+import RightBar from "../../../components/right-bar/RightBar";
 
 const VisualizePage = () => {
   return (
@@ -55,31 +56,9 @@ const VisualizePage = () => {
             item
             xs={2}
           >
-            right bar
+            <RightBar />
           </Grid>
         </Grid>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
       </Box>
     </>
   );
