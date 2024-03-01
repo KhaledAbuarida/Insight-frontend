@@ -16,7 +16,7 @@ const Graph = () => {
       width="auto"
       borderRadius={2}
       p={2}
-      sx={{ border: "1px solid gray", backgroundColor: "#fff" }}
+      sx={{ border: "1px solid gray", backgroundColor: "#fff", pt: 4 }}
     >
       <TextField
         select

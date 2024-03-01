@@ -9,6 +9,7 @@ const VisualizePage = () => {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
+        {/* SIDE BAR  */}
         <Grid
           container
           spacing={1}
@@ -19,6 +20,7 @@ const VisualizePage = () => {
           >
             sidebar
           </Grid>
+          {/* CENTER  */}
           <Grid
             item
             container
@@ -52,6 +54,7 @@ const VisualizePage = () => {
               </Grid>
             </Grid>
           </Grid>
+          {/* RIGHT BAR  */}
           <Grid
             item
             xs={2}

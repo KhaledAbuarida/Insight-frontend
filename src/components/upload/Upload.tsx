@@ -20,6 +20,7 @@ const Upload = () => {
     e.preventDefault();
 
     if (file) {
+      console.log(file);
       const csvString: string = await readFileAsText(file);
       const jsonArray: CSVData[] = await csvtojson().fromString(csvString);
       setJsonData(jsonArray);
@@ -51,7 +52,10 @@ const Upload = () => {
           accept={".csv"}
           onChange={handleOnChange}
         />
-        <button className="uploadBtn" onClick={handleOnSubmit}>
+        <button
+          className="uploadBtn"
+          onClick={handleOnSubmit}
+        >
           Upload CSV
         </button>
       </form>

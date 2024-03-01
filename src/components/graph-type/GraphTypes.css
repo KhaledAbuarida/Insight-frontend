@@ -1,7 +1,0 @@
-.IconButton {
-   transition: 1s;
-}
-
-.IconButton:hover {
-transform: scale(1.1);
-}

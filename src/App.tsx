@@ -8,16 +8,18 @@ import UploadPage from "./pages/uploadPage/UploadPage";
 import DataTable from "./components/DataTable";
 import DataSourcePage from "./pages/dataSourcePage/DataSourcePage";
 import VisualizePage from "./pages/dataSourcePage/visualizePage/VisualizePage";
+import DropZone from "./components/DropZone";
 
 const App = () => {
   return (
     <div>
-      {/* <UploadPage /> */}
       {/* <DataSourcePage /> */}
-      <VisualizePage />
+      <AppHeader />
+      <UploadPage />
+
+      {/* <VisualizePage /> */}
     </div>
     // <div className="app-container">
-    //   <AppHeader />
     //   <Grid container spacing={3}>
     //     <Grid item xs={1.5}>
     //       <Sidebar />
