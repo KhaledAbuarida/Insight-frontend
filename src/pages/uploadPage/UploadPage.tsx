@@ -1,5 +1,4 @@
 import { Container, Typography, Grid } from "@mui/material";
-import Upload from "../../components/upload/Upload";
 import DropZone from "../../components/DropZone";
 
 const UploadPage = () => {
@@ -15,7 +14,7 @@ const UploadPage = () => {
       >
         <Grid item>
           <Typography variant="h3">
-            <b>CSV Visualizer</b>
+            <b>CSV Visualization</b>
           </Typography>
         </Grid>
         <Grid item>
