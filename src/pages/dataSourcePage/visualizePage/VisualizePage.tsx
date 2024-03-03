@@ -25,12 +25,12 @@ const VisualizePage = () => {
             item
             container
             xs={8}
-            sx={{ backgroundColor: "#f5f5f5", height: "100vh" }}
+            sx={{ backgroundColor: "#f5f5f5", height: "90vh" }}
           >
             <Grid
               container
               direction="column"
-              spacing={4}
+              spacing={1}
               p={1}
               wrap="nowrap"
             >

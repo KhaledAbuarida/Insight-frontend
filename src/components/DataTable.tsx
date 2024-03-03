@@ -1414,7 +1414,10 @@ const columns = [
 const DataTable = () => {
   return (
     <div style={{ width: "90vw" }}>
-      <Typography variant="h5" sx={{mb:'20px', color: 'gray'}}>
+      <Typography
+        variant="h5"
+        sx={{ mb: "20px", color: "gray" }}
+      >
         Your Dataset
       </Typography>
       <DataGrid

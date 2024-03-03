@@ -4,8 +4,8 @@ import {
   Select,
   MenuItem,
   SelectChangeEvent,
+  Grid,
 } from "@mui/material";
-import "./AttributePicker.css";
 import { useState } from "react";
 import { IAttribute } from "../../utils/attributes";
 
@@ -25,64 +25,77 @@ export const AttributesPicker = ({ attributes }: Props) => {
   };
 
   return (
-    <>
-      <FormControl
-        sx={{
-          width: "100%",
-          backgroundColor: "#fff",
-          borderRadius: "20px",
-          mt: 2,
-        }}
-        size="small"
+    <Grid
+      container
+      spacing={3}
+    >
+      <Grid
+        item
+        xs={6}
       >
-        <InputLabel id="select-columns">Column</InputLabel>
-        <Select
-          labelId="select-columns"
-          id="column"
-          value={column}
-          label="column"
-          onChange={handleColumnChange}
-          sx={{ borderRadius: "20px" }}
+        <FormControl
+          sx={{
+            width: "100%",
+            backgroundColor: "#fff",
+            borderRadius: "5px",
+            mt: 1,
+          }}
+          size="small"
         >
-          {attributes.map((at) => (
-            <MenuItem
-              key={at.field}
-              value={at.field}
-            >
-              {at.headerName}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+          <InputLabel id="select-columns">Column</InputLabel>
+          <Select
+            labelId="select-columns"
+            id="column"
+            value={column}
+            label="column"
+            onChange={handleColumnChange}
+            sx={{ borderRadius: "5px" }}
+          >
+            {attributes.map((at) => (
+              <MenuItem
+                key={at.field}
+                value={at.field}
+              >
+                {at.headerName}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Grid>
 
-      <FormControl
-        sx={{
-          mt: 2,
-          width: "100%",
-          backgroundColor: "#fff",
-          borderRadius: "20px",
-        }}
-        size="small"
+      <Grid
+        item
+        xs={6}
       >
-        <InputLabel id="select-rows">Row</InputLabel>
-        <Select
-          labelId="select-rows"
-          id="row"
-          value={row}
-          label="row"
-          onChange={handleRowChange}
-          sx={{ borderRadius: "20px" }}
+        <FormControl
+          sx={{
+            width: "100%",
+            backgroundColor: "#fff",
+            borderRadius: "5px",
+            mt: 1,
+          }}
+          size="small"
         >
-          {attributes.map((at) => (
-            <MenuItem
-              key={at.field}
-              value={at.field}
-            >
-              {at.headerName}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </>
+          <InputLabel id="select-rows">Row</InputLabel>
+          <Select
+            labelId="select-rows"
+            id="row"
+            value={row}
+            label="row"
+            onChange={handleRowChange}
+            sx={{ borderRadius: "5px" }}
+          >
+            {attributes.map((at) => (
+              <MenuItem
+                key={at.field}
+                value={at.field}
+              >
+                {at.headerName}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Grid>
+    </Grid>
   );
 };

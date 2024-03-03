@@ -22,13 +22,12 @@ const DataSourcePage = () => {
 
   return (
     <>
-      <AppHeader />
       <Box
         sx={{
           flexGrow: 1,
           bgcolor: "background.paper",
           display: "flex",
-          height: '90vh',
+          height: "90vh",
         }}
       >
         <Tabs
@@ -39,14 +38,26 @@ const DataSourcePage = () => {
           aria-label="Vertical tabs example"
           sx={{ borderRight: 1, borderColor: "divider", pt: "20px" }}
         >
-          <Tab label="Dataset" {...a11yProps(0)} />
-          <Tab label="Statistics" {...a11yProps(1)} />
+          <Tab
+            label="Dataset"
+            {...a11yProps(0)}
+          />
+          <Tab
+            label="Statistics"
+            {...a11yProps(1)}
+          />
         </Tabs>
-        <TabPanel value={value} index={0}>
+        <TabPanel
+          value={value}
+          index={0}
+        >
           <DataTable />
         </TabPanel>
-        <TabPanel value={value} index={1}>
-          statistics 
+        <TabPanel
+          value={value}
+          index={1}
+        >
+          statistics
         </TabPanel>
       </Box>
     </>

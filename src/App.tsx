@@ -13,11 +13,10 @@ import DropZone from "./components/DropZone";
 const App = () => {
   return (
     <div>
-      {/* <DataSourcePage /> */}
       <AppHeader />
-      <UploadPage />
-
-      {/* <VisualizePage /> */}
+      {/* <DataSourcePage /> */}
+      <VisualizePage />
+      {/* <UploadPage /> */}
     </div>
     // <div className="app-container">
     //   <Grid container spacing={3}>

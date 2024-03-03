@@ -37,10 +37,7 @@ const AppHeader = () => {
   };
 
   return (
-    <AppBar
-      position="relative"
-      sx={{ backgroundColor: "#737373" }}
-    >
+    <AppBar position="relative">
       <Container maxWidth={false}>
         <Toolbar disableGutters>
           {/* logo */}

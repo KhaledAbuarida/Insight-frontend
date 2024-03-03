@@ -26,7 +26,6 @@ const DropZone = () => {
     const jsonArray: CSVData[] = await csvtojson().fromString(csvString);
     setJsonData(jsonArray);
     handleUploadState();
-    console.log(isDragActive);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -54,7 +53,7 @@ const DropZone = () => {
   const handleUploadState = () => {
     setTimeout(() => {
       setLoader(false);
-    }, 1000);
+    }, 1500);
     setUploadState(true);
   };
 
