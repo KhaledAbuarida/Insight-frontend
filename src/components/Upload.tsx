@@ -1,6 +1,5 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import csvtojson from "csvtojson";
-import "./Upload.css";
 
 interface CSVData {
   [key: string]: string;

@@ -2,21 +2,27 @@
 import { ResponsiveChartContainer } from "@mui/x-charts/ResponsiveChartContainer";
 import { BarPlot } from "@mui/x-charts/BarChart";
 import { ChartsXAxis } from "@mui/x-charts/ChartsXAxis";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
 const Graph = () => {
   return (
     <Grid
       height="100%"
-      // width="auto"
       p={2}
       sx={{
         border: "1px solid gray",
         backgroundColor: "#fff",
-        pt: 4,
         borderRadius: "5px",
       }}
     >
+      <Typography
+        fontSize={12}
+        color="gray"
+        textTransform="uppercase"
+        mb={1}
+      >
+        Overview
+      </Typography>
       <div>
         <ResponsiveChartContainer
           series={[

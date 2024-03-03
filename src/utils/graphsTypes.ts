@@ -1,10 +1,13 @@
 import { GiHistogram } from "react-icons/gi";
-import { FcPieChart } from "react-icons/fc";
-import { FcScatterPlot } from "react-icons/fc";
-import { FcBarChart } from "react-icons/fc";
-import { FcLineChart } from "react-icons/fc";
-import { AiTwotoneBoxPlot } from "react-icons/ai";
+import { GiPieChart } from "react-icons/gi";
 import { IconType } from "react-icons";
+import { RiBarChart2Fill } from "react-icons/ri";
+import { FaChartLine } from "react-icons/fa6";
+import { BiScatterChart } from "react-icons/bi";
+
+import { AiFillBoxPlot } from "react-icons/ai";
+
+
 
 export interface IGraphType {
     Name: string;
@@ -19,22 +22,22 @@ export const graphsTypes: IGraphType[] = [
     },
     {
         Name: 'Pie Chart',
-        Icon: FcPieChart
+        Icon: GiPieChart
     },
     {
         Name: 'Bar Chart',
-        Icon: FcBarChart
+        Icon: RiBarChart2Fill
     },
     {
         Name: 'Line Chart',
-        Icon: FcLineChart
+        Icon: FaChartLine
     },
     {
         Name: 'Box Plot',
-        Icon: AiTwotoneBoxPlot
+        Icon: AiFillBoxPlot
     },
     {
         Name: 'Scatter Plot',
-        Icon: FcScatterPlot
+        Icon: BiScatterChart
     }
 ]

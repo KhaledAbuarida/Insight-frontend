@@ -1,21 +1,25 @@
-import AppHeader from "./components/app-header/AppHeader";
+import AppHeader from "./components/AppHeader";
 import "./App.css";
 import { Box, Grid } from "@mui/material";
 import { Sidebar } from "./components/side-bar/Sidebar";
 import { DynamicChart } from "./components/charts/DynamicChart";
-import Upload from "./components/upload/Upload";
+import Upload from "./components/Upload";
 import UploadPage from "./pages/uploadPage/UploadPage";
 import DataTable from "./components/DataTable";
 import DataSourcePage from "./pages/dataSourcePage/DataSourcePage";
 import VisualizePage from "./pages/dataSourcePage/visualizePage/VisualizePage";
 import DropZone from "./components/DropZone";
+import Home from "./components/Home";
+import Spreadsheet from "./components/Spreadsheet";
 
 const App = () => {
   return (
     <div>
       <AppHeader />
       {/* <DataSourcePage /> */}
-      <VisualizePage />
+      {/* <Home /> */}
+      {/* <VisualizePage /> */}
+      <Spreadsheet />
       {/* <UploadPage /> */}
     </div>
     // <div className="app-container">

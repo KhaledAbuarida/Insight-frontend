@@ -6,9 +6,8 @@ const StyledTextarea = styled.textarea`
   box-sizing: border-box;
   width: 100%;
   min-height: 150px;
-  font-size: 1rem;
+  font-size: 15px;
   font-weight: 400;
-  line-height: 1.5;
   padding: 8px 12px;
   border-radius: 5px;
   color: #000;
@@ -46,7 +45,7 @@ export default function Comment() {
       <StyledTextarea
         value={comment}
         onChange={handleChange}
-        placeholder="Write Your Observation"
+        placeholder="Write your observation"
       />
       <Button
         variant="contained"

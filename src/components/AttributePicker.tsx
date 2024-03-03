@@ -7,7 +7,7 @@ import {
   Grid,
 } from "@mui/material";
 import { useState } from "react";
-import { IAttribute } from "../../utils/attributes";
+import { IAttribute } from "../utils/attributes";
 
 interface Props {
   attributes: IAttribute[];
@@ -27,7 +27,7 @@ export const AttributesPicker = ({ attributes }: Props) => {
   return (
     <Grid
       container
-      spacing={3}
+      spacing={2}
     >
       <Grid
         item
@@ -38,11 +38,15 @@ export const AttributesPicker = ({ attributes }: Props) => {
             width: "100%",
             backgroundColor: "#fff",
             borderRadius: "5px",
-            mt: 1,
           }}
           size="small"
         >
-          <InputLabel id="select-columns">Column</InputLabel>
+          <InputLabel
+            id="select-columns"
+            sx={{ fontSize: "15px" }}
+          >
+            Column
+          </InputLabel>
           <Select
             labelId="select-columns"
             id="column"
@@ -72,11 +76,15 @@ export const AttributesPicker = ({ attributes }: Props) => {
             width: "100%",
             backgroundColor: "#fff",
             borderRadius: "5px",
-            mt: 1,
           }}
           size="small"
         >
-          <InputLabel id="select-rows">Row</InputLabel>
+          <InputLabel
+            id="select-rows"
+            sx={{ fontSize: "15px" }}
+          >
+            Row
+          </InputLabel>
           <Select
             labelId="select-rows"
             id="row"
