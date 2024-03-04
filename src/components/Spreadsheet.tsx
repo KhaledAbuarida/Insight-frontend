@@ -1,8 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Sheet from "./Sheet";
 
-// Main spreadsheet component
-const Spreadsheet = () => {
+const Spreadsheet: React.FC = () => {
   const [sheets, setSheets] = useState<{ name: string; isOpen: boolean }[]>([
     { name: "Sheet 1", isOpen: false },
     { name: "Sheet 2", isOpen: false },
