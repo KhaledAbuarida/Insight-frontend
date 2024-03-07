@@ -1,10 +1,10 @@
 import { Grid, Typography } from "@mui/material";
 import React from "react";
 import Plot from "react-plotly.js";
-import { GraphJSON } from "../utils/graph";
+import { graphjson } from "../utils/graph";
 
 const GraphComponent: React.FC = () => {
-  const plotlyData = {
+  const graphData = {
     data: [
       {
         x: [1, 2, 3, 4, 5],
@@ -56,8 +56,8 @@ const GraphComponent: React.FC = () => {
       </Typography>
       <div>
         <Plot
-          data={GraphJSON.data}
-          layout={plotlyData.layout}
+          data={graphjson.data}
+          layout={graphjson.layout}
           useResizeHandler
           style={{ width: "100%", height: "100%" }}
         />
