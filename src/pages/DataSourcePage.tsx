@@ -2,9 +2,9 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import React from "react";
-import TabPanel from "../../components/TabPanel";
-import AppHeader from "../../components/HomeHeader";
-import DataTable from "../../components/DataTable";
+import TabPanel from "../components/TabPanel";
+import AppHeader from "../components/HomeHeader";
+import DataTable from "../components/DataTable";
 
 const DataSourcePage = () => {
   const [value, setValue] = React.useState(0);

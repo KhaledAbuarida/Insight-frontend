@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useState } from "react";
-import Graph from "./Graph";
 import { Button, ClickAwayListener, TextField } from "@mui/material";
 
 interface SheetProps {
@@ -30,6 +29,7 @@ const Sheet: React.FC<SheetProps> = ({
   const handleRenameChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    e.preventDefault();
     setNewName(e.target.value);
   };
 
@@ -44,7 +44,7 @@ const Sheet: React.FC<SheetProps> = ({
     event.preventDefault();
     setIsDialogOpen(true);
     setDialogX(event.clientX);
-    setDialogY(event.clientY);
+    setDialogY(event.clientY - 100);
   };
 
   return (
@@ -55,11 +55,13 @@ const Sheet: React.FC<SheetProps> = ({
         style={{
           cursor: "pointer",
           textDecoration: isOpen ? "underline" : "none",
+          color: isOpen ? "red" : "black",
+          userSelect: "none",
         }}
       >
         {name}
       </div>
-      {isOpen && <Graph />}
+      {/* {isOpen && <VisualizePage  />} */}
       {isDialogOpen && (
         <ClickAwayListener onClickAway={() => setIsDialogOpen(false)}>
           <div
@@ -74,9 +76,19 @@ const Sheet: React.FC<SheetProps> = ({
           >
             <form>
               <TextField onChange={(e) => handleRenameChange(e)} />
-              <Button onClick={handleRename}>Rename</Button>
+              <Button
+                type="submit"
+                onClick={handleRename}
+              >
+                Rename
+              </Button>
             </form>
-            <button onClick={handleRemove}>Remove</button>
+            <Button
+              variant="contained"
+              onClick={handleRemove}
+            >
+              Remove
+            </Button>
           </div>
         </ClickAwayListener>
       )}

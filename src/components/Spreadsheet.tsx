@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import Sheet from "./Sheet";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import Graph from "./Graph";
+import VisualizePage from "../pages/VisualizePage";
 
 const Spreadsheet: React.FC = () => {
   const [sheets, setSheets] = useState<{ name: string; isOpen: boolean }[]>([
@@ -36,27 +39,51 @@ const Spreadsheet: React.FC = () => {
   };
 
   return (
-    <div>
-      <button onClick={addSheet}>Add Sheet</button>
-      {sheets.map((sheet, index) => (
-        <Sheet
-          key={index}
-          name={sheet.name}
-          isOpen={sheet.isOpen}
-          renameSheet={renameSheet}
-          removeSheet={removeSheet}
-          openSheet={() => openSheet(sheet.name)}
-        />
-      ))}
-      <div>
-        {currentSheet && (
-          <div>
-            <h2>Bottom Spreadsheet</h2>
-            <p>Current Sheet: {currentSheet}</p>
-          </div>
-        )}
-      </div>
-    </div>
+    <>
+      <Box>
+        <VisualizePage />
+      </Box>
+      <Box
+        sx={{
+          position: "fixed",
+          bottom: 0,
+          width: "100%",
+          // height: "100%",
+          backgroundColor: "#e5e5e5",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Grid container>
+          {sheets.map((sheet, index) => (
+            <Grid
+              item
+              sx={{
+                p: 1,
+                border: "1px solid gray",
+              }}
+            >
+              <Sheet
+                key={index}
+                name={sheet.name}
+                isOpen={sheet.isOpen}
+                renameSheet={renameSheet}
+                removeSheet={removeSheet}
+                openSheet={() => openSheet(sheet.name)}
+              />
+            </Grid>
+          ))}
+          <Button onClick={addSheet}>
+            <Typography
+              variant="h5"
+              color="gray"
+            >
+              <b> + </b>
+            </Typography>
+          </Button>
+        </Grid>
+      </Box>
+    </>
   );
 };
 

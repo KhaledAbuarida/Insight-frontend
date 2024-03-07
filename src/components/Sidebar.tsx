@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import GraphsList from "./GraphsList";
 
-const RightBar = () => {
+const Sidebar = () => {
   return (
     <>
       <Grid
@@ -18,4 +18,4 @@ const RightBar = () => {
   );
 };
 
-export default RightBar;
+export default Sidebar;

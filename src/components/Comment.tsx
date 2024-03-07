@@ -35,11 +35,6 @@ export default function Comment() {
     setComment(e.target.value);
   };
 
-  const handleComment = () => {
-    console.log(comment);
-    setComment("");
-  };
-
   return (
     <>
       <StyledTextarea
@@ -47,13 +42,6 @@ export default function Comment() {
         onChange={handleChange}
         placeholder="Write your observation"
       />
-      <Button
-        variant="contained"
-        sx={{ float: "right", textTransform: "none", mt: "5px" }}
-        onClick={handleComment}
-      >
-        Comment
-      </Button>
     </>
   );
 }
