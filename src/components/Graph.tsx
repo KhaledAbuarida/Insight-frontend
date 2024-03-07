@@ -1,10 +1,41 @@
-// import { Box, MenuItem, TextField } from "@mui/material";
-import { ResponsiveChartContainer } from "@mui/x-charts/ResponsiveChartContainer";
-import { BarPlot } from "@mui/x-charts/BarChart";
-import { ChartsXAxis } from "@mui/x-charts/ChartsXAxis";
 import { Grid, Typography } from "@mui/material";
+import React from "react";
+import Plot from "react-plotly.js";
+import { GraphJSON } from "../utils/graph";
 
-const Graph = () => {
+const GraphComponent: React.FC = () => {
+  const plotlyData = {
+    data: [
+      {
+        x: [1, 2, 3, 4, 5],
+        y: [10, 15, 13, 17, 18],
+        type: "scatter",
+        name: "Series 1",
+      },
+      {
+        x: [1, 2, 3, 4, 5],
+        y: [16, 5, 11, 9, 7],
+        type: "scatter",
+        name: "Series 2",
+      },
+      {
+        x: [1, 2, 3, 4, 5],
+        y: [12, 9, 15, 12, 14],
+        type: "scatter",
+        name: "Series 3",
+      },
+    ],
+    layout: {
+      title: "Sample Graph",
+      xaxis: {
+        title: "X Axis",
+      },
+      yaxis: {
+        title: "Y Axis",
+      },
+    },
+  };
+
   return (
     <Grid
       height="100%"
@@ -24,36 +55,15 @@ const Graph = () => {
         Overview
       </Typography>
       <div>
-        <ResponsiveChartContainer
-          series={[
-            {
-              type: "bar",
-              data: [1, 2, 3, 2, 1],
-            },
-            {
-              type: "bar",
-              data: [4, 3, 1, 3, 4],
-            },
-          ]}
-          xAxis={[
-            {
-              data: ["A", "B", "C", "D", "E"],
-              scaleType: "band",
-              id: "x-axis-id",
-            },
-          ]}
-          height={400}
-        >
-          <BarPlot />
-          <ChartsXAxis
-            label="X axis"
-            position="bottom"
-            axisId="x-axis-id"
-          />
-        </ResponsiveChartContainer>
+        <Plot
+          data={GraphJSON.data}
+          layout={plotlyData.layout}
+          useResizeHandler
+          style={{ width: "100%", height: "100%" }}
+        />
       </div>
     </Grid>
   );
 };
 
-export default Graph;
+export default GraphComponent;

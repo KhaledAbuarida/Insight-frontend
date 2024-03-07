@@ -1,246 +1,232 @@
 import React, { useState } from "react";
+import {
+  Select,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  TextField,
+  Typography,
+  SelectChangeEvent,
+  Grid,
+} from "@mui/material";
 
-const CustomizeGraph = () => {
-  const [chartType, setChartType] = useState("histogram"); // Default chart type
-  const [xLabel, setXLabel] = useState("");
-  const [yLabel, setYLabel] = useState("");
-  const [names, setNames] = useState("");
-  const [values, setValues] = useState("");
-  const [function_type, setFunction_type] = useState("count"); // Function type (count, sum, average)
-  const [title, setTitle] = useState(""); // Title for the histogram
-  const [color, setColor] = useState("#3498db"); // Color for the bars
-  const [numberOfBins, setNumberOfBins] = useState(10);
-  const [lineshape, setLinesaphe] = useState("linear"); // Lineshape
-  const [Barmode, setBarmode] = useState("relative"); // Barmode
-  const [columnToDistribute, setColumnToDistribute] = useState("");
-  const [normalizationType, setNormalizationType] = useState("none"); // Normalization type (percent, probability, density, none)
-  const [dataPointsToShow, setDataPointsToShow] = useState("all");
-  const [scatterSize, setScatterSize] = useState(5); // Distribute with size (numerical) for Scatter Plot
-  const [scatterColor, setScatterColor] = useState(""); // Distribute with color (categorical) for Scatter Plot
-  const [scatterSymbols, setScatterSymbols] = useState(""); // Distribute with symbols (categorical) for Scatter Plot
-  const handleChartTypeChange = (
-    newChartType: React.SetStateAction<string>
-  ) => {
-    setChartType(newChartType);
-    // Additional logic for handling chart type change
+const CustomizeGraph: React.FC = () => {
+  const [chartType, setChartType] = useState<string>("histogram");
+  const [xLabel, setXLabel] = useState<string>("");
+  const [yLabel, setYLabel] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
+  const [color, setColor] = useState<string>("#3498db");
+  const [numberOfBins, setNumberOfBins] = useState<number>(10);
+  const [lineshape, setLineshape] = useState<string>("linear");
+  const [Barmode, setBarmode] = useState<string>("relative");
+  const [columnToDistribute, setColumnToDistribute] = useState<string>("");
+  const [normalizationType, setNormalizationType] = useState<string>("none");
+  const [dataPointsToShow, setDataPointsToShow] = useState<string>("all");
+  const [scatterSize, setScatterSize] = useState<number>(5);
+  const [scatterColor, setScatterColor] = useState<string>("");
+  const [scatterSymbols, setScatterSymbols] = useState<string>("");
+
+  const handleChartTypeChange = (event: SelectChangeEvent) => {
+    setChartType(event.target.value as string);
   };
 
   return (
-    <div className="container mt-3">
-      <div className="card">
-        <div className="card-body">
-          <label className="form-label">Choose Chart Type:</label>
-          <select
-            className="form-select mb-3"
-            onChange={(e) => handleChartTypeChange(e.target.value)}
-          >
-            <option value="histogram">Histogram</option>
-            {/* <option value="column">Column Chart</option> */}
-            <option value="line">Line Chart</option>
-            <option value="BarChart">Bar Chart</option>
-            <option value="boxPlot">Box Plot</option>
-            <option value="scatterPlot">Scatter Plot</option>
-            <option value="pie">pie Chart</option>
-          </select>
-          <div>
-            <label className="form-label">Title :</label>
-            <input
-              type="text"
-              className="form-control mb-3"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+    <Grid
+      container
+      direction="column"
+      spacing={1}
+      sx={{ backgroundColor: "#2d3540" }}
+      p="0px 20px"
+    >
+      <Grid item>
+        <Typography
+          variant="h6"
+          fontSize={13}
+          textTransform={"uppercase"}
+          fontWeight={"bold"}
+          color={"gray"}
+          margin="5px 0px"
+        >
+          Customize Graph
+        </Typography>
+        <InputLabel
+          id="chart-type-label"
+          sx={{ color: "#fff", fontSize: "0.8rem" }}
+        >
+          Chart Type
+        </InputLabel>
+        <Select
+          size="small"
+          labelId="chart-type-label"
+          label="Chart Type"
+          value={chartType}
+          onChange={handleChartTypeChange}
+          fullWidth
+          sx={{ backgroundColor: "#e5e5e5" }}
+        >
+          <MenuItem value="histogram">Histogram</MenuItem>
+          <MenuItem value="line">Line Chart</MenuItem>
+          <MenuItem value="BarChart">Bar Chart</MenuItem>
+          <MenuItem value="boxPlot">Box Plot</MenuItem>
+          <MenuItem value="scatterPlot">Scatter Plot</MenuItem>
+          <MenuItem value="pie">Pie Chart</MenuItem>
+        </Select>
+      </Grid>
+
+      <Grid item>
+        <InputLabel sx={{ color: "#fff", fontSize: "0.8rem" }}>
+          Title
+        </InputLabel>
+        <TextField
+          variant="outlined"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          fullWidth
+          size="small"
+          sx={{ backgroundColor: "#e5e5e5" }}
+        />
+      </Grid>
+
+      {chartType !== "pie" && (
+        <>
+          <Grid item>
+            <InputLabel sx={{ color: "#fff", fontSize: "0.8rem" }}>
+              X Label
+            </InputLabel>
+            <TextField
+              variant="outlined"
+              value={xLabel}
+              onChange={(e) => setXLabel(e.target.value)}
+              fullWidth
+              size="small"
+              sx={{ backgroundColor: "#e5e5e5" }}
             />
+          </Grid>
 
-            {chartType !== "pie" && (
-              <div>
-                <label className="form-label">X Label :</label>
-                <input
-                  type="text"
-                  className="form-control mb-3"
-                  value={xLabel}
-                  onChange={(e) => setXLabel(e.target.value)}
-                />
+          <Grid item>
+            <InputLabel sx={{ color: "#fff", fontSize: "0.8rem" }}>
+              Y Label
+            </InputLabel>
+            <TextField
+              variant="outlined"
+              value={yLabel}
+              onChange={(e) => setYLabel(e.target.value)}
+              fullWidth
+              size="small"
+              sx={{ backgroundColor: "#e5e5e5" }}
+            />
+          </Grid>
 
-                <label className="form-label">Y Label :</label>
-                <input
-                  type="text"
-                  className="form-control mb-3"
-                  value={yLabel}
-                  onChange={(e) => setYLabel(e.target.value)}
-                />
+          <Grid item>
+            <InputLabel sx={{ color: "#fff", fontSize: "0.8rem" }}>
+              Color
+            </InputLabel>
+            <input
+              type="color"
+              value={color}
+              onChange={(e) => setColor(e.target.value)}
+            />
+          </Grid>
+        </>
+      )}
 
-                <label className="form-label">Color:</label>
-                <input
-                  type="color"
-                  className="form-control mb-3"
-                  value={color}
-                  onChange={(e) => setColor(e.target.value)}
-                />
-              </div>
-            )}
-          </div>
-          {/* Parameters specific to the histogram */}
-          {chartType === "histogram" && (
-            <div>
-              <label className="form-label">Function type:</label>
-              <select
-                className="form-select mb-3"
-                value={function_type}
-                onChange={(e) => setFunction_type(e.target.value)}
-              >
-                <option value="count">Count</option>
-                <option value="sum">Sum</option>
-                <option value="average">Average</option>
-              </select>
+      {chartType === "histogram" && (
+        <>
+          <Grid item>
+            <InputLabel sx={{ color: "#fff", fontSize: "0.8rem" }}>
+              Function type
+            </InputLabel>
+            <Select
+              value={Barmode}
+              onChange={(e) => setBarmode(e.target.value)}
+              fullWidth
+              size="small"
+              sx={{ backgroundColor: "#e5e5e5" }}
+            >
+              <MenuItem value="count">Count</MenuItem>
+              <MenuItem value="sum">Sum</MenuItem>
+              <MenuItem value="average">Average</MenuItem>
+            </Select>
+          </Grid>
 
-              <label className="form-label">ColumnToDistribute:</label>
-              <select
-                className="form-select mb-3"
-                value={columnToDistribute}
-                onChange={(e) => setColumnToDistribute(e.target.value)}
-              >
-                <option value="data">data</option>
-              </select>
+          <Grid item>
+            <InputLabel sx={{ color: "#fff", fontSize: "0.8rem" }}>
+              ColumnToDistribute
+            </InputLabel>
+            <Select
+              value={columnToDistribute}
+              onChange={(e) => setColumnToDistribute(e.target.value)}
+              fullWidth
+              size="small"
+              sx={{ backgroundColor: "#e5e5e5" }}
+            >
+              <MenuItem value="data">data</MenuItem>
+            </Select>
+          </Grid>
 
-              <label className="form-label">Number of Bins:</label>
-              <input
-                type="number"
-                className="form-control mb-3"
-                value={numberOfBins}
-                onChange={(e: any) => setNumberOfBins(e.target.value)}
-              />
+          <Grid item>
+            <InputLabel sx={{ color: "#fff", fontSize: "0.8rem" }}>
+              Number of Bins
+            </InputLabel>
+            <TextField
+              type="number"
+              value={numberOfBins}
+              onChange={(e) => setNumberOfBins(Number(e.target.value))}
+              fullWidth
+              size="small"
+              sx={{ backgroundColor: "#e5e5e5" }}
+            />
+          </Grid>
 
-              <label className="form-label">Normalization Type:</label>
-              <select
-                className="form-select mb-3"
-                value={normalizationType}
-                onChange={(e) => setNormalizationType(e.target.value)}
-              >
-                <option value="percent">Percent</option>
-                <option value="probability">Probability</option>
-                <option value="density">Density</option>
-                <option value="none">None</option>
-              </select>
-            </div>
-          )}
+          <Grid item>
+            <InputLabel sx={{ color: "#fff", fontSize: "0.8rem" }}>
+              Normalization Type:
+            </InputLabel>
+            <Select
+              value={normalizationType}
+              onChange={(e) => setNormalizationType(e.target.value)}
+              fullWidth
+              size="small"
+              sx={{ backgroundColor: "#e5e5e5" }}
+            >
+              <MenuItem value="percent">Percent</MenuItem>
+              <MenuItem value="probability">Probability</MenuItem>
+              <MenuItem value="density">Density</MenuItem>
+              <MenuItem value="none">None</MenuItem>
+            </Select>
+          </Grid>
+        </>
+      )}
 
-          {/* Repeat the pattern for other chart types... */}
-          {chartType === "line" && (
-            <div>
-              <label className="form-label">Line Shape:</label>
-              <select
-                className="form-select mb-3"
-                value={lineshape}
-                onChange={(e) => setLinesaphe(e.target.value)}
-              >
-                <option value={"linear"}>Linear</option>
-                <option value={"spline"}>Spline</option>
-              </select>
+      {chartType === "line" && (
+        <div>
+          <Typography style={{ marginBottom: "1rem" }}>Line Shape:</Typography>
+          <FormControl style={{ marginBottom: "1rem" }}>
+            <Select
+              value={lineshape}
+              onChange={(e) => setLineshape(e.target.value)}
+            >
+              <MenuItem value={"linear"}>Linear</MenuItem>
+              <MenuItem value={"spline"}>Spline</MenuItem>
+            </Select>
+          </FormControl>
 
-              <label className="form-label">Column to Distribute:</label>
-              <select
-                className="form-select mb-3"
-                value={columnToDistribute}
-                onChange={(e) => setColumnToDistribute(e.target.value)}
-              >
-                <option value="data">data</option>
-              </select>
-            </div>
-          )}
-          {chartType === "BarChart" && (
-            <div>
-              <label className="form-label">Bar Mode:</label>
-              <select
-                className="form-select mb-3"
-                value={Barmode}
-                onChange={(e) => setBarmode(e.target.value)}
-              >
-                <option value="relative">Relative</option>
-                <option value="group">Group</option>
-                <option value="overlay">Overlay</option>
-              </select>
-
-              <label className="form-label">Column to Distribute:</label>
-              <select
-                className="form-select mb-3"
-                value={columnToDistribute}
-                onChange={(e) => setColumnToDistribute(e.target.value)}
-              >
-                <option value="data">data</option>
-              </select>
-            </div>
-          )}
-          {chartType === "boxPlot" && (
-            <div>
-              <label className="form-label">Column to Distribute:</label>
-              <input
-                type="text"
-                className="form-control mb-3"
-                value={columnToDistribute}
-                onChange={(e) => setColumnToDistribute(e.target.value)}
-              />
-
-              <label className="form-label">Data Points to Show:</label>
-              <select
-                className="form-select mb-3"
-                value={dataPointsToShow}
-                onChange={(e) => setDataPointsToShow(e.target.value)}
-              >
-                <option value="all">All</option>
-                <option value="outliers">Outliers</option>
-              </select>
-            </div>
-          )}
-          {chartType === "scatterPlot" && (
-            <div>
-              <label className="form-label">Distribute with Size :</label>
-              <input
-                type="number"
-                className="form-control mb-3"
-                value={scatterSize}
-                onChange={(e: any) => setScatterSize(e.target.value)}
-              />
-
-              <label className="form-label">Distribute with Color :</label>
-              <select
-                className="form-select mb-3"
-                value={scatterColor}
-                onChange={(e) => setScatterColor(e.target.value)}
-              >
-                <option value="data">data</option>
-              </select>
-              <label className="form-label">Distribute with Symbols :</label>
-              <select
-                className="form-select mb-3"
-                value={scatterSymbols}
-                onChange={(e) => setScatterSymbols(e.target.value)}
-              >
-                <option value="data">data</option>
-              </select>
-            </div>
-          )}
-          {chartType === "pie" && (
-            <div>
-              <label className="form-label">Names :</label>
-              <input
-                type="text"
-                className="form-control mb-3"
-                value={names}
-                onChange={(e) => setNames(e.target.value)}
-              />
-
-              <label className="form-label">Values :</label>
-              <input
-                type="text"
-                className="form-control mb-3"
-                value={values}
-                onChange={(e) => setValues(e.target.value)}
-              />
-            </div>
-          )}
+          <Typography style={{ marginBottom: "1rem" }}>
+            Column to Distribute:
+          </Typography>
+          <FormControl style={{ marginBottom: "1rem" }}>
+            <Select
+              value={columnToDistribute}
+              onChange={(e) => setColumnToDistribute(e.target.value)}
+            >
+              <MenuItem value="data">data</MenuItem>
+            </Select>
+          </FormControl>
         </div>
-      </div>
-    </div>
+      )}
+
+      {/* Include other chart type options similarly */}
+    </Grid>
   );
 };
 

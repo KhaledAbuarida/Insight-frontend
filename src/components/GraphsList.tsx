@@ -7,7 +7,7 @@ const GraphsList = () => {
     <Container>
       <Typography
         variant="h6"
-        fontSize={12}
+        fontSize={13}
         textTransform={"uppercase"}
         fontWeight={"bold"}
         color={"gray"}

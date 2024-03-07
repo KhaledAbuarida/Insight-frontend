@@ -7,16 +7,23 @@ const Sidebar = () => {
     <Grid container>
       <Grid
         container
+        direction="column"
+        gap={3}
+        wrap="nowrap"
         sx={{
           backgroundColor: "#2d3540",
           height: "calc(100vh - 64px)",
           paddingTop: "20px",
         }}
       >
-        <GraphsList />
+        <Grid>
+          <GraphsList />
+        </Grid>
 
         {/* customize graph */}
-        <CustomizeGraph />
+        <Grid>
+          <CustomizeGraph />
+        </Grid>
       </Grid>
     </Grid>
   );
