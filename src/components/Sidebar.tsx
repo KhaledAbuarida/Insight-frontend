@@ -1,9 +1,10 @@
 import { Grid } from "@mui/material";
 import GraphsList from "./GraphsList";
+import CustomizeGraph from "./CustomizeGraph";
 
 const Sidebar = () => {
   return (
-    <>
+    <Grid container>
       <Grid
         container
         sx={{
@@ -13,8 +14,11 @@ const Sidebar = () => {
         }}
       >
         <GraphsList />
+
+        {/* customize graph */}
+        <CustomizeGraph />
       </Grid>
-    </>
+    </Grid>
   );
 };
 
