@@ -1,7 +1,14 @@
 import { Grid, Typography } from "@mui/material";
 import React from "react";
 import Plot from "react-plotly.js";
-import { graphjson } from "../utils/graph";
+import {
+  histogram,
+  pieChart,
+  boxPlot,
+  barChart,
+  lineChart,
+  scatterPlot,
+} from "../utils/graph";
 
 const GraphComponent: React.FC = () => {
   const graphData = {
@@ -56,8 +63,8 @@ const GraphComponent: React.FC = () => {
       </Typography>
       <div>
         <Plot
-          data={graphjson.data}
-          layout={graphjson.layout}
+          data={scatterPlot.data}
+          layout={scatterPlot.layout}
           useResizeHandler
           style={{ width: "100%", height: "100%" }}
         />
