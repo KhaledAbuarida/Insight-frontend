@@ -11,7 +11,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Badge } from "@mui/material";
 import MailIcon from "@mui/icons-material/Mail";
-import InsightsIcon from "@mui/icons-material/Insights";
+import Logo from "../global/Logo";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -40,10 +40,7 @@ const AppHeader = () => {
               alignItems: "center",
             }}
           >
-            <InsightsIcon sx={{ fontSize: "40px", pr: "3px", color: "gold" }} />
-            <Typography variant="h6">
-              <b>INSIGHTS</b>
-            </Typography>
+            <Logo />
           </Box>
 
           {/* user profile */}

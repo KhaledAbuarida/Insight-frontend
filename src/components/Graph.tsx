@@ -3,15 +3,15 @@ import React from "react";
 import Plot from "react-plotly.js";
 import {
   histogram,
-  pieChart,
   boxPlot,
   barChart,
   lineChart,
   scatterPlot,
 } from "../utils/graph";
+import { pieChart } from "../utils/pie";
 
 const Graph: React.FC = () => {
-  const { data, layout }: any = scatterPlot;
+  const { data, layout }: any = pieChart;
   return (
     <Grid
       height="100%"

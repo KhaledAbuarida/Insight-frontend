@@ -4,6 +4,7 @@ import csvtojson from "csvtojson";
 import { CircularProgress, Grid, Typography } from "@mui/material";
 import { MdOutlineFileUpload } from "react-icons/md";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { redirect, useNavigate } from "react-router-dom";
 
 interface CSVData {
   [key: string]: string;
@@ -13,6 +14,7 @@ const DropZone = () => {
   const [jsonData, setJsonData] = useState<CSVData[]>();
   const [uploadState, setUploadState] = useState<boolean>(false);
   const [loader, setLoader] = useState<Boolean>(true);
+  const navigate = useNavigate();
 
   const onDrop = useCallback(async (acceptedFiles: any) => {
     // Filter out non-CSV files
@@ -55,6 +57,9 @@ const DropZone = () => {
       setLoader(false);
     }, 1500);
     setUploadState(true);
+    setTimeout(() => {
+      navigate("/dataset");
+    }, 2000);
   };
 
   return (

@@ -1,6 +1,7 @@
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Attributes from "../utils/attributes";
-import { Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
+import { NavLink } from "react-router-dom";
 
 const data = [
   {
@@ -1414,12 +1415,33 @@ const columns = [
 const DataTable = () => {
   return (
     <div style={{ width: "90vw" }}>
-      <Typography
-        variant="h5"
-        sx={{ mb: "20px", color: "gray" }}
+      <Grid
+        container
+        justifyContent="space-between"
       >
-        Your Dataset
-      </Typography>
+        <Grid>
+          <Typography
+            variant="h5"
+            sx={{ mb: "20px", color: "gray" }}
+          >
+            Your Dataset
+          </Typography>
+        </Grid>
+
+        <Grid>
+          <Button variant="contained">
+            <NavLink
+              to="/home"
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+              }}
+            >
+              Start Visualize
+            </NavLink>
+          </Button>
+        </Grid>
+      </Grid>
       <DataGrid
         rows={data}
         columns={Attributes}

@@ -1,47 +1,60 @@
-import AppHeader from "./components/AppHeader";
 import "./App.css";
-import { Box, Grid } from "@mui/material";
-import Upload from "./components/Upload";
-import DataTable from "./components/DataTable";
-import DataSourcePage from "./pages/DataSourcePage";
 import VisualizePage from "./pages/VisualizePage";
-import DropZone from "./components/DropZone";
-import Spreadsheet from "./components/Spreadsheet";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import DataSourcePage from "./pages/DataSourcePage";
+import AppHeader from "./components/AppHeader";
+import LandingPage from "./components/LandingPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import UploadPage from "./pages/UploadPage";
 
 const App = () => {
+  const AppHeaderWrapper = () => {
+    const location = useLocation();
+
+    const path = location.pathname;
+
+    // Check if the current route is not the landing page, login, or register
+    if (path !== "/" && path !== "/login" && path !== "/register") {
+      return <AppHeader />;
+    }
+
+    return null; // Return null to not render anything
+  };
+
   return (
-    <div>
-      <AppHeader />
-      {/* <DataSourcePage /> */}
-      {/* <Home /> */}
-      <VisualizePage />
-      {/* <Spreadsheet /> */}
-      {/* <UploadPage /> */}
-    </div>
-    // <div className="app-container">
-    //   <Grid container spacing={3}>
-    //     <Grid item xs={1.5}>
-    //       <Sidebar />
-    //     </Grid>
-    //     <Grid item>
-    //       <Grid container direction="column" spacing={3}>
-    //         <Grid item>sss</Grid>
-    //         <Grid item>
-    //           {/* Chart */}
-    //           <Box
-    //             sx={{
-    //               border: "1px solid gray",
-    //               padding: "20px",
-    //               backgroundColor: "#fff",
-    //             }}
-    //           >
-    //             <DynamicChart />
-    //           </Box>
-    //         </Grid>
-    //       </Grid>
-    //     </Grid>
-    //   </Grid>
-    // </div>
+    <BrowserRouter>
+      <AppHeaderWrapper />
+      <Routes>
+        <Route
+          index
+          element={<LandingPage />}
+        />
+        <Route
+          path="/home"
+          element={<VisualizePage />}
+        />
+        <Route
+          path="/dataset"
+          element={<DataSourcePage />}
+        />
+
+        <Route
+          path="/login"
+          element={<LoginPage />}
+        />
+
+        <Route
+          path="/register"
+          element={<RegisterPage />}
+        />
+
+        <Route
+          path="/upload"
+          element={<UploadPage />}
+        />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
