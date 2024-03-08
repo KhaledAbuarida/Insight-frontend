@@ -10,39 +10,8 @@ import {
   scatterPlot,
 } from "../utils/graph";
 
-const GraphComponent: React.FC = () => {
-  const graphData = {
-    data: [
-      {
-        x: [1, 2, 3, 4, 5],
-        y: [10, 15, 13, 17, 18],
-        type: "scatter",
-        name: "Series 1",
-      },
-      {
-        x: [1, 2, 3, 4, 5],
-        y: [16, 5, 11, 9, 7],
-        type: "scatter",
-        name: "Series 2",
-      },
-      {
-        x: [1, 2, 3, 4, 5],
-        y: [12, 9, 15, 12, 14],
-        type: "scatter",
-        name: "Series 3",
-      },
-    ],
-    layout: {
-      title: "Sample Graph",
-      xaxis: {
-        title: "X Axis",
-      },
-      yaxis: {
-        title: "Y Axis",
-      },
-    },
-  };
-
+const Graph: React.FC = () => {
+  const { data, layout }: any = scatterPlot;
   return (
     <Grid
       height="100%"
@@ -63,8 +32,8 @@ const GraphComponent: React.FC = () => {
       </Typography>
       <div>
         <Plot
-          data={scatterPlot.data}
-          layout={scatterPlot.layout}
+          data={data}
+          layout={layout}
           useResizeHandler
           style={{ width: "100%", height: "100%" }}
         />
@@ -73,4 +42,4 @@ const GraphComponent: React.FC = () => {
   );
 };
 
-export default GraphComponent;
+export default Graph;
