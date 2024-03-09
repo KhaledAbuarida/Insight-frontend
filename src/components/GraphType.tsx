@@ -4,9 +4,11 @@ import { useState } from "react";
 
 interface Props {
   graphType: IGraphType;
+  onChooseGraph: (type: string) => void;
+  chartType: string;
 }
 
-const GraphType = ({ graphType }: Props) => {
+const GraphType = ({ graphType, onChooseGraph, chartType }: Props) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -20,7 +22,7 @@ const GraphType = ({ graphType }: Props) => {
   return (
     <Box
       sx={{
-        backgroundColor: "#e5e5e5",
+        backgroundColor: chartType === graphType.value ? "#387ADF" : "#B7C9F2",
         width: "60px",
         height: "60px",
         display: "flex",
@@ -32,12 +34,14 @@ const GraphType = ({ graphType }: Props) => {
       <IconButton
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onClick={() => onChooseGraph(graphType.value)}
         sx={{
           transition: "transform 0.3s",
           transform: isHovered ? "scale(1.3)" : "scale(1)",
+          color: chartType === graphType.value ? "#FFD23F" : "gray",
         }}
       >
-        {<graphType.Icon size={30} />}
+        {<graphType.icon size={30} />}
       </IconButton>
     </Box>
   );

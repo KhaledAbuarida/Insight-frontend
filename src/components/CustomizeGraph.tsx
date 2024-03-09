@@ -10,8 +10,11 @@ import {
   Grid,
 } from "@mui/material";
 
-const CustomizeGraph: React.FC = () => {
-  const [chartType, setChartType] = useState<string>("histogram");
+interface Props {
+  chartType: string;
+}
+
+const CustomizeGraph = ({ chartType }: Props) => {
   const [xLabel, setXLabel] = useState<string>("");
   const [yLabel, setYLabel] = useState<string>("");
   const [title, setTitle] = useState<string>("");
@@ -26,9 +29,6 @@ const CustomizeGraph: React.FC = () => {
   const [scatterColor, setScatterColor] = useState<string>("");
   const [scatterSymbols, setScatterSymbols] = useState<string>("");
 
-  const handleChartTypeChange = (event: SelectChangeEvent) => {
-    setChartType(event.target.value as string);
-  };
 
   return (
     <Grid
@@ -49,28 +49,7 @@ const CustomizeGraph: React.FC = () => {
         >
           Customize Graph
         </Typography>
-        <InputLabel
-          id="chart-type-label"
-          sx={{ color: "#fff", fontSize: "0.8rem" }}
-        >
-          Chart Type
-        </InputLabel>
-        <Select
-          size="small"
-          labelId="chart-type-label"
-          label="Chart Type"
-          value={chartType}
-          onChange={handleChartTypeChange}
-          fullWidth
-          sx={{ backgroundColor: "#e5e5e5" }}
-        >
-          <MenuItem value="histogram">Histogram</MenuItem>
-          <MenuItem value="line">Line Chart</MenuItem>
-          <MenuItem value="BarChart">Bar Chart</MenuItem>
-          <MenuItem value="boxPlot">Box Plot</MenuItem>
-          <MenuItem value="scatterPlot">Scatter Plot</MenuItem>
-          <MenuItem value="pie">Pie Chart</MenuItem>
-        </Select>
+        
       </Grid>
 
       <Grid item>

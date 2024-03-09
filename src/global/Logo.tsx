@@ -7,13 +7,6 @@ const Logo = () => {
       variant="h5"
       sx={{ fontWeight: "bold" }}
     >
-      <img
-        src="./assets/insight.png"
-        width={45}
-        style={{
-          paddingRight: "5px",
-        }}
-      />
       <NavLink
         to="/"
         style={{
@@ -21,6 +14,13 @@ const Logo = () => {
           color: "inherit",
         }}
       >
+        <img
+          src="./assets/insight.png"
+          width={45}
+          style={{
+            paddingRight: "5px",
+          }}
+        />
         INSIGHTS
       </NavLink>
     </Typography>

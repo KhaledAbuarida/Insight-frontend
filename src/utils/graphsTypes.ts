@@ -4,40 +4,44 @@ import { IconType } from "react-icons";
 import { RiBarChart2Fill } from "react-icons/ri";
 import { FaChartLine } from "react-icons/fa6";
 import { BiScatterChart } from "react-icons/bi";
-
 import { AiFillBoxPlot } from "react-icons/ai";
 
-
-
 export interface IGraphType {
-    Name: string;
-    Icon: IconType;
+    name: string;
+    value: string,
+    icon: IconType;
 }
-
 
 export const graphsTypes: IGraphType[] = [
     {
-        Name: 'Histogram',
-        Icon: GiHistogram,
+        name: 'Histogram',
+        value: 'histogram',
+        icon: GiHistogram,
+
     },
     {
-        Name: 'Pie Chart',
-        Icon: GiPieChart
+        name: 'Pie Chart',
+        value: 'pie',
+        icon: GiPieChart
     },
     {
-        Name: 'Bar Chart',
-        Icon: RiBarChart2Fill
+        name: 'Bar Chart',
+        value: 'BarChart',
+        icon: RiBarChart2Fill
     },
     {
-        Name: 'Line Chart',
-        Icon: FaChartLine
+        name: 'Line Chart',
+        value: 'line',
+        icon: FaChartLine
     },
     {
-        Name: 'Box Plot',
-        Icon: AiFillBoxPlot
+        name: 'Box Plot',
+        value: 'boxPlot',
+        icon: AiFillBoxPlot
     },
     {
-        Name: 'Scatter Plot',
-        Icon: BiScatterChart
+        name: 'Scatter Plot',
+        value: 'scatterPlot',
+        icon: BiScatterChart
     }
 ]

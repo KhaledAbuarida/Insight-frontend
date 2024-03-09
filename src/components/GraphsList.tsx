@@ -1,8 +1,14 @@
 import { Container, Box, Typography } from "@mui/material";
 import GraphType from "./GraphType";
 import { graphsTypes } from "../utils/graphsTypes";
+import { Dispatch } from "react";
 
-const GraphsList = () => {
+interface Props {
+  setChartType: Dispatch<React.SetStateAction<string>>;
+  chartType: string;
+}
+
+const GraphsList = ({ setChartType, chartType }: Props) => {
   return (
     <Container>
       <Typography
@@ -19,7 +25,9 @@ const GraphsList = () => {
         {graphsTypes.map((graph) => (
           <GraphType
             graphType={graph}
-            key={graph.Name}
+            key={graph.name}
+            onChooseGraph={(graphName) => setChartType(graphName)}
+            chartType={chartType}
           />
         ))}
       </Box>

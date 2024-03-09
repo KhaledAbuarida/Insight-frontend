@@ -1,8 +1,10 @@
 import { Grid } from "@mui/material";
 import GraphsList from "./GraphsList";
 import CustomizeGraph from "./CustomizeGraph";
+import { useState } from "react";
 
 const Sidebar = () => {
+  const [chartType, setChartType] = useState<string>("histogram");
   return (
     <Grid container>
       <Grid
@@ -17,12 +19,12 @@ const Sidebar = () => {
         }}
       >
         <Grid>
-          <GraphsList />
+          <GraphsList setChartType={setChartType} chartType={chartType}/>
         </Grid>
 
         {/* customize graph */}
         <Grid>
-          <CustomizeGraph />
+          <CustomizeGraph chartType={chartType} />
         </Grid>
       </Grid>
     </Grid>

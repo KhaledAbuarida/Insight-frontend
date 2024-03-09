@@ -1,17 +1,14 @@
 import { Grid, Typography } from "@mui/material";
 import React from "react";
 import Plot from "react-plotly.js";
-import {
-  histogram,
-  boxPlot,
-  barChart,
-  lineChart,
-  scatterPlot,
-} from "../utils/graph";
-import { pieChart } from "../utils/pie";
 
-const Graph: React.FC = () => {
-  const { data, layout }: any = pieChart;
+
+interface Props {
+  graphJson: any | null;
+}
+
+const Graph = ({ graphJson }: Props) => {
+  const { data, layout }: any = graphJson;
   return (
     <Grid
       height="100%"

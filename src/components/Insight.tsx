@@ -3,6 +3,14 @@ import { AttributesPicker } from "./AttributePicker";
 import Attributes from "../utils/attributes";
 import Comment from "../components/Comment";
 import Graph from "./Graph";
+import {
+  histogram,
+  boxPlot,
+  barChart,
+  lineChart,
+  scatterPlot,
+} from "../utils/graph";
+import { pieChart } from "../utils/pie";
 
 const Insight = () => {
   return (
@@ -30,7 +38,7 @@ const Insight = () => {
           item
           xs={9}
         >
-          <Graph />
+          <Graph graphJson={barChart} />
         </Grid>
         <Grid
           item
