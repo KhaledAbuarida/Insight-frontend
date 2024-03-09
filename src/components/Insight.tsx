@@ -3,16 +3,12 @@ import { AttributesPicker } from "./AttributePicker";
 import Attributes from "../utils/attributes";
 import Comment from "../components/Comment";
 import Graph from "./Graph";
-import {
-  histogram,
-  boxPlot,
-  barChart,
-  lineChart,
-  scatterPlot,
-} from "../utils/graph";
-import { pieChart } from "../utils/pie";
 
-const Insight = () => {
+interface Props {
+  graphJson: any | null;
+}
+
+const Insight = ({ graphJson }: Props) => {
   return (
     <Grid
       item
@@ -38,7 +34,7 @@ const Insight = () => {
           item
           xs={9}
         >
-          <Graph graphJson={barChart} />
+          <Graph graphJson={graphJson} />
         </Grid>
         <Grid
           item

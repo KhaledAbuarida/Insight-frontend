@@ -5,7 +5,7 @@ import { useState } from "react";
 interface Props {
   graphType: IGraphType;
   onChooseGraph: (type: string) => void;
-  chartType: string;
+  chartType: string | null;
 }
 
 const GraphType = ({ graphType, onChooseGraph, chartType }: Props) => {
@@ -22,7 +22,7 @@ const GraphType = ({ graphType, onChooseGraph, chartType }: Props) => {
   return (
     <Box
       sx={{
-        backgroundColor: chartType === graphType.value ? "#387ADF" : "#B7C9F2",
+        backgroundColor: chartType === graphType.name ? "#387ADF" : "#B7C9F2",
         width: "60px",
         height: "60px",
         display: "flex",
@@ -34,11 +34,11 @@ const GraphType = ({ graphType, onChooseGraph, chartType }: Props) => {
       <IconButton
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        onClick={() => onChooseGraph(graphType.value)}
+        onClick={() => onChooseGraph(graphType.name)}
         sx={{
           transition: "transform 0.3s",
           transform: isHovered ? "scale(1.3)" : "scale(1)",
-          color: chartType === graphType.value ? "#FFD23F" : "gray",
+          color: chartType === graphType.name ? "#FFD23F" : "gray",
         }}
       >
         {<graphType.icon size={30} />}

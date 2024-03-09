@@ -1,6 +1,10 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const data = [
+interface DataEntry {
+  [key: string]: string;
+}
+
+const data: DataEntry[] = [
   {
     id: "1",
     CustomerId: "DD37Cf93aecA6Dc",
@@ -9,7 +13,7 @@ const data = [
     Company: "Rasmussen Group",
     City: "East Leonard",
     Country: "Chile",
-    Phone1: "229.077.5154",
+    Phone1: "6",
     Phone2: "8",
     Email: "zunigavanessa@smith.info",
     SubscriptionDate: "2020-08-24",

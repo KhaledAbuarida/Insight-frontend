@@ -5,6 +5,7 @@ import React from "react";
 import TabPanel from "../components/TabPanel";
 import AppHeader from "../components/HomeHeader";
 import DataTable from "../components/DataTable";
+import StatTabs from "../components/statistics/StatTabs";
 
 const DataSourcePage = () => {
   const [value, setValue] = React.useState(0);
@@ -57,7 +58,7 @@ const DataSourcePage = () => {
           value={value}
           index={1}
         >
-          statistics
+          <StatTabs />
         </TabPanel>
       </Box>
     </>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { Dispatch, useState } from "react";
 import {
   Select,
   FormControl,
@@ -6,18 +6,19 @@ import {
   MenuItem,
   TextField,
   Typography,
-  SelectChangeEvent,
   Grid,
 } from "@mui/material";
+import { MdDashboardCustomize } from "react-icons/md";
 
 interface Props {
-  chartType: string;
+  chartType: string | null;
+  title: string;
+  setTitle: Dispatch<React.SetStateAction<string>>;
 }
 
-const CustomizeGraph = ({ chartType }: Props) => {
+const CustomizeGraph = ({ chartType, title, setTitle }: Props) => {
   const [xLabel, setXLabel] = useState<string>("");
   const [yLabel, setYLabel] = useState<string>("");
-  const [title, setTitle] = useState<string>("");
   const [color, setColor] = useState<string>("#3498db");
   const [numberOfBins, setNumberOfBins] = useState<number>(10);
   const [lineshape, setLineshape] = useState<string>("linear");
@@ -28,6 +29,35 @@ const CustomizeGraph = ({ chartType }: Props) => {
   const [scatterSize, setScatterSize] = useState<number>(5);
   const [scatterColor, setScatterColor] = useState<string>("");
   const [scatterSymbols, setScatterSymbols] = useState<string>("");
+
+  if (!chartType) {
+    return (
+      <Grid
+        container
+        alignItems="center"
+        justifyContent="center"
+        mt={15}
+        gap={2}
+      >
+        <Grid item>
+          <MdDashboardCustomize
+            size={100}
+            color="#d3d3d3"
+            opacity="20%"
+          />
+        </Grid>
+        <Grid item>
+          <Typography
+            variant="h6"
+            color="gray"
+            textAlign="center"
+          >
+            Choose Graph Type For Customization
+          </Typography>
+        </Grid>
+      </Grid>
+    );
+  }
 
   return (
     <Grid
@@ -64,7 +94,7 @@ const CustomizeGraph = ({ chartType }: Props) => {
         />
       </Grid>
 
-      {chartType !== "pie" && (
+      {chartType !== "PieChart" && (
         <>
           <Grid item>
             <InputLabel sx={{ color: "#fff", fontSize: "0.8rem" }}>
@@ -108,7 +138,7 @@ const CustomizeGraph = ({ chartType }: Props) => {
         </>
       )}
 
-      {chartType === "histogram" && (
+      {chartType === "Histogram" && (
         <>
           <Grid item>
             <InputLabel sx={{ color: "#fff", fontSize: "0.8rem" }}>
@@ -117,6 +147,7 @@ const CustomizeGraph = ({ chartType }: Props) => {
             <Select
               value={Barmode}
               onChange={(e) => setBarmode(e.target.value)}
+              id="function-type"
               fullWidth
               size="small"
               sx={{ backgroundColor: "#e5e5e5" }}
@@ -157,10 +188,14 @@ const CustomizeGraph = ({ chartType }: Props) => {
           </Grid>
 
           <Grid item>
-            <InputLabel sx={{ color: "#fff", fontSize: "0.8rem" }}>
+            <InputLabel
+              id="normalization-type"
+              sx={{ color: "#fff", fontSize: "0.8rem" }}
+            >
               Normalization Type
             </InputLabel>
             <Select
+              labelId="normalization-type"
               value={normalizationType}
               onChange={(e) => setNormalizationType(e.target.value)}
               fullWidth
@@ -176,7 +211,7 @@ const CustomizeGraph = ({ chartType }: Props) => {
         </>
       )}
 
-      {chartType === "line" && (
+      {chartType === "LineChart" && (
         <Grid item>
           <InputLabel sx={{ color: "#fff", fontSize: "0.8rem" }}>
             Line Shape

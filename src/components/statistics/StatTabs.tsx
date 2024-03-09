@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import NumericalData from "./NumericalData";
 import CategoricalData from "./CategoricalData";
 
-const Tabs = () => {
+const StatTabs = () => {
   const [activeTab, setActiveTab] = useState("categorical");
 
   const handleTabClick = (tab: React.SetStateAction<string>) => {
@@ -40,4 +40,4 @@ const Tabs = () => {
   );
 };
 
-export default Tabs;
+export default StatTabs;

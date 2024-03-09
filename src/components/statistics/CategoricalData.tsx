@@ -1,6 +1,10 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const data = [
+interface DataEntry {
+  [key: string]: string;
+}
+
+const data: DataEntry[] = [
   {
     id: "3",
     CustomerId: "DD37Cf93aecA6Dc",

@@ -4,8 +4,8 @@ import { graphsTypes } from "../utils/graphsTypes";
 import { Dispatch } from "react";
 
 interface Props {
-  setChartType: Dispatch<React.SetStateAction<string>>;
-  chartType: string;
+  setChartType: Dispatch<React.SetStateAction<string | null>>;
+  chartType: string | null;
 }
 
 const GraphsList = ({ setChartType, chartType }: Props) => {

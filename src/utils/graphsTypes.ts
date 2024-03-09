@@ -8,40 +8,40 @@ import { AiFillBoxPlot } from "react-icons/ai";
 
 export interface IGraphType {
     name: string;
-    value: string,
+    plotly: string;
     icon: IconType;
 }
 
 export const graphsTypes: IGraphType[] = [
     {
         name: 'Histogram',
-        value: 'histogram',
+        plotly: 'histogram',
         icon: GiHistogram,
 
     },
     {
-        name: 'Pie Chart',
-        value: 'pie',
+        name: 'PieChart',
+        plotly: 'pie',
         icon: GiPieChart
     },
     {
-        name: 'Bar Chart',
-        value: 'BarChart',
+        name: 'BarChart',
+        plotly: 'bar',
         icon: RiBarChart2Fill
     },
     {
-        name: 'Line Chart',
-        value: 'line',
+        name: 'LineChart',
+        plotly: 'line',
         icon: FaChartLine
     },
     {
-        name: 'Box Plot',
-        value: 'boxPlot',
+        name: 'BoxPlot',
+        plotly: 'box',
         icon: AiFillBoxPlot
     },
     {
-        name: 'Scatter Plot',
-        value: 'scatterPlot',
+        name: 'ScatterPlot',
+        plotly: 'scattergl',
         icon: BiScatterChart
     }
 ]
