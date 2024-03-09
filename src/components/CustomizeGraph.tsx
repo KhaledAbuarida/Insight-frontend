@@ -22,13 +22,12 @@ const CustomizeGraph = ({ chartType }: Props) => {
   const [numberOfBins, setNumberOfBins] = useState<number>(10);
   const [lineshape, setLineshape] = useState<string>("linear");
   const [Barmode, setBarmode] = useState<string>("relative");
-  const [columnToDistribute, setColumnToDistribute] = useState<string>("");
+  const [columnToDistribute, setColumnToDistribute] = useState<string>("data");
   const [normalizationType, setNormalizationType] = useState<string>("none");
   const [dataPointsToShow, setDataPointsToShow] = useState<string>("all");
   const [scatterSize, setScatterSize] = useState<number>(5);
   const [scatterColor, setScatterColor] = useState<string>("");
   const [scatterSymbols, setScatterSymbols] = useState<string>("");
-
 
   return (
     <Grid
@@ -49,7 +48,6 @@ const CustomizeGraph = ({ chartType }: Props) => {
         >
           Customize Graph
         </Typography>
-        
       </Grid>
 
       <Grid item>
@@ -62,7 +60,7 @@ const CustomizeGraph = ({ chartType }: Props) => {
           onChange={(e) => setTitle(e.target.value)}
           fullWidth
           size="small"
-          sx={{ backgroundColor: "#e5e5e5" }}
+          sx={{ backgroundColor: "#e5e5e5", borderRadius: "5px" }}
         />
       </Grid>
 
@@ -78,7 +76,7 @@ const CustomizeGraph = ({ chartType }: Props) => {
               onChange={(e) => setXLabel(e.target.value)}
               fullWidth
               size="small"
-              sx={{ backgroundColor: "#e5e5e5" }}
+              sx={{ backgroundColor: "#e5e5e5", borderRadius: "5px" }}
             />
           </Grid>
 
@@ -92,20 +90,21 @@ const CustomizeGraph = ({ chartType }: Props) => {
               onChange={(e) => setYLabel(e.target.value)}
               fullWidth
               size="small"
-              sx={{ backgroundColor: "#e5e5e5" }}
+              sx={{ backgroundColor: "#e5e5e5", borderRadius: "5px" }}
             />
           </Grid>
 
-          <Grid item>
+          {/* <Grid item>
             <InputLabel sx={{ color: "#fff", fontSize: "0.8rem" }}>
               Color
             </InputLabel>
-            <input
+            <TextField
               type="color"
               value={color}
               onChange={(e) => setColor(e.target.value)}
+              fullWidth
             />
-          </Grid>
+          </Grid> */}
         </>
       )}
 
@@ -153,20 +152,20 @@ const CustomizeGraph = ({ chartType }: Props) => {
               onChange={(e) => setNumberOfBins(Number(e.target.value))}
               fullWidth
               size="small"
-              sx={{ backgroundColor: "#e5e5e5" }}
+              sx={{ backgroundColor: "#e5e5e5", borderRadius: "5px" }}
             />
           </Grid>
 
           <Grid item>
             <InputLabel sx={{ color: "#fff", fontSize: "0.8rem" }}>
-              Normalization Type:
+              Normalization Type
             </InputLabel>
             <Select
               value={normalizationType}
               onChange={(e) => setNormalizationType(e.target.value)}
               fullWidth
               size="small"
-              sx={{ backgroundColor: "#e5e5e5" }}
+              sx={{ backgroundColor: "#e5e5e5", borderRadius: "5px" }}
             >
               <MenuItem value="percent">Percent</MenuItem>
               <MenuItem value="probability">Probability</MenuItem>
@@ -178,33 +177,39 @@ const CustomizeGraph = ({ chartType }: Props) => {
       )}
 
       {chartType === "line" && (
-        <div>
-          <Typography style={{ marginBottom: "1rem" }}>Line Shape:</Typography>
+        <Grid item>
+          <InputLabel sx={{ color: "#fff", fontSize: "0.8rem" }}>
+            Line Shape
+          </InputLabel>
           <FormControl style={{ marginBottom: "1rem" }}>
             <Select
               value={lineshape}
               onChange={(e) => setLineshape(e.target.value)}
+              sx={{ backgroundColor: "#e5e5e5" }}
+              fullWidth
+              size="small"
             >
               <MenuItem value={"linear"}>Linear</MenuItem>
               <MenuItem value={"spline"}>Spline</MenuItem>
             </Select>
           </FormControl>
 
-          <Typography style={{ marginBottom: "1rem" }}>
+          <InputLabel sx={{ color: "#fff", fontSize: "0.8rem" }}>
             Column to Distribute:
-          </Typography>
+          </InputLabel>
           <FormControl style={{ marginBottom: "1rem" }}>
             <Select
               value={columnToDistribute}
               onChange={(e) => setColumnToDistribute(e.target.value)}
+              sx={{ backgroundColor: "#e5e5e5" }}
+              fullWidth
+              size="small"
             >
               <MenuItem value="data">data</MenuItem>
             </Select>
           </FormControl>
-        </div>
+        </Grid>
       )}
-
-      {/* Include other chart type options similarly */}
     </Grid>
   );
 };
