@@ -2,9 +2,10 @@ import React, { createContext, useState, ReactNode } from "react";
 
 // Define the context type
 interface JsonContextType {
-  jsonData: any[] | null; // Use the specific interface here
-  addJson: (data: any[]) => void; // Use the specific interface here
-  testMethod: () => string;
+  jsonData: readonly any[]; // Use the specific interface here
+  jsonHeaders: readonly any[];
+  addJson: (data: any[]) => void;
+  addHeaders: (data: any) => void;
 }
 
 // Create the context
@@ -22,22 +23,29 @@ export const JsonContextProvider: React.FC<JsonContextProviderProps> = ({
   children,
 }) => {
   // Initialize state with null or initial data
-  const [jsonData, setJsonData] = useState<any[] | null>(null);
-
+  const [jsonData, setJsonData] = useState<readonly any[]>([]);
+  const [jsonHeaders, setJsonHeaders] = useState<readonly any[]>([]);
+  
   // Function to update the JSON data
   const addJson = (data: any[]) => {
     setJsonData(data);
   };
 
-  const testMethod = () => {
-    return "hello this is addJson function and it is work 😉"
-  };
+  const addHeaders = (data: any[]) => {
+
+    const factoredData = data.map((i) => {
+        const lowercaseItem = i.toLowerCase();
+        return { field: lowercaseItem, headerName: i, width: 150}
+    })
+    setJsonHeaders(factoredData);
+  }
 
   // Context value
   const contextValue: JsonContextType = {
     jsonData,
+    jsonHeaders,
     addJson,
-    testMethod,
+    addHeaders,
   };
 
   // Render the provider with the context value

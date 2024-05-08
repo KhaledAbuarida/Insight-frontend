@@ -4,40 +4,6 @@ import { NavLink } from "react-router-dom";
 import { jsonContext } from "../contexts/jsonContext";
 import { useContext } from "react";
 
-
-const data = [
-  {
-    ID: "1",
-    Name: "John",
-    Age: "30",
-    City: "New York"
-  },
-  {
-    ID: "2",
-    Name: "Alice",
-    Age: "25",
-    City: "Los Angeles"
-  },
-  {
-    ID: "3",
-    Name: "Michael",
-    Age: "35",
-    City: "Chicago"
-  },
-  {
-    ID: "4",
-    Name: "Sophia",
-    Age: "28",
-    City: "San Francisco"
-  },
-  {
-    ID: "5",
-    Name: "David",
-    Age: "40",
-    City: "Boston"
-  }
-]
-
 const columns = [
   { field: "Name", headerName: "Name" },
   { field: "Age", headerName: "Age" },
@@ -45,20 +11,13 @@ const columns = [
 ];
 
 const DataTable = () => {
-
-const globalJson = useContext(jsonContext)
+  const globalJson = useContext(jsonContext);
 
   return (
     <div style={{ width: "90vw" }}>
-      <Grid
-        container
-        justifyContent="space-between"
-      >
+      <Grid container justifyContent="space-between">
         <Grid>
-          <Typography
-            variant="h5"
-            sx={{ mb: "20px", color: "gray" }}
-          >
+          <Typography variant="h5" sx={{ mb: "20px", color: "gray" }}>
             Your Dataset
           </Typography>
         </Grid>
@@ -78,13 +37,13 @@ const globalJson = useContext(jsonContext)
         </Grid>
       </Grid>
       <DataGrid
-        rows={data}
-        columns={columns}
-        getRowId={(row) => row.ID}
+        rows={globalJson!.jsonData}
+        columns={globalJson!.jsonHeaders}
+        // getRowId={(row) => row.ID}
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 10,
+              pageSize: 13,
             },
           },
         }}
@@ -94,9 +53,7 @@ const globalJson = useContext(jsonContext)
         checkboxSelection
         disableRowSelectionOnClick // Here's the corrected property name
       />
-      <button onClick={() => console.log(globalJson?.jsonData)}>
-        click me
-      </button>
+    
     </div>
   );
 };

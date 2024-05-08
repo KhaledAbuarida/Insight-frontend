@@ -12,43 +12,56 @@ interface CSVData {
 }
 
 const DropZone = () => {
-  const [jsonData, setJsonData] = useState<CSVData[]>();
   const [uploadState, setUploadState] = useState<boolean>(false);
-  const [loader, setLoader] = useState<Boolean>(true);
+  const [loader, setLoader] = useState<boolean>(true);
   const navigate = useNavigate();
   const globalJson = useContext(jsonContext);
-  const [csvHeaders, setCsvHeaders] = useState<string[]>([]); // State to store CSV headers
 
   async function convertCsvFilesToJson(files: File[]): Promise<void> {
     try {
       // Filter out non-CSV files
+      setUploadState(true);
+
       const csvFiles = files.filter((file: any) => file.type === "text/csv");
 
       // Read and convert CSV files to JSON
       const jsonArrayPromises = csvFiles.map(async (csvFile) => {
         const csvString: string = await readFileAsText(csvFile);
-        const jsonArray = await csvtojson().fromString(csvString);
-        // Set JSON data and headers
+        let jsonArray = await csvtojson().fromString(csvString);
+
+        // Convert headers and data to lowercase
+        jsonArray = jsonArray.map((data: any) => {
+          const newData: any = {};
+          for (const key in data) {
+            if (Object.hasOwnProperty.call(data, key)) {
+              newData[key.toLowerCase()] = data[key];
+            }
+          }
+          return newData;
+        });
+
+        // Check if headers don't have id, add id fields to each row sequentially
+        if (!jsonArray[0].hasOwnProperty("id")) {
+          jsonArray = jsonArray.map((data: any, index: number) => ({
+            id: index + 1,
+            ...data,
+          }));
+        }
+
+        globalJson?.addHeaders(Object.keys(jsonArray[0]));
         globalJson?.addJson(jsonArray);
-        setHeadersFromCSV(jsonArray);
       });
 
       await Promise.all(jsonArrayPromises);
+      handleUploadState();
     } catch (error) {
       console.error("Error converting CSV files to JSON:", error);
     }
   }
 
-  const setHeadersFromCSV = (jsonData: CSVData[]): void => {
-    // Extract headers from the first JSON object
-    const headers = Object.keys(jsonData[0]);
-    setCsvHeaders(headers);
-  };
-
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     try {
       await convertCsvFilesToJson(acceptedFiles);
-      handleUploadState();
     } catch (error) {
       console.error(error);
     }
@@ -77,15 +90,13 @@ const DropZone = () => {
   };
 
   const handleUploadState = () => {
-    setTimeout(() => {
-      setLoader(false);
-    }, 1500);
-    setUploadState(true);
+    // setUploadState(true);
+    setLoader(false);
 
     // Navigating to /dataset
     setTimeout(() => {
       navigate("/dataset");
-    }, 2000);
+    }, 1000);
   };
 
   return (
@@ -146,14 +157,14 @@ const DropZone = () => {
           </Grid>
         </Grid>
       </div>
-      <div>
+      {/* <div>
         <h2>Converted JSON Data</h2>
         <pre>{JSON.stringify(globalJson?.jsonData, null, 2)}</pre>
       </div>
       <div>
         <h2>CSV Headers</h2>
-        <pre>{JSON.stringify(csvHeaders, null, 2)}</pre>
-      </div>
+        <pre>{JSON.stringify(globalJson?.jsonHeaders, null, 2)}</pre>
+      </div> */}
     </div>
   );
 };
