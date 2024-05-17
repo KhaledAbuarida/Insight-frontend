@@ -21,7 +21,14 @@ const GraphsList = ({ setChartType, chartType }: Props) => {
       >
         Chart Types
       </Typography>
-      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 2,
+          justifyContent: "center",
+        }}
+      >
         {graphsTypes.map((graph) => (
           <GraphType
             graphType={graph}

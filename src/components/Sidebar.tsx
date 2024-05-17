@@ -25,10 +25,7 @@ const Sidebar = ({ setChartType, chartType, title, setTitle }: Props) => {
         }}
       >
         <Grid>
-          <GraphsList
-            setChartType={setChartType}
-            chartType={chartType}
-          />
+          <GraphsList setChartType={setChartType} chartType={chartType} />
         </Grid>
 
         {/* customize graph */}

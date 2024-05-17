@@ -41,7 +41,7 @@ const GraphType = ({ graphType, onChooseGraph, chartType }: Props) => {
           color: chartType === graphType.name ? "#FFD23F" : "gray",
         }}
       >
-        {<graphType.icon size={30} />}
+        {<graphType.icon size={25} />}
       </IconButton>
     </Box>
   );

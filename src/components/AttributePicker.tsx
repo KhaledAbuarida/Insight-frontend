@@ -8,14 +8,12 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { IAttribute } from "../utils/attributes";
+import { useData } from "../contexts/Dataset/DataContext";
 
-interface Props {
-  attributes: IAttribute[];
-}
-
-export const AttributesPicker = ({ attributes }: Props) => {
-  const [column, setColumn] = useState("");
-  const [row, setRow] = useState("");
+export const AttributesPicker = () => {
+  const [column, setColumn] = useState<string | null>(null);
+  const [row, setRow] = useState<string | null>(null);
+  const { headers } = useData();
 
   const handleColumnChange = (event: SelectChangeEvent) => {
     setColumn(event.target.value);
@@ -25,14 +23,8 @@ export const AttributesPicker = ({ attributes }: Props) => {
   };
 
   return (
-    <Grid
-      container
-      spacing={2}
-    >
-      <Grid
-        item
-        xs={6}
-      >
+    <Grid container spacing={2}>
+      <Grid item xs={6}>
         <FormControl
           sx={{
             width: "100%",
@@ -41,25 +33,19 @@ export const AttributesPicker = ({ attributes }: Props) => {
           }}
           size="small"
         >
-          <InputLabel
-            id="select-columns"
-            sx={{ fontSize: "15px" }}
-          >
+          <InputLabel id="select-columns" sx={{ fontSize: "15px" }}>
             Column
           </InputLabel>
           <Select
             labelId="select-columns"
             id="column"
-            value={column}
+            value={column || ""}
             label="column"
             onChange={handleColumnChange}
             sx={{ borderRadius: "5px" }}
           >
-            {attributes.map((at) => (
-              <MenuItem
-                key={at.field}
-                value={at.field}
-              >
+            {headers.map((at) => (
+              <MenuItem key={at.field} value={at.field}>
                 {at.headerName}
               </MenuItem>
             ))}
@@ -67,10 +53,7 @@ export const AttributesPicker = ({ attributes }: Props) => {
         </FormControl>
       </Grid>
 
-      <Grid
-        item
-        xs={6}
-      >
+      <Grid item xs={6}>
         <FormControl
           sx={{
             width: "100%",
@@ -79,25 +62,19 @@ export const AttributesPicker = ({ attributes }: Props) => {
           }}
           size="small"
         >
-          <InputLabel
-            id="select-rows"
-            sx={{ fontSize: "15px" }}
-          >
+          <InputLabel id="select-rows" sx={{ fontSize: "15px" }}>
             Row
           </InputLabel>
           <Select
             labelId="select-rows"
             id="row"
-            value={row}
+            value={row || ""}
             label="row"
             onChange={handleRowChange}
             sx={{ borderRadius: "5px" }}
           >
-            {attributes.map((at) => (
-              <MenuItem
-                key={at.field}
-                value={at.field}
-              >
+            {headers.map((at) => (
+              <MenuItem key={at.field} value={at.field}>
                 {at.headerName}
               </MenuItem>
             ))}
