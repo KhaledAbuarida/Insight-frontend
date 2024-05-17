@@ -1,17 +1,14 @@
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
-import Logo from "../global/logo";
+
 import { NavLink } from "react-router-dom";
+import Logo from "../global/Logo";
 
 const LandingPage = () => {
   return (
     <Box sx={{ backgroundColor: "#EEEDEB" }}>
       {/* lets start  */}
 
-      <Grid
-        container
-        p={3}
-        justifyContent="space-between"
-      >
+      <Grid container p={3} justifyContent="space-between">
         <Logo />
         <Grid>
           <Button>
@@ -24,10 +21,7 @@ const LandingPage = () => {
               Sign up
             </NavLink>
           </Button>
-          <Button
-            variant="outlined"
-            sx={{ ml: 2 }}
-          >
+          <Button variant="outlined" sx={{ ml: 2 }}>
             <NavLink
               to="/login"
               style={{
@@ -45,7 +39,7 @@ const LandingPage = () => {
           container
           justifyContent="center"
           alignItems="center"
-          height="85vh"
+          height="90vh"
           gap={3}
           wrap="nowrap"
         >
@@ -58,33 +52,16 @@ const LandingPage = () => {
             p={4}
             gap={8}
           >
-            <Grid
-              container
-              item
-              gap={2}
-            >
-              <Typography
-                variant="h3"
-                sx={{ fontWeight: "bold" }}
-                width={20}
-              >
+            <Grid container item gap={2}>
+              <Typography variant="h3" sx={{ fontWeight: "bold" }} width={20}>
                 Beautiful Visualizations
               </Typography>
-              <Typography
-                variant="h6"
-                color="gray"
-                noWrap={false}
-              >
+              <Typography variant="h6" color="gray" noWrap={false}>
                 Turn your data into stunning visual stories with Insights. No
                 code required.
               </Typography>
             </Grid>
-            <Grid
-              item
-              container
-              direction="column"
-              gap={2}
-            >
+            <Grid item container direction="column" gap={2}>
               <Button variant="contained">
                 <NavLink
                   to="/upload"
@@ -99,10 +76,7 @@ const LandingPage = () => {
               <Button variant="outlined">Contact Us</Button>
             </Grid>
           </Grid>
-          <Grid
-            item
-            xs={6}
-          >
+          <Grid item xs={6}>
             <img
               src="./assets/insight1.jpg"
               width="550"

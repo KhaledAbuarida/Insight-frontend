@@ -1,35 +1,28 @@
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import csvtojson from "csvtojson";
 import { CircularProgress, Grid, Typography } from "@mui/material";
 import { MdOutlineFileUpload } from "react-icons/md";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useNavigate } from "react-router-dom";
-import { jsonContext } from "../contexts/jsonContext";
-
-interface CSVData {
-  [key: string]: string;
-}
+import { useData } from "../contexts/Dataset/DataContext";
 
 const DropZone = () => {
   const [uploadState, setUploadState] = useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(true);
   const navigate = useNavigate();
-  const globalJson = useContext(jsonContext);
+  const { data, headers, addHeaders, addData } = useData();
 
   async function convertCsvFilesToJson(files: File[]): Promise<void> {
     try {
-      // Filter out non-CSV files
       setUploadState(true);
 
       const csvFiles = files.filter((file: any) => file.type === "text/csv");
 
-      // Read and convert CSV files to JSON
       const jsonArrayPromises = csvFiles.map(async (csvFile) => {
         const csvString: string = await readFileAsText(csvFile);
         let jsonArray = await csvtojson().fromString(csvString);
 
-        // Convert headers and data to lowercase
         jsonArray = jsonArray.map((data: any) => {
           const newData: any = {};
           for (const key in data) {
@@ -40,7 +33,6 @@ const DropZone = () => {
           return newData;
         });
 
-        // Check if headers don't have id, add id fields to each row sequentially
         if (!jsonArray[0].hasOwnProperty("id")) {
           jsonArray = jsonArray.map((data: any, index: number) => ({
             id: index + 1,
@@ -48,8 +40,8 @@ const DropZone = () => {
           }));
         }
 
-        globalJson?.addHeaders(Object.keys(jsonArray[0]));
-        globalJson?.addJson(jsonArray);
+        addHeaders(Object.keys(jsonArray[0]));
+        addData(jsonArray);
       });
 
       await Promise.all(jsonArrayPromises);
@@ -157,14 +149,14 @@ const DropZone = () => {
           </Grid>
         </Grid>
       </div>
-      {/* <div>
+      <div>
         <h2>Converted JSON Data</h2>
-        <pre>{JSON.stringify(globalJson?.jsonData, null, 2)}</pre>
+        <pre>{JSON.stringify(data, null, 2)}</pre>
       </div>
       <div>
         <h2>CSV Headers</h2>
-        <pre>{JSON.stringify(globalJson?.jsonHeaders, null, 2)}</pre>
-      </div> */}
+        <pre>{JSON.stringify(headers, null, 2)}</pre>
+      </div>
     </div>
   );
 };

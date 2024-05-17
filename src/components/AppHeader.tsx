@@ -29,7 +29,7 @@ const AppHeader = () => {
   };
 
   return (
-    <AppBar position="relative">
+    <AppBar position="sticky">
       <Container maxWidth={false}>
         <Toolbar disableGutters>
           {/* logo */}
@@ -62,14 +62,8 @@ const AppHeader = () => {
               </Badge>
             </Tooltip>
             <Tooltip title="Open settings">
-              <IconButton
-                onClick={handleOpenUserMenu}
-                sx={{ p: 0 }}
-              >
-                <Avatar
-                  alt="user"
-                  src="./assets/user.png"
-                />
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="user" src="./assets/user.png" />
               </IconButton>
             </Tooltip>
 
@@ -90,10 +84,7 @@ const AppHeader = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem
-                  key={setting}
-                  onClick={handleCloseUserMenu}
-                >
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}

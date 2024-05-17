@@ -3,11 +3,11 @@ import VisualizePage from "./pages/VisualizePage";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import DataSourcePage from "./pages/DataSourcePage";
 import AppHeader from "./components/AppHeader";
-import LandingPage from "./components/LandingPage";
+import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import UploadPage from "./pages/UploadPage";
-import { JsonContextProvider } from "./contexts/jsonContext";
+import DataProvider from "./contexts/Dataset/DataProvider";
 
 const App = () => {
   const AppHeaderWrapper = () => {
@@ -25,7 +25,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <JsonContextProvider>
+      <DataProvider>
         <AppHeaderWrapper />
         <Routes>
           <Route index element={<LandingPage />} />
@@ -38,7 +38,7 @@ const App = () => {
 
           <Route path="/upload" element={<UploadPage />} />
         </Routes>
-      </JsonContextProvider>
+      </DataProvider>
     </BrowserRouter>
   );
 };

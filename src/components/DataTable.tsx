@@ -1,17 +1,10 @@
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Button, Grid, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import { jsonContext } from "../contexts/jsonContext";
-import { useContext } from "react";
-
-const columns = [
-  { field: "Name", headerName: "Name" },
-  { field: "Age", headerName: "Age" },
-  { field: "City", headerName: "City" },
-];
+import { useData } from "../contexts/Dataset/DataContext";
 
 const DataTable = () => {
-  const globalJson = useContext(jsonContext);
+  const { data, headers } = useData();
 
   return (
     <div style={{ width: "90vw" }}>
@@ -37,9 +30,8 @@ const DataTable = () => {
         </Grid>
       </Grid>
       <DataGrid
-        rows={globalJson!.jsonData}
-        columns={globalJson!.jsonHeaders}
-        // getRowId={(row) => row.ID}
+        rows={data}
+        columns={headers}
         initialState={{
           pagination: {
             paginationModel: {
@@ -49,11 +41,9 @@ const DataTable = () => {
         }}
         slots={{ toolbar: GridToolbar }}
         autoHeight
-        // rowsPerPageOptions={[10, 25, 50]}
         checkboxSelection
-        disableRowSelectionOnClick // Here's the corrected property name
+        disableRowSelectionOnClick
       />
-    
     </div>
   );
 };
