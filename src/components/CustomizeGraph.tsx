@@ -9,7 +9,7 @@ import {
   Grid,
 } from "@mui/material";
 import { MdDashboardCustomize } from "react-icons/md";
-import { useGraph } from "../contexts/DataContext/GraphContext/GraphContext";
+import { useGraph } from "../contexts/GraphContext/GraphContext";
 
 const CustomizeGraph = () => {
   // contexts

@@ -1,6 +1,6 @@
 import { Box, Grid, Typography } from "@mui/material";
 import Insight from "../components/Insight";
-import { useGraph } from "../contexts/DataContext/GraphContext/GraphContext";
+import { useGraph } from "../contexts/GraphContext/GraphContext";
 import ModelType from "../components/ModelType";
 import { modelTypes } from "../types/modelsTypes";
 
@@ -9,7 +9,7 @@ const ModelPage = () => {
   const { graph } = useGraph();
 
   return (
-    <Box sx={{ mt: '60px'}}>
+    <Box sx={{ mt: "60px" }}>
       <Grid container>
         <Grid item xs={1.8}>
           <Grid container>

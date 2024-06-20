@@ -3,7 +3,7 @@ import Sidebar from "../components/Sidebar";
 import Insight from "../components/Insight";
 import { useEffect } from "react";
 import { graphsTypes } from "../types/graphsTypes";
-import { useGraph } from "../contexts/DataContext/GraphContext/GraphContext";
+import { useGraph } from "../contexts/GraphContext/GraphContext";
 import { graphs } from "../utils/graphsKeys";
 
 const VisualizePage = () => {

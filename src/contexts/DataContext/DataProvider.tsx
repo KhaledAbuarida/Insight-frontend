@@ -1,9 +1,16 @@
-import { FC, PropsWithChildren, useState } from "react";
+import { FC, PropsWithChildren, useEffect, useState } from "react";
 import { DataContext } from "./DataContext";
 
 const DataProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [data, setData] = useState<any[]>([]);
+  // states
+  const [data, setData] = useState<any[] | null>(null);
   const [headers, setHeaders] = useState<any[]>([]);
+
+  const isDataUploaded = !!data;
+
+  useEffect(() => {
+    console.log(isDataUploaded);
+  }, [data]);
 
   const addData = (data: any[]) => {
     setData(data);
@@ -18,7 +25,9 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   return (
-    <DataContext.Provider value={{ data, headers, addData, addHeaders }}>
+    <DataContext.Provider
+      value={{ data, headers, isDataUploaded, addData, addHeaders }}
+    >
       {children}
     </DataContext.Provider>
   );
