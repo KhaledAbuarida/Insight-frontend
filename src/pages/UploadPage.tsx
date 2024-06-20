@@ -7,7 +7,7 @@ const UploadPage = () => {
       container
       justifyContent="center"
       alignItems="center"
-      minHeight="95vh"
+      height="calc(100vh)"
       bgcolor="#EEEDEB"
     >
       <DropZone />

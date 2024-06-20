@@ -1,7 +1,6 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
@@ -19,9 +18,10 @@ import { INavType } from "../types/navLinksType";
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const navLinks: INavType[] = [
+  { page: "Visualize Data", path: "/visualize" },
   { page: "Dataset", path: "/dataset" },
   { page: "Statistics", path: "/statistics" },
-  { page: "Model", path: "/models" },
+  { page: "Model", path: "/model" },
   { page: "Upload Data", path: "/upload" },
 ];
 
@@ -62,7 +62,7 @@ const AppHeader = () => {
   }, [location.pathname]);
 
   return (
-    <AppBar position="sticky">
+    <AppBar position="fixed">
       <Container maxWidth={false}>
         <Box
           sx={{

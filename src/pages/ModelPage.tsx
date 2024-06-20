@@ -9,7 +9,7 @@ const ModelPage = () => {
   const { graph } = useGraph();
 
   return (
-    <Box>
+    <Box sx={{ mt: '60px'}}>
       <Grid container>
         <Grid item xs={1.8}>
           <Grid container>
@@ -20,7 +20,7 @@ const ModelPage = () => {
               wrap="nowrap"
               sx={{
                 backgroundColor: "#2d3540",
-                height: "calc(100vh - 64px)",
+                height: "calc(100vh - 60px)",
                 paddingTop: "20px",
               }}
             >

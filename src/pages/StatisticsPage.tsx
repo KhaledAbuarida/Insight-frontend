@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import NumericalData from "./NumericalData";
-import CategoricalData from "./CategoricalData";
+import { useState } from "react";
+import CategoricalData from "../components/statistics/CategoricalData";
+import NumericalData from "../components/statistics/NumericalData";
 
-const StatTabs = () => {
+const StatisticsPage = () => {
   const [activeTab, setActiveTab] = useState("categorical");
 
   const handleTabClick = (tab: React.SetStateAction<string>) => {
@@ -11,7 +10,7 @@ const StatTabs = () => {
   };
 
   return (
-    <div>
+    <div style={{ padding: "60px" }}>
       <ul className="nav nav-tabs">
         <li className="nav-item">
           <div
@@ -40,4 +39,4 @@ const StatTabs = () => {
   );
 };
 
-export default StatTabs;
+export default StatisticsPage;

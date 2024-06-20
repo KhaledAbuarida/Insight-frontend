@@ -1,5 +1,5 @@
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { useData } from "../contexts/DataContext/DataContext";
 
@@ -7,7 +7,7 @@ const DataTable = () => {
   const { data, headers } = useData();
 
   return (
-    <div style={{ width: "90vw" }}>
+    <Box pt="100px">
       <Grid container justifyContent="space-between">
         <Grid>
           <Typography variant="h5" sx={{ mb: "20px", color: "gray" }}>
@@ -35,7 +35,7 @@ const DataTable = () => {
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 13,
+              pageSize: 12,
             },
           },
         }}
@@ -44,7 +44,7 @@ const DataTable = () => {
         checkboxSelection
         disableRowSelectionOnClick
       />
-    </div>
+    </Box>
   );
 };
 

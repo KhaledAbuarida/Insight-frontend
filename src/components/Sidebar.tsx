@@ -13,7 +13,7 @@ const Sidebar = () => {
         wrap="nowrap"
         sx={{
           backgroundColor: "#2d3540",
-          height: "calc(100vh - 64px)",
+          height: "calc(100vh - 60px)",
           paddingTop: "20px",
         }}
       >
@@ -23,7 +23,7 @@ const Sidebar = () => {
 
         {/* customize graph */}
         <Grid>
-          <CustomizeGraph/>
+          <CustomizeGraph />
         </Grid>
       </Grid>
     </Grid>

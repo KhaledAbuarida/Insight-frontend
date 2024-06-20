@@ -31,7 +31,7 @@ const VisualizePage = () => {
   }, [graphType]);
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ mt: "60px" }}>
       {/* SIDE BAR  */}
       <Grid container>
         <Grid item xs={1.8}>

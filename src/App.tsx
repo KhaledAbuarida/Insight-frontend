@@ -10,6 +10,7 @@ import UploadPage from "./pages/UploadPage";
 import DataProvider from "./contexts/DataContext/DataProvider";
 import ModelPage from "./pages/ModelPage";
 import GraphProvider from "./contexts/DataContext/GraphContext/GraphProvider";
+import StatisticsPage from "./pages/StatisticsPage";
 
 const App = () => {
   const AppHeaderWrapper = () => {
@@ -32,12 +33,13 @@ const App = () => {
           <AppHeaderWrapper />
           <Routes>
             <Route index element={<LandingPage />} />
-            <Route path="/home" element={<VisualizePage />} />
+            <Route path="/visualize" element={<VisualizePage />} />
             <Route path="/dataset" element={<DataSourcePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/upload" element={<UploadPage />} />
             <Route path="/model" element={<ModelPage />} />
+            <Route path="/statistics" element={<StatisticsPage />} />
           </Routes>
         </GraphProvider>
       </DataProvider>
