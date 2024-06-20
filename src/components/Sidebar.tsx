@@ -1,16 +1,9 @@
 import { Grid } from "@mui/material";
 import GraphsList from "./GraphsList";
 import CustomizeGraph from "./CustomizeGraph";
-import { Dispatch } from "react";
 
-interface Props {
-  setChartType: Dispatch<React.SetStateAction<string | null>>;
-  chartType: string | null;
-  title: string;
-  setTitle: Dispatch<React.SetStateAction<string>>;
-}
-
-const Sidebar = ({ setChartType, chartType, title, setTitle }: Props) => {
+const Sidebar = () => {
+  // contexts
   return (
     <Grid container>
       <Grid
@@ -25,16 +18,12 @@ const Sidebar = ({ setChartType, chartType, title, setTitle }: Props) => {
         }}
       >
         <Grid>
-          <GraphsList setChartType={setChartType} chartType={chartType} />
+          <GraphsList />
         </Grid>
 
         {/* customize graph */}
         <Grid>
-          <CustomizeGraph
-            chartType={chartType}
-            title={title}
-            setTitle={setTitle}
-          />
+          <CustomizeGraph/>
         </Grid>
       </Grid>
     </Grid>

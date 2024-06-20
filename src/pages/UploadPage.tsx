@@ -7,7 +7,8 @@ const UploadPage = () => {
       container
       justifyContent="center"
       alignItems="center"
-      height="85vh"
+      minHeight="95vh"
+      bgcolor="#EEEDEB"
     >
       <DropZone />
     </Grid>

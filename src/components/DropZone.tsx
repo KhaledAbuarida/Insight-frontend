@@ -5,7 +5,7 @@ import { CircularProgress, Grid, Typography } from "@mui/material";
 import { MdOutlineFileUpload } from "react-icons/md";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useNavigate } from "react-router-dom";
-import { useData } from "../contexts/Dataset/DataContext";
+import { useData } from "../contexts/DataContext/DataContext";
 
 const DropZone = () => {
   const [uploadState, setUploadState] = useState<boolean>(false);
@@ -149,14 +149,14 @@ const DropZone = () => {
           </Grid>
         </Grid>
       </div>
-      <div>
+      {/* <div>
         <h2>Converted JSON Data</h2>
         <pre>{JSON.stringify(data, null, 2)}</pre>
       </div>
       <div>
         <h2>CSV Headers</h2>
         <pre>{JSON.stringify(headers, null, 2)}</pre>
-      </div>
+      </div> */}
     </div>
   );
 };

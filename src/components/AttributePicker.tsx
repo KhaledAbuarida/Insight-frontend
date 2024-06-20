@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { IAttribute } from "../utils/attributes";
-import { useData } from "../contexts/Dataset/DataContext";
+import { useData } from "../contexts/DataContext/DataContext";
 
 export const AttributesPicker = () => {
   const [column, setColumn] = useState<string | null>(null);

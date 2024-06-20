@@ -9,8 +9,8 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useForm } from "react-hook-form";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
-import Logo from "../global/logo";
 import { NavLink } from "react-router-dom";
+import Logo from "../global/Logo";
 
 const defaultTheme = createTheme();
 
@@ -18,6 +18,7 @@ type FormValues = {
   email: string;
   password: string;
 };
+
 
 const LoginPage = () => {
   const form = useForm<FormValues>({
@@ -39,10 +40,7 @@ const LoginPage = () => {
       <Box p={3}>
         <Logo />
       </Box>
-      <Container
-        component="main"
-        maxWidth="xs"
-      >
+      <Container component="main" maxWidth="xs">
         <Grid
           container
           justifyContent="center"
@@ -60,10 +58,7 @@ const LoginPage = () => {
             <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
               <LockOpenIcon />
             </Avatar>
-            <Typography
-              component="h1"
-              variant="h5"
-            >
+            <Typography component="h1" variant="h5">
               Login
             </Typography>
             <Box
@@ -72,14 +67,8 @@ const LoginPage = () => {
               onSubmit={handleSubmit(onSubmit)}
               sx={{ mt: 3 }}
             >
-              <Grid
-                container
-                spacing={2}
-              >
-                <Grid
-                  item
-                  xs={12}
-                >
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
                   <TextField
                     {...register("email", { required: "Email is required" })}
                     fullWidth
@@ -91,10 +80,7 @@ const LoginPage = () => {
                     helperText={errors.email?.message}
                   />
                 </Grid>
-                <Grid
-                  item
-                  xs={12}
-                >
+                <Grid item xs={12}>
                   <TextField
                     {...register("password", {
                       required: "Password is required",
@@ -118,15 +104,9 @@ const LoginPage = () => {
               >
                 Login
               </Button>
-              <Grid
-                container
-                justifyContent="flex-end"
-              >
+              <Grid container justifyContent="flex-end">
                 <Grid item>
-                  <Link
-                    href="#"
-                    variant="body2"
-                  >
+                  <Link href="#" variant="body2">
                     <NavLink
                       to="/register"
                       style={{

@@ -1,4 +1,4 @@
-import { Dispatch, useState } from "react";
+import { useState } from "react";
 import {
   Select,
   FormControl,
@@ -9,14 +9,12 @@ import {
   Grid,
 } from "@mui/material";
 import { MdDashboardCustomize } from "react-icons/md";
+import { useGraph } from "../contexts/DataContext/GraphContext/GraphContext";
 
-interface Props {
-  chartType: string | null;
-  title: string;
-  setTitle: Dispatch<React.SetStateAction<string>>;
-}
+const CustomizeGraph = () => {
+  // contexts
+  const { graphType } = useGraph();
 
-const CustomizeGraph = ({ chartType, title, setTitle }: Props) => {
   const [xLabel, setXLabel] = useState<string>("");
   const [yLabel, setYLabel] = useState<string>("");
   const [color, setColor] = useState<string>("#3498db");
@@ -30,7 +28,7 @@ const CustomizeGraph = ({ chartType, title, setTitle }: Props) => {
   const [scatterColor, setScatterColor] = useState<string>("");
   const [scatterSymbols, setScatterSymbols] = useState<string>("");
 
-  if (!chartType) {
+  if (!graphType) {
     return (
       <Grid
         container
@@ -40,18 +38,10 @@ const CustomizeGraph = ({ chartType, title, setTitle }: Props) => {
         gap={2}
       >
         <Grid item>
-          <MdDashboardCustomize
-            size={100}
-            color="#d3d3d3"
-            opacity="20%"
-          />
+          <MdDashboardCustomize size={100} color="#d3d3d3" opacity="20%" />
         </Grid>
         <Grid item>
-          <Typography
-            variant="h6"
-            color="gray"
-            textAlign="center"
-          >
+          <Typography variant="h6" color="gray" textAlign="center">
             Choose Graph Type For Customization
           </Typography>
         </Grid>
@@ -86,15 +76,15 @@ const CustomizeGraph = ({ chartType, title, setTitle }: Props) => {
         </InputLabel>
         <TextField
           variant="outlined"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          // value={title}
+          // onChange={(e) => setTitle(e.target.value)}
           fullWidth
           size="small"
           sx={{ backgroundColor: "#e5e5e5", borderRadius: "5px" }}
         />
       </Grid>
 
-      {chartType !== "PieChart" && (
+      {graphType !== "PieChart" && (
         <>
           <Grid item>
             <InputLabel sx={{ color: "#fff", fontSize: "0.8rem" }}>
@@ -138,7 +128,7 @@ const CustomizeGraph = ({ chartType, title, setTitle }: Props) => {
         </>
       )}
 
-      {chartType === "Histogram" && (
+      {graphType === "Histogram" && (
         <>
           <Grid item>
             <InputLabel sx={{ color: "#fff", fontSize: "0.8rem" }}>
@@ -211,7 +201,7 @@ const CustomizeGraph = ({ chartType, title, setTitle }: Props) => {
         </>
       )}
 
-      {chartType === "LineChart" && (
+      {graphType === "LineChart" && (
         <Grid item>
           <InputLabel sx={{ color: "#fff", fontSize: "0.8rem" }}>
             Line Shape

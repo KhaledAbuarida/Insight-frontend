@@ -1,7 +1,7 @@
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Button, Grid, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import { useData } from "../contexts/Dataset/DataContext";
+import { useData } from "../contexts/DataContext/DataContext";
 
 const DataTable = () => {
   const { data, headers } = useData();

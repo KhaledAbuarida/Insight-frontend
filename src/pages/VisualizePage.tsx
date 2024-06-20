@@ -1,70 +1,44 @@
 import { Box, Grid } from "@mui/material";
 import Sidebar from "../components/Sidebar";
 import Insight from "../components/Insight";
-import { useEffect, useState } from "react";
-import { graphsTypes } from "../utils/graphsTypes";
-import {
-  Histogram,
-  BoxPlot,
-  BarChart,
-  LineChart,
-  ScatterPlot,
-  PieChart,
-} from "../utils/jsonGraphs";
+import { useEffect } from "react";
+import { graphsTypes } from "../global/graphsTypes";
+import { useGraph } from "../contexts/DataContext/GraphContext/GraphContext";
+import { graphs } from "../utils/graphsKeys";
 
 const VisualizePage = () => {
-  const [currentGraph, setCurrentGraph] = useState<string | null>(null);
-  const [chartType, setChartType] = useState<any | null>(null);
-
-  // customization
-  const [title, setTitle] = useState<string>("");
-
-  const graphs = [
-    Histogram,
-    BoxPlot,
-    BarChart,
-    LineChart,
-    ScatterPlot,
-    PieChart,
-  ];
+  // contexts
+  const { graph, graphType, renderGraph } = useGraph();
 
   useEffect(() => {
-    const graphType = graphsTypes.find((type) => type.name === chartType);
+    const type = graphsTypes.find((type) => type.name === graphType);
 
     const graphJson: any = graphs.find((graph: any) => {
-      if (graphType?.plotly === "scattergl") {
+      if (type?.plotly === "scattergl") {
         if (graph.data[0].mode === "markers") {
           return graph;
         }
-      } else if (graphType?.plotly === "line") {
+      } else if (type?.plotly === "line") {
         if (graph.data[0].mode === "markers+lines") {
           return graph;
         }
       } else {
-        return graph.data[0].type === graphType?.plotly;
+        return graph.data[0].type === type?.plotly;
       }
     });
-
-    setCurrentGraph(graphJson);
-  }, [chartType, title]);
+    console.log(graphType);
+    renderGraph(graphJson);
+  }, [graphType]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       {/* SIDE BAR  */}
       <Grid container>
-        <Grid
-          item
-          xs={1.8}
-        >
-          <Sidebar
-            setChartType={setChartType}
-            chartType={chartType}
-            title={title}
-            setTitle={setTitle}
-          />
+        <Grid item xs={1.8}>
+          <Sidebar />
         </Grid>
         {/* CENTER  */}
-        <Insight graphJson={currentGraph} />
+        <Insight graphJson={graph} />
         {/* RIGHT BAR  */}
       </Grid>
     </Box>
