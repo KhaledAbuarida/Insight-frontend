@@ -1,12 +1,8 @@
 import { Container, Box, Typography } from "@mui/material";
 import GraphType from "./GraphType";
 import { graphsTypes } from "../global/graphsTypes";
-import { useGraph } from "../contexts/DataContext/GraphContext/GraphContext";
 
 const GraphsList = () => {
-  // contexts
-  const { graphType } = useGraph();
-
   return (
     <Container>
       <Typography
