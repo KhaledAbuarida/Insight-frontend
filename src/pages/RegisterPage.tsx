@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useForm } from "react-hook-form";
-import Logo from "../global/logo";
+import Logo from "../components/Logo";
 import { NavLink } from "react-router-dom";
 
 const defaultTheme = createTheme();
@@ -44,10 +44,7 @@ const RegisterPage = () => {
       <Box p={3}>
         <Logo />
       </Box>
-      <Container
-        component="main"
-        maxWidth="xs"
-      >
+      <Container component="main" maxWidth="xs">
         <Grid
           container
           justifyContent="center"
@@ -65,16 +62,10 @@ const RegisterPage = () => {
             <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
               <LockOutlinedIcon />
             </Avatar>
-            <Typography
-              component="h1"
-              variant="h5"
-            >
+            <Typography component="h1" variant="h5">
               Sign up
             </Typography>
-            <Typography
-              variant="caption"
-              gutterBottom
-            >
+            <Typography variant="caption" gutterBottom>
               Please fill out this form to create an account!
             </Typography>
             <Box
@@ -83,15 +74,8 @@ const RegisterPage = () => {
               onSubmit={handleSubmit(onSubmit)}
               sx={{ mt: 3 }}
             >
-              <Grid
-                container
-                spacing={2}
-              >
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                >
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     {...register("firstName", {
                       required: "First Name is required",
@@ -105,11 +89,7 @@ const RegisterPage = () => {
                     helperText={errors.firstName?.message}
                   />
                 </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                >
+                <Grid item xs={12} sm={6}>
                   <TextField
                     {...register("lastName")}
                     fullWidth
@@ -118,10 +98,7 @@ const RegisterPage = () => {
                     autoComplete="family-name"
                   />
                 </Grid>
-                <Grid
-                  item
-                  xs={12}
-                >
+                <Grid item xs={12}>
                   <TextField
                     {...register("email", { required: "Email is required" })}
                     fullWidth
@@ -132,10 +109,7 @@ const RegisterPage = () => {
                     helperText={errors.email?.message}
                   />
                 </Grid>
-                <Grid
-                  item
-                  xs={12}
-                >
+                <Grid item xs={12}>
                   <TextField
                     {...register("password", {
                       required: "Password is required",
@@ -149,10 +123,7 @@ const RegisterPage = () => {
                     helperText={errors.password?.message}
                   />
                 </Grid>
-                <Grid
-                  item
-                  xs={12}
-                >
+                <Grid item xs={12}>
                   <TextField
                     {...register("confirmPassword", {
                       validate: (value) =>
@@ -176,15 +147,9 @@ const RegisterPage = () => {
               >
                 Sign Up
               </Button>
-              <Grid
-                container
-                justifyContent="flex-end"
-              >
+              <Grid container justifyContent="flex-end">
                 <Grid item>
-                  <Link
-                    href="#"
-                    variant="body2"
-                  >
+                  <Link href="#" variant="body2">
                     <NavLink
                       to="/login"
                       style={{

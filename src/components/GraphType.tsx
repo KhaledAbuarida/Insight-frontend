@@ -1,5 +1,5 @@
 import { Box, IconButton } from "@mui/material";
-import { IGraphType } from "../global/graphsTypes";
+import { IGraphType } from "../types/graphsTypes";
 import { useState } from "react";
 import { useGraph } from "../contexts/DataContext/GraphContext/GraphContext";
 

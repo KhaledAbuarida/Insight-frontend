@@ -2,7 +2,7 @@ import { Box, Grid } from "@mui/material";
 import Sidebar from "../components/Sidebar";
 import Insight from "../components/Insight";
 import { useEffect } from "react";
-import { graphsTypes } from "../global/graphsTypes";
+import { graphsTypes } from "../types/graphsTypes";
 import { useGraph } from "../contexts/DataContext/GraphContext/GraphContext";
 import { graphs } from "../utils/graphsKeys";
 

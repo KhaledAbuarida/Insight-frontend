@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { IModelType } from "../global/modelsTypes";
+import { IModelType } from "../types/modelsTypes";
 
 interface Props {
   TypeRef: IModelType;

@@ -9,17 +9,35 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { Badge } from "@mui/material";
+import { Badge, Button } from "@mui/material";
 import MailIcon from "@mui/icons-material/Mail";
-import Logo from "../global/Logo";
+import Logo from "./Logo";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { INavType } from "../types/navLinksType";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-const AppHeader = () => {
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+const navLinks: INavType[] = [
+  { page: "Dataset", path: "/dataset" },
+  { page: "Statistics", path: "/statistics" },
+  { page: "Model", path: "/models" },
+  { page: "Upload Data", path: "/upload" },
+];
 
+const AppHeader = () => {
+  // states
+  const [currentPage, setCurrentPage] = useState<INavType | null>(null);
+
+  // get current page url
+  const location = useLocation();
+
+  // navigation
+  const navigate = useNavigate();
+
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
+  // handlers
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -28,27 +46,76 @@ const AppHeader = () => {
     setAnchorElUser(null);
   };
 
+  const handleClickLink = (link: INavType) => {
+    console.log(link.path);
+    console.log(location.pathname);
+    setCurrentPage(link);
+    navigate(link.path);
+  };
+
+  // Update currentPage based on the current URL
+  useEffect(() => {
+    const currentLink = navLinks.find((link) =>
+      location.pathname.includes(link.path)
+    );
+    setCurrentPage(currentLink || null);
+  }, [location.pathname]);
+
   return (
     <AppBar position="sticky">
       <Container maxWidth={false}>
-        <Toolbar disableGutters>
+        <Box
+          sx={{
+            height: "60px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           {/* logo */}
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: { xs: "none", md: "flex" },
-              alignItems: "center",
-            }}
-          >
+          <Box sx={{ alignItems: "center" }}>
             <Logo />
+          </Box>
+
+          <Box sx={{ display: "flex", gap: 1 }}>
+            {navLinks.map((link) => (
+              <Button
+                key={link.page}
+                sx={{
+                  position: "relative",
+                  color: "#fff",
+                  overflow: "hidden",
+                  "&::after": {
+                    content: '""',
+                    position: "absolute",
+                    width: "100%",
+                    height: "3px",
+                    bottom: 0,
+                    left: 0,
+                    background: "linear-gradient(to right, #ff7e5f, #feb47b)",
+                    transform:
+                      currentPage?.path === link.path
+                        ? "scaleX(1)"
+                        : "scaleX(0)",
+                    transformOrigin: "bottom right",
+                    transition: "transform 0.3s ease-out",
+                  },
+                  "&:hover::after": {
+                    transform: "scaleX(1)",
+                    transformOrigin: "bottom left",
+                  },
+                }}
+                onClick={() => handleClickLink(link)}
+              >
+                {link.page}
+              </Button>
+            ))}
           </Box>
 
           {/* user profile */}
           <Box
             sx={{
-              flexGrow: 0,
               mr: "10px",
-              display: "flex",
               alignItems: "center",
             }}
           >
@@ -90,7 +157,7 @@ const AppHeader = () => {
               ))}
             </Menu>
           </Box>
-        </Toolbar>
+        </Box>
       </Container>
     </AppBar>
   );

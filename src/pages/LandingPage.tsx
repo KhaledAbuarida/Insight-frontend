@@ -1,7 +1,7 @@
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 
 import { NavLink } from "react-router-dom";
-import Logo from "../global/Logo";
+import Logo from "../components/Logo";
 
 const LandingPage = () => {
   return (

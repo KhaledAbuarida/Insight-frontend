@@ -1,6 +1,6 @@
 import { Container, Box, Typography } from "@mui/material";
 import GraphType from "./GraphType";
-import { graphsTypes } from "../global/graphsTypes";
+import { graphsTypes } from "../types/graphsTypes";
 
 const GraphsList = () => {
   return (

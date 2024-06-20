@@ -10,7 +10,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useForm } from "react-hook-form";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import { NavLink } from "react-router-dom";
-import Logo from "../global/Logo";
+import Logo from "../components/Logo";
 
 const defaultTheme = createTheme();
 
@@ -18,7 +18,6 @@ type FormValues = {
   email: string;
   password: string;
 };
-
 
 const LoginPage = () => {
   const form = useForm<FormValues>({

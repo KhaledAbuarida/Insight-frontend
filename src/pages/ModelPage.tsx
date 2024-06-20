@@ -2,7 +2,7 @@ import { Box, Grid, Typography } from "@mui/material";
 import Insight from "../components/Insight";
 import { useGraph } from "../contexts/DataContext/GraphContext/GraphContext";
 import ModelType from "../components/ModelType";
-import { modelTypes } from "../global/modelsTypes";
+import { modelTypes } from "../types/modelsTypes";
 
 const ModelPage = () => {
   // contexts
