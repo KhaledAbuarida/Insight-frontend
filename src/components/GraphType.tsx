@@ -30,8 +30,8 @@ const GraphType = ({ TypeRef }: Props) => {
     <Box
       sx={{
         backgroundColor: graphType === TypeRef.name ? "#387ADF" : "#B7C9F2",
-        width: "60px",
-        height: "60px",
+        width: "50px",
+        height: "50px",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",

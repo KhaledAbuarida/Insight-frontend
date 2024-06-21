@@ -20,7 +20,7 @@ const GraphsList = () => {
           display: "flex",
           flexWrap: "wrap",
           gap: 2,
-          justifyContent: "center",
+          justifyContent: "start",
         }}
       >
         {graphsTypes.map((graph) => (

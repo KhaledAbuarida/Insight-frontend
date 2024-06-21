@@ -1,8 +1,10 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import Insight from "../components/Insight";
 import { useGraph } from "../contexts/GraphContext/GraphContext";
 import ModelType from "../components/ModelType";
 import { modelTypes } from "../types/modelsTypes";
+import Graph from "../components/Graph";
+import Comment from "../components/Comment";
 
 const ModelPage = () => {
   // contexts
@@ -79,8 +81,36 @@ const ModelPage = () => {
           </Grid>
         </Grid>
         {/* CENTER  */}
-        <Insight graphJson={graph} />
-        {/* RIGHT BAR  */}
+        <Grid
+          item
+          container
+          xs={10.2}
+          sx={{ backgroundColor: "#f3f4f5", height: "calc(100vh - 64px)" }}
+          justifyContent={"center"}
+        >
+          <Grid
+            container
+            direction="column"
+            spacing={2}
+            wrap="nowrap"
+            sx={{ padding: "25px 20px 0px 20px" }}
+          >
+            <Grid item xs={9}>
+              <Graph graphJson={graph} />
+            </Grid>
+            <Grid item xs={1}>
+              <Comment />
+            </Grid>
+            <Grid item xs={0.5}>
+              <Button
+                variant="contained"
+                sx={{ float: "right", textTransform: "none", mb: "20px" }}
+              >
+                Save Sheet
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
       </Grid>
     </Box>
   );

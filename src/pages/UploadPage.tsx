@@ -1,4 +1,4 @@
-import { Alert, Box, Container, Grid } from "@mui/material";
+import { Alert, Box, Grid } from "@mui/material";
 import DropZone from "../components/DropZone";
 import { useEffect, useState } from "react";
 
@@ -37,7 +37,7 @@ const UploadPage = () => {
           flexDirection="column"
         >
           {alert && (
-            <Alert severity="error" sx={{mt: 8}}>
+            <Alert severity="error" sx={{ mt: 8 }}>
               Please Sign into your account, So you can upload your files
             </Alert>
           )}
