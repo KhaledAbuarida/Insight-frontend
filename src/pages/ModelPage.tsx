@@ -13,6 +13,7 @@ const ModelPage = () => {
   return (
     <Box sx={{ mt: "60px" }}>
       <Grid container>
+        {/* Sidebar */}
         <Grid item xs={1.8}>
           <Grid container>
             <Grid

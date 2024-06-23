@@ -7,7 +7,6 @@ import {
   Grid,
 } from "@mui/material";
 import { useState } from "react";
-import { IAttribute } from "../utils/attributes";
 import { useData } from "../contexts/DataContext/DataContext";
 
 export const AttributesPicker = () => {
