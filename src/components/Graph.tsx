@@ -17,12 +17,7 @@ const Graph = ({ graphJson }: Props) => {
         borderRadius: "5px",
       }}
     >
-      <Typography
-        fontSize={12}
-        color="gray"
-        textTransform="uppercase"
-        mb={1}
-      >
+      <Typography fontSize={12} color="gray" textTransform="uppercase" mb={1}>
         Overview
       </Typography>
       <div>
@@ -43,16 +38,10 @@ const Graph = ({ graphJson }: Props) => {
             gap={1}
           >
             <Grid item>
-              <MdAutoGraph
-                size={120}
-                color="#d3d3d3"
-              />
+              <MdAutoGraph size={120} color="#d3d3d3" />
             </Grid>
             <Grid item>
-              <Typography
-                variant="h6"
-                color="#d3d3d3"
-              >
+              <Typography variant="h6" color="#d3d3d3">
                 There is no visualization yet
               </Typography>
             </Grid>

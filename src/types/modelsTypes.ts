@@ -5,35 +5,27 @@ export interface IModelType {
 
 export const modelTypes: IModelType[] = [
   {
-    name: "Model 1",
+    name: "Text Classification",
     type: "Textual",
   },
   {
-    name: "Model 2",
+    name: "Sentiment Analysis",
     type: "Textual",
   },
   {
-    name: "Model 3",
-    type: "Numerical",
-  },
-  {
-    name: "Model 4",
-    type: "Numerical",
-  },
-  {
-    name: "Model 5",
-    type: "Numerical",
-  },
-  {
-    name: "Model 6",
+    name: "Emotion Analysis",
     type: "Textual",
   },
   {
-    name: "Model 7",
+    name: "Customer Segmentation",
     type: "Numerical",
   },
   {
-    name: "Model 8",
+    name: "Time Series Prediction",
+    type: "Numerical",
+  },
+  {
+    name: "Churn Prediction",
     type: "Numerical",
   },
 ];
