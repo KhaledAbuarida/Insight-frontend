@@ -1,11 +1,15 @@
+
+import React from "react";
 import { useState } from "react";
-import CategoricalData from "../components/statistics/CategoricalData";
 import NumericalData from "../components/statistics/NumericalData";
+import CategoricalData from "../components/statistics/CategoricalData";
+import { useData } from "../contexts/DataContext/DataContext";
 
 const StatisticsPage = () => {
   const [activeTab, setActiveTab] = useState("categorical");
+  const { data } = useData();
 
-  const handleTabClick = (tab: React.SetStateAction<string>) => {
+  const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
 
@@ -32,8 +36,8 @@ const StatisticsPage = () => {
         </li>
       </ul>
       <div className="tab-content">
-        {activeTab === "categorical" && <CategoricalData />}
-        {activeTab === "numerical" && <NumericalData />}
+        {activeTab === "categorical" && <CategoricalData data={data || []} />}
+        {activeTab === "numerical" && <NumericalData data={data || []} />}
       </div>
     </div>
   );

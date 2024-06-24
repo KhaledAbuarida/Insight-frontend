@@ -1,53 +1,45 @@
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 interface DataEntry {
-  [key: string]: string;
+  [key: string]: string | number;
 }
 
-const data: DataEntry[] = [
-  {
-    id: "1",
-    CustomerId: "DD37Cf93aecA6Dc",
-    FirstName: "Sheryl",
-    LastName: "Baxter",
-    Company: "Rasmussen Group",
-    City: "East Leonard",
-    Country: "Chile",
-    Phone1: "6",
-    Phone2: "8",
-    Email: "zunigavanessa@smith.info",
-    SubscriptionDate: "2020-08-24",
-    Website: "http://www.stephenson.com/",
-  },
-  {
-    id: "86",
-    CustomerId: "C6763c99d0bd16D",
-    FirstName: "Emma",
-    LastName: "Cunningham",
-    Company: "Stephens Inc",
-    City: "North Jillianview",
-    Country: "New Zealand",
-    Phone1: "2",
-    Phone2: "4",
-    Email: "walter83@juarez.org",
-    SubscriptionDate: "2022-05-13",
-    Website: "http://www.reid.info/",
-  },
-];
+interface Props {
+  data: DataEntry[];
+}
 
-const NumericalData = () => {
-  const numericalColumns = Object.keys(data[0]).filter((columnName) =>
-    data.every((entry) => !isNaN(parseFloat(entry[columnName])))
+const NumericalData: React.FC<Props> = ({ data }) => {
+  if (data.length === 0) {
+    return <div>No data available</div>;
+  }
+
+  const isNumeric = (value: string | number) => {
+    return value !== "" && !isNaN(parseFloat(value as string)) && isFinite(value as number);
+  };
+
+  const isExcludedColumn = (columnName: string) => {
+    const lowerCaseColumnName = columnName.toLowerCase();
+    return (
+      lowerCaseColumnName.includes("id") ||
+      lowerCaseColumnName.includes("date")
+    );
+  };
+
+  const numericalColumns = Object.keys(data[0]).filter(
+    (columnName) =>
+      !isExcludedColumn(columnName) &&
+      data.some((entry) => isNumeric(entry[columnName]))
   );
 
-  const checkDataType = (data: any[]) => {
-    const isNumerical = data.every((value: number) => !isNaN(value));
-    return isNumerical ? "Numerical" : "Categorical";
+  const extractNumericalValues = (columnName: string) => {
+    return data
+      .map((entry) => parseFloat(entry[columnName] as string))
+      .filter((value) => !isNaN(value));
   };
 
-  const extractNumericalValues = (columnName: string) => {
-    return data.map((entry) => parseFloat(entry[columnName]) || 0);
-  };
+  const calculateMean = (data: number[]) =>
+    data.reduce((acc, val) => acc + val, 0) / data.length;
 
   const columnData = numericalColumns.map((columnName) =>
     extractNumericalValues(columnName)
@@ -55,51 +47,85 @@ const NumericalData = () => {
 
   return (
     <div className="container mt-5">
-      <h2 className="mb-4">Data Statistics</h2>
+      <h2 className="mb-4 text-primary">Data Statistics</h2>
       <div className="table-responsive">
         <table className="table table-bordered">
-          <thead className="thead-dark">
+          <thead style={{ backgroundColor: "#007bff", color: "#ffffff" }}>
             <tr>
-              <th></th>
+              <th scope="col" style={{ border: "none" }}>Statistic</th>
               {numericalColumns.map((columnName, index) => (
-                <th key={index}>{columnName}</th>
+                <th
+                  scope="col"
+                  key={index}
+                  style={{
+                    backgroundColor: "#007bff",
+                    color: "#ffffff",
+                    border: "none",
+                  }}
+                >
+                  {columnName}
+                </th>
               ))}
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Mean</td>
+              <th
+                scope="row"
+                className="bg-secondary text-white"
+                style={{ border: "none" }}
+              >
+                Mean
+              </th>
               {columnData.map((data, index) => (
-                <td key={index}>
-                  {(
-                    data.reduce((acc, val) => acc + val, 0) / data.length
-                  ).toFixed(2)}
+                <td
+                  key={index}
+                  style={{
+                    backgroundColor: "#e9ecef",
+                    border: "none",
+                  }}
+                >
+                  {calculateMean(data).toFixed(2)}
                 </td>
               ))}
             </tr>
             <tr>
-              <td>Median</td>
+              <th
+                scope="row"
+                className="bg-secondary text-white"
+                style={{ border: "none" }}
+              >
+                Minimum
+              </th>
               {columnData.map((data, index) => (
-                <td key={index}>{calculateMedian(data)}</td>
+                <td
+                  key={index}
+                  style={{
+                    backgroundColor: "#e9ecef",
+                    border: "none",
+                  }}
+                >
+                  {Math.min(...data)}
+                </td>
               ))}
             </tr>
             <tr>
-              <td>Minimum</td>
+              <th
+                scope="row"
+                className="bg-secondary text-white"
+                style={{ border: "none" }}
+              >
+                Maximum
+              </th>
               {columnData.map((data, index) => (
-                <td key={index}>{Math.min(...data)}</td>
-              ))}
-            </tr>
-            <tr>
-              <td>Maximum</td>
-              {columnData.map((data, index) => (
-                <td key={index}>{Math.max(...data)}</td>
-              ))}
-            </tr>
-            <tr>
-              <td>Standard Deviation</td>
-              {columnData.map((data, index) => (
-                <td key={index}>
-                  {calculateStandardDeviation(data).toFixed(2)}
+                <td
+                  key={index}
+                  style={{
+                    backgroundColor: "#e9ecef",
+                    border: "none",
+                  }}
+                >
+                  {Math.max(...data)}
                 </td>
               ))}
             </tr>
@@ -107,21 +133,6 @@ const NumericalData = () => {
         </table>
       </div>
     </div>
-  );
-};
-
-const calculateMedian = (data: any[]) => {
-  const sortedData = data.slice().sort((a, b) => a - b);
-  const middleIndex = Math.floor(sortedData.length / 2);
-  return sortedData.length % 2 === 0
-    ? (sortedData[middleIndex - 1] + sortedData[middleIndex]) / 2
-    : sortedData[middleIndex];
-};
-
-const calculateStandardDeviation = (data: any[]) => {
-  const mean = data.reduce((acc, val) => acc + val, 0) / data.length;
-  return Math.sqrt(
-    data.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / data.length
   );
 };
 
