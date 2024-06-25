@@ -7,40 +7,64 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useForm } from "react-hook-form";
 import Logo from "../components/Logo";
-import { NavLink } from "react-router-dom";
-
-const defaultTheme = createTheme();
-
-type FormValues = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
+import { NavLink, useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { registerAPI } from "../api/authAPI";
+import { useState } from "react";
 
 const RegisterPage = () => {
-  const form = useForm<FormValues>({
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    },
+  // states
+  const [error, setError] = useState<string | null>(null);
+
+  // navigation
+  const navigate = useNavigate();
+
+  // form validation schema
+  const validationSchema = yup.object().shape({
+    name: yup.string().required("Username is required, try enter username"),
+    email: yup.string().email().required("Email is required, try enter email"),
+    password: yup
+      .string()
+      .min(8, "Password must be at least 8 characters")
+      .required("Password is required"),
+    confirmation_password: yup
+      .string()
+      .oneOf([yup.ref("password")], "Passwords must match")
+      .required("Confirm Password is required"),
   });
 
-  const { register, handleSubmit, formState } = form;
-  const { errors } = formState;
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
+
+  const onSubmit = async (data: any) => {
+    setError(null);
+    const { status } = await registerAPI({ ...data });
+
+    if (status !== 201) {
+      setError("can't register with this email, please try different email");
+      return;
+    }
+
+    setError("User Successfully Registered");
+
+    // navigating to home page
+    navigate("/login");
+
+    // fill register form fields
+    reset();
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <>
       <Box p={3}>
         <Logo />
       </Box>
@@ -75,68 +99,57 @@ const RegisterPage = () => {
               sx={{ mt: 3 }}
             >
               <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12}>
                   <TextField
-                    {...register("firstName", {
-                      required: "First Name is required",
-                    })}
-                    autoComplete="given-name"
+                    type="text"
+                    label="Username"
                     fullWidth
-                    id="firstName"
-                    label="First Name"
-                    autoFocus
-                    error={!!errors.firstName}
-                    helperText={errors.firstName?.message}
+                    {...register("name")}
                   />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    {...register("lastName")}
-                    fullWidth
-                    id="lastName"
-                    label="Last Name"
-                    autoComplete="family-name"
-                  />
+                  {errors.name && (
+                    <Typography variant="caption" color="red">
+                      {errors.name.message}
+                    </Typography>
+                  )}
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
-                    {...register("email", { required: "Email is required" })}
+                    type="text"
+                    label="Email"
                     fullWidth
-                    id="email"
-                    label="Email Address"
-                    autoComplete="email"
-                    error={!!errors.email}
-                    helperText={errors.email?.message}
+                    {...register("email")}
                   />
+                  {errors.email && (
+                    <Typography variant="caption" color="red">
+                      {errors.email.message}
+                    </Typography>
+                  )}
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
-                    {...register("password", {
-                      required: "Password is required",
-                      minLength: 8,
-                    })}
-                    fullWidth
+                    type="password"
                     label="Password"
-                    type="password"
-                    id="password"
-                    error={!!errors.password}
-                    helperText={errors.password?.message}
+                    fullWidth
+                    {...register("password")}
                   />
+                  {errors.password && (
+                    <Typography variant="caption" color="red">
+                      {errors.password.message}
+                    </Typography>
+                  )}
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
-                    {...register("confirmPassword", {
-                      validate: (value) =>
-                        value === form.watch("password") ||
-                        "Passwords do not match",
-                    })}
-                    fullWidth
-                    label="Confirm password"
                     type="password"
-                    id="confirmPassword"
-                    error={!!errors.confirmPassword}
-                    helperText={errors.confirmPassword?.message}
+                    label="Confirm Password"
+                    fullWidth
+                    {...register("confirmation_password")}
                   />
+                  {errors.confirmation_password && (
+                    <Typography variant="caption" color="red">
+                      {errors.confirmation_password.message}
+                    </Typography>
+                  )}
                 </Grid>
               </Grid>
               <Button
@@ -147,6 +160,11 @@ const RegisterPage = () => {
               >
                 Sign Up
               </Button>
+              {error && (
+                <Typography variant="caption" color="red">
+                  {error}
+                </Typography>
+              )}
               <Grid container justifyContent="flex-end">
                 <Grid item>
                   <Link href="#" variant="body2">
@@ -165,7 +183,7 @@ const RegisterPage = () => {
           </Box>
         </Grid>
       </Container>
-    </ThemeProvider>
+    </>
   );
 };
 

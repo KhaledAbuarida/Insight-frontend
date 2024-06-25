@@ -12,6 +12,7 @@ import ModelPage from "./pages/ModelPage";
 import GraphProvider from "./contexts/GraphContext/GraphProvider";
 import StatisticsPage from "./pages/StatisticsPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AuthProvider from "./contexts/AuthContext/AuthProvider";
 
 const App = () => {
   const AppHeaderWrapper = () => {
@@ -29,23 +30,25 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <DataProvider>
-        <GraphProvider>
-          <AppHeaderWrapper />
-          <Routes>
-            <Route index element={<LandingPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/upload" element={<UploadPage />} />
-            <Route element={<ProtectedRoute />}>
-              <Route path="/statistics" element={<StatisticsPage />} />
-              <Route path="/model" element={<ModelPage />} />
-              <Route path="/dataset" element={<DataSourcePage />} />
-              <Route path="/visualize" element={<VisualizePage />} />
-            </Route>
-          </Routes>
-        </GraphProvider>
-      </DataProvider>
+      <AuthProvider>
+        <DataProvider>
+          <GraphProvider>
+            <AppHeaderWrapper />
+            <Routes>
+              <Route index element={<LandingPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/upload" element={<UploadPage />} />
+              <Route element={<ProtectedRoute />}>
+                <Route path="/statistics" element={<StatisticsPage />} />
+                <Route path="/model" element={<ModelPage />} />
+                <Route path="/dataset" element={<DataSourcePage />} />
+                <Route path="/visualize" element={<VisualizePage />} />
+              </Route>
+            </Routes>
+          </GraphProvider>
+        </DataProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 };

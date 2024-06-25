@@ -12,6 +12,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
+    "@hookform/resolvers": "^3.6.0",
     "@mui/icons-material": "^5.15.9",
     "@mui/material": "^5.15.9",
     "@mui/x-charts": "^6.19.5",
@@ -34,7 +35,8 @@
     "react-router-dom": "^6.22.3",
     "react-tabs": "^6.0.2",
     "recharts": "^2.12.0",
-    "styled-components": "^6.1.8"
+    "styled-components": "^6.1.8",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/papaparse": "^5.3.14",

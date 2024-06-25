@@ -6,36 +6,66 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useForm } from "react-hook-form";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
-
-const defaultTheme = createTheme();
-
-type FormValues = {
-  email: string;
-  password: string;
-};
+import { loginAPI } from "../api/authAPI";
+import { useState } from "react";
+import { useAuth } from "../contexts/AuthContext/AuthContext";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 const LoginPage = () => {
-  const form = useForm<FormValues>({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+  // states
+  const [error, setError] = useState<string | null>(null);
+
+  // navigation
+  const navigate = useNavigate();
+
+  // context
+  const { login } = useAuth();
+
+  // form validation schema
+  const validationSchema = yup.object().shape({
+    email: yup.string().email("Invalid email").required("Email is required!"),
+    password: yup.string().required("Password is required!"),
   });
 
-  const { register, handleSubmit, formState } = form;
-  const { errors } = formState;
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
-    // Add your login logic here
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
+
+  const onSubmit = async (data: any) => {
+    const { response } = await loginAPI({ ...data });
+
+    if (!response.access_token) {
+      setError("Please, Try to enter different credentials");
+      return;
+    }
+
+    setError(null);
+
+    //destruct response
+    const { access_token, user } = response;
+
+    // setting token & username in auth context
+    login(access_token, user.name);
+
+    // navigating to home page
+    navigate("/");
+
+    // fill register form fields
+    reset();
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <>
       <Box p={3}>
         <Logo />
       </Box>
@@ -103,6 +133,11 @@ const LoginPage = () => {
               >
                 Login
               </Button>
+              {error && (
+                <Typography variant="caption" color="red">
+                  {error}
+                </Typography>
+              )}
               <Grid container justifyContent="flex-end">
                 <Grid item>
                   <Link href="#" variant="body2">
@@ -121,7 +156,7 @@ const LoginPage = () => {
           </Box>
         </Grid>
       </Container>
-    </ThemeProvider>
+    </>
   );
 };
 

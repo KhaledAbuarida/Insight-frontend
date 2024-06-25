@@ -23,8 +23,17 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     localStorage.setItem(TOKEN_KEY, token);
   };
 
+  const logout = () => {
+    localStorage.removeItem(USERNAME_KEY);
+    localStorage.removeItem(TOKEN_KEY);
+    setUserName(null);
+    setToken(null);
+  };
+
   return (
-    <authContext.Provider value={{ token, userName, isAuthenticated, login }}>
+    <authContext.Provider
+      value={{ token, userName, isAuthenticated, login, logout }}
+    >
       {children}
     </authContext.Provider>
   );
