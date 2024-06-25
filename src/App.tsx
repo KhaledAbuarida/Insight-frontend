@@ -13,6 +13,8 @@ import GraphProvider from "./contexts/GraphContext/GraphProvider";
 import StatisticsPage from "./pages/StatisticsPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AuthProvider from "./contexts/AuthContext/AuthProvider";
+import ProfilePage from "./pages/ProfilePage";
+import RedirectedRoute from "./components/RdirectedRoute";
 
 const App = () => {
   const AppHeaderWrapper = () => {
@@ -38,12 +40,15 @@ const App = () => {
               <Route index element={<LandingPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
-              <Route path="/upload" element={<UploadPage />} />
               <Route element={<ProtectedRoute />}>
-                <Route path="/statistics" element={<StatisticsPage />} />
-                <Route path="/model" element={<ModelPage />} />
-                <Route path="/dataset" element={<DataSourcePage />} />
-                <Route path="/visualize" element={<VisualizePage />} />
+                <Route path="/upload" element={<UploadPage />} />
+                <Route element={<RedirectedRoute />}>
+                  <Route path="/profile" element={<ProfilePage />} />
+                  <Route path="/statistics" element={<StatisticsPage />} />
+                  <Route path="/model" element={<ModelPage />} />
+                  <Route path="/dataset" element={<DataSourcePage />} />
+                  <Route path="/visualize" element={<VisualizePage />} />
+                </Route>
               </Route>
             </Routes>
           </GraphProvider>

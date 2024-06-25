@@ -1,18 +1,7 @@
 import { Alert, Box, Grid } from "@mui/material";
 import DropZone from "../components/DropZone";
-import { useEffect, useState } from "react";
 
 const UploadPage = () => {
-  // states
-  const [alert, setAlert] = useState<boolean>(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setAlert(false);
-    }, 5000);
-    return () => clearTimeout(timer); // Cleanup the timer on unmount
-  }, []);
-
   return (
     <Box sx={{ backgroundColor: "#EEEDEB", height: "100vh", width: "100%" }}>
       <Grid
@@ -35,13 +24,7 @@ const UploadPage = () => {
           width="100%"
           height="100%"
           flexDirection="column"
-        >
-          {alert && (
-            <Alert severity="error" sx={{ mt: 8 }}>
-              Please Sign into your account, So you can upload your files
-            </Alert>
-          )}
-        </Grid>
+        ></Grid>
 
         <Grid
           item

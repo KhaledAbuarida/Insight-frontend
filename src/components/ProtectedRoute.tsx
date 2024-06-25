@@ -1,11 +1,11 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useData } from "../contexts/DataContext/DataContext";
+import { useAuth } from "../contexts/AuthContext/AuthContext";
 
 const ProtectedRoute = () => {
-  const { isDataUploaded } = useData();
+  const { isAuthenticated } = useAuth();
 
-  if (!isDataUploaded) {
-    return <Navigate to="/upload" />;
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
   }
 
   return <Outlet />;

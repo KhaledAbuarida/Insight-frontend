@@ -55,10 +55,10 @@ const LoginPage = () => {
     const { access_token, user } = response;
 
     // setting token & username in auth context
-    login(access_token, user.name);
+    login(access_token, user.name, user.email);
 
     // navigating to home page
-    navigate("/");
+    navigate("/upload");
 
     // fill register form fields
     reset();

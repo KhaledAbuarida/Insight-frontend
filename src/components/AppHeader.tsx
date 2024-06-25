@@ -49,6 +49,7 @@ const AppHeader = () => {
 
   const handleLogout = () => {
     logout();
+    navigate("/");
     handleCloseUserMenu();
   };
 
