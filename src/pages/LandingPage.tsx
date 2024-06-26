@@ -1,21 +1,54 @@
 import {
   Avatar,
+  Badge,
   Box,
   Button,
   Container,
   Grid,
   IconButton,
+  Menu,
+  MenuItem,
   Tooltip,
   Typography,
 } from "@mui/material";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
+import { useData } from "../contexts/DataContext/DataContext";
+import { useState } from "react";
 
 const LandingPage = () => {
+  // states
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
   // context
-  const { isAuthenticated, userName } = useAuth();
+  const { isAuthenticated, userName, logout } = useAuth();
+  const { deleteFile } = useData();
+
+  // navigation
+  const navigate = useNavigate();
+
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const handleProfile = () => {
+    navigate("/profile");
+    handleCloseUserMenu();
+  };
+
+  const handleLogout = () => {
+    logout();
+    deleteFile();
+    navigate("/");
+
+    handleCloseUserMenu();
+  };
 
   return (
     <Box sx={{ backgroundColor: "#EEEDEB" }}>
@@ -25,11 +58,42 @@ const LandingPage = () => {
         <Grid>
           {isAuthenticated ? (
             <>
-              <Tooltip title={userName}>
-                <IconButton sx={{ p: 0, gap: 2 }}>
-                  <Avatar alt="user" src="./assets/user.png" />
-                </IconButton>
-              </Tooltip>
+              <Box
+                sx={{
+                  mr: "10px",
+                  alignItems: "center",
+                }}
+              >
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar alt="user" src="./assets/user.png" />
+                  </IconButton>
+                </Tooltip>
+
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-app-bar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  <MenuItem onClick={handleProfile}>
+                    <Typography textAlign="center">Profile</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>
+                    <Typography textAlign="center">Logout</Typography>
+                  </MenuItem>
+                </Menu>
+              </Box>
             </>
           ) : (
             <>

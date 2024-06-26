@@ -15,6 +15,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AuthProvider from "./contexts/AuthContext/AuthProvider";
 import ProfilePage from "./pages/ProfilePage";
 import RedirectedRoute from "./components/RdirectedRoute";
+import { ModelContext } from "./contexts/ModelContext/ModelContext";
+import ModelProvider from "./contexts/ModelContext/ModelProvider";
 
 const App = () => {
   const AppHeaderWrapper = () => {
@@ -35,22 +37,24 @@ const App = () => {
       <AuthProvider>
         <DataProvider>
           <GraphProvider>
-            <AppHeaderWrapper />
-            <Routes>
-              <Route index element={<LandingPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route element={<ProtectedRoute />}>
-                <Route path="/upload" element={<UploadPage />} />
-                <Route element={<RedirectedRoute />}>
+            <ModelProvider>
+              <AppHeaderWrapper />
+              <Routes>
+                <Route index element={<LandingPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/upload" element={<UploadPage />} />
                   <Route path="/profile" element={<ProfilePage />} />
-                  <Route path="/statistics" element={<StatisticsPage />} />
-                  <Route path="/model" element={<ModelPage />} />
-                  <Route path="/dataset" element={<DataSourcePage />} />
-                  <Route path="/visualize" element={<VisualizePage />} />
+                  <Route element={<RedirectedRoute />}>
+                    <Route path="/statistics" element={<StatisticsPage />} />
+                    <Route path="/model" element={<ModelPage />} />
+                    <Route path="/dataset" element={<DataSourcePage />} />
+                    <Route path="/visualize" element={<VisualizePage />} />
+                  </Route>
                 </Route>
-              </Route>
-            </Routes>
+              </Routes>
+            </ModelProvider>
           </GraphProvider>
         </DataProvider>
       </AuthProvider>

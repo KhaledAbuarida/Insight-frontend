@@ -1,6 +1,7 @@
 export interface IModelType {
   name: string;
   type: string;
+  plotly?: string;
 }
 
 export const modelTypes: IModelType[] = [
@@ -27,5 +28,6 @@ export const modelTypes: IModelType[] = [
   {
     name: "Churn Prediction",
     type: "Numerical",
+    plotly: "bar",
   },
 ];

@@ -1,14 +1,27 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
-import Insight from "../components/Insight";
-import { useGraph } from "../contexts/GraphContext/GraphContext";
 import ModelType from "../components/ModelType";
 import { modelTypes } from "../types/modelsTypes";
-import Graph from "../components/Graph";
 import Comment from "../components/Comment";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import { useModel } from "../contexts/ModelContext/ModelContext";
+import { useEffect } from "react";
+import { models } from "../utils/modelsKeys";
+import { MdAutoGraph } from "react-icons/md";
+import Plot from "react-plotly.js";
 
 const ModelPage = () => {
   // contexts
-  const { graph } = useGraph();
+  const { modelType, renderModel, model } = useModel();
+
+  useEffect(() => {
+    const type = modelTypes.find((type) => type.name === modelType);
+    console.log(type);
+    const modelJson: any = models.find((model: any) => {
+      return model.data[0].type === type?.plotly;
+    });
+    console.log(modelJson);
+    renderModel(modelJson);
+  }, [modelType]);
 
   return (
     <Box sx={{ mt: "60px" }}>
@@ -58,7 +71,7 @@ const ModelPage = () => {
                 </Typography>
                 {modelTypes.map((type) => {
                   return type.type === "Textual" ? (
-                    <ModelType TypeRef={type} />
+                    <ModelType TypeRef={type} key={type.name} />
                   ) : null;
                 })}
                 {/* Textual Models */}
@@ -74,7 +87,7 @@ const ModelPage = () => {
                 </Typography>
                 {modelTypes.map((type) => {
                   return type.type === "Numerical" ? (
-                    <ModelType TypeRef={type} />
+                    <ModelType TypeRef={type} key={type.name} />
                   ) : null;
                 })}
               </Box>
@@ -97,7 +110,66 @@ const ModelPage = () => {
             sx={{ padding: "25px 20px 0px 20px" }}
           >
             <Grid item xs={9}>
-              <Graph graphJson={graph} />
+              <Grid
+                height="100%"
+                p={2}
+                sx={{
+                  border: "1px solid gray",
+                  backgroundColor: "#fff",
+                  borderRadius: "5px",
+                }}
+              >
+                <Typography
+                  fontSize={12}
+                  color="gray"
+                  textTransform="uppercase"
+                  mb={1}
+                >
+                  Overview
+                </Typography>
+                <div>
+                  {model ? (
+                    <>
+                      <Plot
+                        data={model?.data}
+                        layout={model?.layout}
+                        useResizeHandler
+                        style={{ width: "100%", height: "100%" }}
+                      />
+
+                      <Box sx={{ display: "flex", justifyContent: "center" }}>
+                        <Button
+                          component="label"
+                          role={undefined}
+                          variant="contained"
+                          tabIndex={-1}
+                          startIcon={<PlayArrowIcon />}
+                        >
+                          RUN
+                        </Button>
+                      </Box>
+                    </>
+                  ) : (
+                    <Grid
+                      container
+                      direction="column"
+                      justifyContent="center"
+                      alignItems="center"
+                      height="40vh"
+                      gap={1}
+                    >
+                      <Grid item>
+                        <MdAutoGraph size={120} color="#d3d3d3" />
+                      </Grid>
+                      <Grid item>
+                        <Typography variant="h6" color="#d3d3d3">
+                          There is no visualization yet
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  )}
+                </div>
+              </Grid>
             </Grid>
             <Grid item xs={1}>
               <Comment />
@@ -105,7 +177,11 @@ const ModelPage = () => {
             <Grid item xs={0.5}>
               <Button
                 variant="contained"
-                sx={{ float: "right", textTransform: "none", mb: "20px" }}
+                sx={{
+                  float: "right",
+                  textTransform: "none",
+                  mb: "20px",
+                }}
               >
                 Save Sheet
               </Button>

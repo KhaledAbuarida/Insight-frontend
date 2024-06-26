@@ -10,7 +10,6 @@ const GraphProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   const selectGraphType = (type: string) => {
-    console.log(type);
     setGraphType(type);
   };
 

@@ -14,6 +14,9 @@ import {
 import { IModelType } from "../types/modelsTypes";
 import { useState } from "react";
 import { useData } from "../contexts/DataContext/DataContext";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+import { useModel } from "../contexts/ModelContext/ModelContext";
 
 interface Props {
   TypeRef: IModelType;
@@ -26,10 +29,16 @@ const ModelType = ({ TypeRef }: Props) => {
 
   // contexts
   const { headers } = useData();
+  const { modelType, selectModelType } = useModel();
+
+  const validationSchema = Yup.object().shape({
+    targetColumn: Yup.string().required("Target column is required"),
+  });
 
   // handlers
-  const handleColumnChange = (event: SelectChangeEvent) => {
-    setTargetColumn(event.target.value);
+  const handleChooseModel = () => {
+    selectModelType(TypeRef.name);
+    // modelTypes.find((type) => type.name === modelType);
   };
 
   const handleClickOpen = () => {
@@ -41,13 +50,17 @@ const ModelType = ({ TypeRef }: Props) => {
     setOpen(false);
   };
 
-  if (TypeRef.name === "Text Classification") {
+  if (
+    [
+      "Churn Prediction",
+      "Time Series Prediction",
+      "Text Classification",
+    ].includes(TypeRef.name)
+  ) {
     return (
       <>
         <Button
           sx={{
-            // backgroundColor: graphType === TypeRef.name ? "#387ADF" : "#B7C9F2",
-            backgroundColor: "#387ADF",
             width: "100%",
             height: "40px",
             display: "flex",
@@ -58,6 +71,7 @@ const ModelType = ({ TypeRef }: Props) => {
             "&:hover": {
               backgroundColor: "#2C5FB5",
             },
+            bgcolor: modelType === TypeRef.name ? "green" : "#387ADF",
             color: "#fff",
             fontSize: "16px",
             textTransform: "inherit",
@@ -78,42 +92,67 @@ const ModelType = ({ TypeRef }: Props) => {
           <DialogTitle id="alert-dialog-title">
             {"Please, choose the target column"}
           </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              <FormControl
-                sx={{
-                  width: "100%",
-                  backgroundColor: "#fff",
-                  borderRadius: "5px",
-                }}
-                size="small"
-              >
-                <InputLabel id="select-columns" sx={{ fontSize: "15px" }}>
-                  Target Column
-                </InputLabel>
-                <Select
-                  labelId="select-columns"
-                  id="column"
-                  value={targetColumn || ""}
-                  label="Target Column"
-                  onChange={handleColumnChange}
-                  sx={{ borderRadius: "5px" }}
-                >
-                  {headers.map((at) => (
-                    <MenuItem key={at.field} value={at.field}>
-                      {at.headerName}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Disagree</Button>
-            <Button onClick={handleClose} autoFocus>
-              Agree
-            </Button>
-          </DialogActions>
+          <Formik
+            initialValues={{ targetColumn: "" }}
+            validationSchema={validationSchema}
+            onSubmit={(values) => {
+              handleClose();
+            }}
+          >
+            {({ errors, touched, handleChange }) => (
+              <Form>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    <FormControl
+                      sx={{
+                        width: "100%",
+                        backgroundColor: "#fff",
+                        borderRadius: "5px",
+                      }}
+                      size="small"
+                      error={
+                        touched.targetColumn && Boolean(errors.targetColumn)
+                      }
+                    >
+                      <InputLabel id="select-columns" sx={{ fontSize: "15px" }}>
+                        Target Column
+                      </InputLabel>
+                      <Field
+                        as={Select}
+                        name="targetColumn"
+                        labelId="select-columns"
+                        id="column"
+                        value={targetColumn || ""}
+                        label="Target Column"
+                        onChange={(event: SelectChangeEvent) => {
+                          handleChange(event);
+                          setTargetColumn(event.target.value);
+                        }}
+                        sx={{ borderRadius: "5px" }}
+                      >
+                        {headers?.map((at) => (
+                          <MenuItem key={at.field} value={at.field}>
+                            {at.headerName}
+                          </MenuItem>
+                        ))}
+                      </Field>
+                      {touched.targetColumn && errors.targetColumn && (
+                        <div style={{ color: "red", fontSize: "12px" }}>
+                          {errors.targetColumn}
+                        </div>
+                      )}
+                    </FormControl>
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose}>Disagree</Button>
+                  <Button type="submit" autoFocus onClick={handleChooseModel}>
+                    Agree
+                  </Button>
+                </DialogActions>
+              </Form>
+            )}
+          </Formik>
         </Dialog>
       </>
     );
@@ -122,8 +161,6 @@ const ModelType = ({ TypeRef }: Props) => {
   return (
     <Button
       sx={{
-        // backgroundColor: graphType === TypeRef.name ? "#387ADF" : "#B7C9F2",
-        backgroundColor: "#387ADF",
         width: "100%",
         height: "40px",
         display: "flex",
@@ -135,11 +172,13 @@ const ModelType = ({ TypeRef }: Props) => {
           backgroundColor: "#2C5FB5",
         },
         color: "#fff",
+        bgcolor: modelType === TypeRef.name ? "green" : "#387ADF",
         fontSize: "16px",
         textTransform: "inherit",
         fontWeight: "bold",
         flexWrap: "nowrap",
       }}
+      onClick={handleChooseModel}
     >
       {TypeRef.name}
     </Button>

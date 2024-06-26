@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import csvtojson from "csvtojson";
 import {
@@ -8,7 +8,6 @@ import {
   Button,
   List,
   ListItem,
-  ListItemText,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -25,10 +24,6 @@ const DropZone = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const { addHeaders, addData, file, addDataType, uploadFile, deleteFile } =
     useData();
-
-  useEffect(() => {
-    console.log(file);
-  }, [file]);
 
   async function convertCsvFileToJson(file: File, type: string) {
     try {

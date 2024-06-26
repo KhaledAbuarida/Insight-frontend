@@ -49,6 +49,11 @@ const AppHeader = () => {
     setAnchorElUser(null);
   };
 
+  const handleProfile = () => {
+    navigate("/profile");
+    handleCloseUserMenu();
+  };
+
   const handleLogout = () => {
     logout();
     deleteFile();
@@ -159,7 +164,7 @@ const AppHeader = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem onClick={handleCloseUserMenu}>
+              <MenuItem onClick={handleProfile}>
                 <Typography textAlign="center">Profile</Typography>
               </MenuItem>
               <MenuItem onClick={handleLogout}>
