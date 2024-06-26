@@ -15,6 +15,7 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { INavType } from "../types/navLinksType";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
+import { useData } from "../contexts/DataContext/DataContext";
 
 const navLinks: INavType[] = [
   { page: "Visualize Data", path: "/visualize" },
@@ -31,6 +32,7 @@ const AppHeader = () => {
 
   // context
   const { logout } = useAuth();
+  const { deleteFile } = useData();
 
   // navigation
   const navigate = useNavigate();
@@ -49,13 +51,13 @@ const AppHeader = () => {
 
   const handleLogout = () => {
     logout();
+    deleteFile();
     navigate("/");
+
     handleCloseUserMenu();
   };
 
   const handleClickLink = (link: INavType) => {
-    console.log(link.path);
-    console.log(location.pathname);
     setCurrentPage(link);
     navigate(link.path);
   };

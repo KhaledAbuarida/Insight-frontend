@@ -3,31 +3,32 @@ import { DataContext } from "./DataContext";
 
 const DATA_KEY = "data";
 const FILE_KEY = "file";
+const HEADERS_KEY = "headers";
 
 const DataProvider: FC<PropsWithChildren> = ({ children }) => {
   // states
-  const [data, setData] = useState<any[] | null>(() => {
+  const [data, setData] = useState<any | null>(() => {
     const savedData = localStorage.getItem(DATA_KEY);
     return savedData ? JSON.parse(savedData) : null;
   });
-
-  const [headers, setHeaders] = useState<any[]>([]);
 
   const [file, setFile] = useState<File | null>(() => {
     const savedFile = localStorage.getItem(FILE_KEY);
     return savedFile ? JSON.parse(savedFile) : null;
   });
 
+  const [headers, setHeaders] = useState<any[] | null>(() => {
+    const savedData = localStorage.getItem(HEADERS_KEY);
+    return savedData ? JSON.parse(savedData) : null;
+  });
+  const [dataType, setDataType] = useState<string>("");
+
   const isDataUploaded = !!data;
 
-  const worker = new Worker(new URL("./worker.js", import.meta.url));
-
-  const addData = (data: any[]) => {
+  const addData = (data: any) => {
     setData(data);
-    worker.postMessage(data);
-    worker.onmessage = (e) => {
-      localStorage.setItem(DATA_KEY, e.data);
-    };
+
+    localStorage.setItem(DATA_KEY, JSON.stringify(data));
   };
 
   const addHeaders = (data: any[]) => {
@@ -36,27 +37,26 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
       return { field: lowercaseItem, headerName: i, width: 150 };
     });
     setHeaders(factoredData);
+    localStorage.setItem(HEADERS_KEY, JSON.stringify(factoredData));
+  };
+
+  const addDataType = (type: string) => {
+    setDataType(type);
   };
 
   const uploadFile = (file: File) => {
     setFile(file);
-    const fileData = {
-      name: file.name,
-      size: file.size,
-      type: file.type,
-      lastModified: file.lastModified,
-    };
-    worker.postMessage(fileData);
-    worker.onmessage = (e) => {
-      localStorage.setItem(FILE_KEY, e.data);
-    };
+    localStorage.setItem(FILE_KEY, JSON.stringify(file));
   };
 
   const deleteFile = () => {
     setFile(null);
     setData(null);
+    setDataType("");
+    setHeaders(null);
     localStorage.removeItem(FILE_KEY);
     localStorage.removeItem(DATA_KEY);
+    localStorage.removeItem(HEADERS_KEY);
   };
 
   return (
@@ -66,6 +66,8 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
         headers,
         isDataUploaded,
         file,
+        dataType,
+        addDataType,
         uploadFile,
         deleteFile,
         addData,

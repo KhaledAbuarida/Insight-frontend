@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import csvtojson from "csvtojson";
 import {
@@ -9,6 +9,10 @@ import {
   List,
   ListItem,
   ListItemText,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
 import { MdOutlineFileUpload } from "react-icons/md";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -17,9 +21,16 @@ import { useData } from "../contexts/DataContext/DataContext";
 const DropZone = () => {
   const [uploadState, setUploadState] = useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(true);
-  const { addHeaders, addData, file, uploadFile, deleteFile } = useData();
+  const [open, setOpen] = useState<boolean>(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const { addHeaders, addData, file, addDataType, uploadFile, deleteFile } =
+    useData();
 
-  async function convertCsvFileToJson(file: File): Promise<void> {
+  useEffect(() => {
+    console.log(file);
+  }, [file]);
+
+  async function convertCsvFileToJson(file: File, type: string) {
     try {
       setUploadState(true);
 
@@ -57,18 +68,27 @@ const DropZone = () => {
     }
   }
 
-  const onDrop = useCallback(async (acceptedFiles: File[]) => {
+  const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
-      await convertCsvFileToJson(acceptedFiles[0]);
+      setSelectedFile(acceptedFiles[0]);
+      setOpen(true);
     }
   }, []);
+
+  const handleClose = (type: string) => {
+    addDataType(type);
+    setOpen(false);
+    if (selectedFile) {
+      convertCsvFileToJson(selectedFile, type);
+    }
+  };
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: {
       "text/csv": [".csv"],
     },
-    maxFiles: 1, // Allow only one file
+    maxFiles: 1,
   });
 
   const readFileAsText = (file: File): Promise<string> => {
@@ -88,8 +108,6 @@ const DropZone = () => {
 
   const handleUploadState = () => {
     setLoader(false);
-
-    // Navigating to /dataset
     setTimeout(() => {
       // navigate("/dataset");
     }, 1000);
@@ -98,7 +116,6 @@ const DropZone = () => {
   const handleDeleteFile = () => {
     deleteFile();
     setUploadState(false);
-    // Optionally, you can also clear corresponding data and headers here
   };
 
   return (
@@ -161,8 +178,11 @@ const DropZone = () => {
       </div>
       {file && (
         <List>
-          <ListItem key={file.name}>
-            <ListItemText primary={file.name} />
+          <ListItem
+            key={file.path}
+            sx={{ display: "flex", justifyContent: "space-between" }}
+          >
+            {file.path}
             <Button
               variant="contained"
               color="secondary"
@@ -173,6 +193,29 @@ const DropZone = () => {
           </ListItem>
         </List>
       )}
+
+      <Dialog open={open} onClose={() => setOpen(false)}>
+        <DialogTitle>Data Type</DialogTitle>
+        <DialogContent>
+          <Typography>Is the data numerical or categorical?</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => handleClose("numerical")}
+            color="primary"
+            variant="contained"
+          >
+            Numerical
+          </Button>
+          <Button
+            onClick={() => handleClose("categorical")}
+            color="primary"
+            variant="contained"
+          >
+            Categorical
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

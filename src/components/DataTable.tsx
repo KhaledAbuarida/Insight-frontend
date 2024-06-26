@@ -30,8 +30,8 @@ const DataTable = () => {
         </Grid>
       </Grid>
       <DataGrid
-        rows={data}
-        columns={headers}
+        rows={data || []}
+        columns={headers || []}
         initialState={{
           pagination: {
             paginationModel: {
