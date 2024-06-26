@@ -1,4 +1,4 @@
-import { Alert, Box, Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import DropZone from "../components/DropZone";
 
 const UploadPage = () => {
