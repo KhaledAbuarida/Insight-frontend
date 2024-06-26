@@ -77,11 +77,7 @@ const LandingPage = () => {
             gap={8}
           >
             <Grid container item gap={2}>
-              <Typography
-                variant="h3"
-                sx={{ fontWeight: "bold", color: "#1944FE" }}
-                width={20}
-              >
+              <Typography variant="h3" sx={{ fontWeight: "bold" }} width={20}>
                 Beautiful Visualizations
               </Typography>
               <Typography variant="h6" color="gray" noWrap={false}>

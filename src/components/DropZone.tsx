@@ -1,61 +1,65 @@
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import csvtojson from "csvtojson";
-import { CircularProgress, Grid, Typography } from "@mui/material";
+import {
+  CircularProgress,
+  Grid,
+  Typography,
+  Button,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
 import { MdOutlineFileUpload } from "react-icons/md";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { useNavigate } from "react-router-dom";
 import { useData } from "../contexts/DataContext/DataContext";
 
 const DropZone = () => {
   const [uploadState, setUploadState] = useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(true);
-  const navigate = useNavigate();
-  const { data, headers, addHeaders, addData } = useData();
+  const { addHeaders, addData, file, uploadFile, deleteFile } = useData();
 
-  async function convertCsvFilesToJson(files: File[]): Promise<void> {
+  async function convertCsvFileToJson(file: File): Promise<void> {
     try {
       setUploadState(true);
 
-      const csvFiles = files.filter((file: any) => file.type === "text/csv");
+      if (file.type !== "text/csv") {
+        throw new Error("Only CSV files are allowed");
+      }
 
-      const jsonArrayPromises = csvFiles.map(async (csvFile) => {
-        const csvString: string = await readFileAsText(csvFile);
-        let jsonArray = await csvtojson().fromString(csvString);
+      const csvString: string = await readFileAsText(file);
+      let jsonArray = await csvtojson().fromString(csvString);
 
-        jsonArray = jsonArray.map((data: any) => {
-          const newData: any = {};
-          for (const key in data) {
-            if (Object.hasOwnProperty.call(data, key)) {
-              newData[key.toLowerCase()] = data[key];
-            }
+      jsonArray = jsonArray.map((data: any) => {
+        const newData: any = {};
+        for (const key in data) {
+          if (Object.hasOwnProperty.call(data, key)) {
+            newData[key.toLowerCase()] = data[key];
           }
-          return newData;
-        });
-
-        if (!jsonArray[0].hasOwnProperty("id")) {
-          jsonArray = jsonArray.map((data: any, index: number) => ({
-            id: index + 1,
-            ...data,
-          }));
         }
-
-        addHeaders(Object.keys(jsonArray[0]));
-        addData(jsonArray);
+        return newData;
       });
 
-      await Promise.all(jsonArrayPromises);
+      if (!jsonArray[0].hasOwnProperty("id")) {
+        jsonArray = jsonArray.map((data: any, index: number) => ({
+          id: index + 1,
+          ...data,
+        }));
+      }
+
+      addHeaders(Object.keys(jsonArray[0]));
+      addData(jsonArray);
+
+      uploadFile(file);
       handleUploadState();
     } catch (error) {
-      console.error("Error converting CSV files to JSON:", error);
+      console.error("Error converting CSV file to JSON:", error);
     }
   }
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
-    try {
-      await convertCsvFilesToJson(acceptedFiles);
-    } catch (error) {
-      console.error(error);
+    if (acceptedFiles.length > 0) {
+      await convertCsvFileToJson(acceptedFiles[0]);
     }
   }, []);
 
@@ -64,6 +68,7 @@ const DropZone = () => {
     accept: {
       "text/csv": [".csv"],
     },
+    maxFiles: 1, // Allow only one file
   });
 
   const readFileAsText = (file: File): Promise<string> => {
@@ -82,13 +87,18 @@ const DropZone = () => {
   };
 
   const handleUploadState = () => {
-    // setUploadState(true);
     setLoader(false);
 
     // Navigating to /dataset
     setTimeout(() => {
-      navigate("/dataset");
+      // navigate("/dataset");
     }, 1000);
+  };
+
+  const handleDeleteFile = () => {
+    deleteFile();
+    setUploadState(false);
+    // Optionally, you can also clear corresponding data and headers here
   };
 
   return (
@@ -149,14 +159,20 @@ const DropZone = () => {
           </Grid>
         </Grid>
       </div>
-      {/* <div>
-        <h2>Converted JSON Data</h2>
-        <pre>{JSON.stringify(data, null, 2)}</pre>
-      </div>
-      <div>
-        <h2>CSV Headers</h2>
-        <pre>{JSON.stringify(headers, null, 2)}</pre>
-      </div> */}
+      {file && (
+        <List>
+          <ListItem key={file.name}>
+            <ListItemText primary={file.name} />
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={handleDeleteFile}
+            >
+              Delete
+            </Button>
+          </ListItem>
+        </List>
+      )}
     </div>
   );
 };

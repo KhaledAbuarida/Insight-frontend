@@ -18,7 +18,7 @@ const DataTable = () => {
         <Grid>
           <Button variant="contained">
             <NavLink
-              to="/home"
+              to="/visualize"
               style={{
                 textDecoration: "none",
                 color: "inherit",

@@ -5,6 +5,9 @@ interface DataContextType {
   data: any[] | null;
   headers: any[];
   isDataUploaded: boolean;
+  file: File | null;
+  uploadFile: (file: File) => void;
+  deleteFile: () => void;
   addData: (data: any[]) => void;
   addHeaders: (data: any[]) => void;
 }
@@ -14,6 +17,9 @@ export const DataContext = createContext<DataContextType>({
   data: null,
   headers: [],
   isDataUploaded: false,
+  file: null,
+  uploadFile: () => {},
+  deleteFile: () => {},
   addData: () => {},
   addHeaders: () => {},
 });
