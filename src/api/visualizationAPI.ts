@@ -35,3 +35,27 @@ export const HistogramAPI = async (id: number, x: string) => {
   const data = await response.json();
   return data;
 };
+
+export const pieChartAPI = async (
+  id: number,
+  values: string,
+  names: string
+) => {
+  const response = await fetch(
+    `${API_BASE_URL}/visualization/create-pie-chart`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+        values,
+        names,
+      }),
+    }
+  );
+
+  const data = await response.json();
+  return data;
+};

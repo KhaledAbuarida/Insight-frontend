@@ -3,7 +3,7 @@ import { IGraphType } from "../types/graphsTypes";
 import { useState } from "react";
 import { useGraph } from "../contexts/GraphContext/GraphContext";
 import { useData } from "../contexts/DataContext/DataContext";
-import { HistogramAPI } from "../api/visualizationAPI";
+import { HistogramAPI, pieChartAPI } from "../api/visualizationAPI";
 import { Histogram } from "../utils/jsonGraphs";
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 const GraphType = ({ TypeRef }: Props) => {
   // contexts
   const { selectGraphType, graphType, renderGraph } = useGraph();
-  const { dataId, columnPicker } = useData();
+  const { dataId, columnPicker, rowPicker } = useData();
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -27,21 +27,34 @@ const GraphType = ({ TypeRef }: Props) => {
   };
 
   const handleChooseGraph = async () => {
+    selectGraphType(TypeRef.name);
     if (!dataId) {
       return;
     }
     if (!columnPicker) {
       return;
     }
+
     if (TypeRef.name === "Histogram") {
       const { data } = await HistogramAPI(dataId, columnPicker);
       const { histogram } = data;
 
       const histogramJson = JSON.parse(histogram);
       renderGraph(histogramJson);
+      return;
     }
 
-    selectGraphType(TypeRef.name);
+    if (!rowPicker) {
+      return;
+    }
+
+    if (TypeRef.name === "PieChart") {
+      const { data } = await pieChartAPI(dataId, columnPicker, rowPicker);
+      const { piechart } = data;
+      const piechartJson = JSON.parse(`${piechart}`);
+      renderGraph(piechartJson);
+      return;
+    }
   };
 
   return (

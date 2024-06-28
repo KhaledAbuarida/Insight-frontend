@@ -3,6 +3,7 @@ import { DataContext } from "./DataContext";
 
 const DATA_KEY = "data";
 const DATAID_KEY = "data_id";
+const DATATYPE_KEY = "data_type";
 const FILE_KEY = "file";
 const NUMERICAL_HEADERS_KEY = "numerical_headers";
 const CATEGORICAL_HEADERS_KEY = "categorical_headers";
@@ -30,7 +31,11 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
       return savedData ? JSON.parse(savedData) : null;
     }
   );
-  const [dataType, setDataType] = useState<string>("");
+  const [dataType, setDataType] = useState<string>(() => {
+    const savedFile = localStorage.getItem(DATATYPE_KEY);
+    return savedFile ? JSON.parse(savedFile) : null;
+  });
+
   const [dataId, setDataId] = useState<number | null>(() => {
     const savedFile = localStorage.getItem(DATAID_KEY);
     return savedFile ? JSON.parse(savedFile) : null;
@@ -79,6 +84,7 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const addDataType = (type: string) => {
     setDataType(type);
+    localStorage.setItem(DATATYPE_KEY, type);
   };
 
   const addFileTitle = (file: any) => {
@@ -96,6 +102,7 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
     localStorage.removeItem(FILE_KEY);
     localStorage.removeItem(DATA_KEY);
     localStorage.removeItem(DATAID_KEY);
+    localStorage.removeItem(DATATYPE_KEY);
     localStorage.removeItem(NUMERICAL_HEADERS_KEY);
     localStorage.removeItem(CATEGORICAL_HEADERS_KEY);
   };
