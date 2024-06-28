@@ -2,6 +2,9 @@ import { Box, IconButton } from "@mui/material";
 import { IGraphType } from "../types/graphsTypes";
 import { useState } from "react";
 import { useGraph } from "../contexts/GraphContext/GraphContext";
+import { useData } from "../contexts/DataContext/DataContext";
+import { HistogramAPI } from "../api/visualizationAPI";
+import { Histogram } from "../utils/jsonGraphs";
 
 interface Props {
   TypeRef: IGraphType;
@@ -9,7 +12,8 @@ interface Props {
 
 const GraphType = ({ TypeRef }: Props) => {
   // contexts
-  const { selectGraphType, graphType } = useGraph();
+  const { selectGraphType, graphType, renderGraph } = useGraph();
+  const { dataId, columnPicker } = useData();
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -22,7 +26,21 @@ const GraphType = ({ TypeRef }: Props) => {
     setIsHovered(false);
   };
 
-  const handleChooseGraph = () => {
+  const handleChooseGraph = async () => {
+    if (!dataId) {
+      return;
+    }
+    if (!columnPicker) {
+      return;
+    }
+    if (TypeRef.name === "Histogram") {
+      const { data } = await HistogramAPI(dataId, columnPicker);
+      const { histogram } = data;
+
+      const histogramJson = JSON.parse(histogram);
+      renderGraph(histogramJson);
+    }
+
     selectGraphType(TypeRef.name);
   };
 

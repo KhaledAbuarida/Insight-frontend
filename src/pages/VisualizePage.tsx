@@ -10,24 +10,24 @@ const VisualizePage = () => {
   // contexts
   const { graph, graphType, renderGraph } = useGraph();
 
-  useEffect(() => {
-    const type = graphsTypes.find((type) => type.name === graphType);
+  // useEffect(() => {
+  //   const type = graphsTypes.find((type) => type.name === graphType);
 
-    const graphJson: any = graphs.find((graph: any) => {
-      if (type?.plotly === "scattergl") {
-        if (graph.data[0].mode === "markers") {
-          return graph;
-        }
-      } else if (type?.plotly === "line") {
-        if (graph.data[0].mode === "markers+lines") {
-          return graph;
-        }
-      } else {
-        return graph.data[0].type === type?.plotly;
-      }
-    });
-    renderGraph(graphJson);
-  }, [graphType]);
+  //   const graphJson: any = graphs.find((graph: any) => {
+  //     if (type?.plotly === "scattergl") {
+  //       if (graph.data[0].mode === "markers") {
+  //         return graph;
+  //       }
+  //     } else if (type?.plotly === "line") {
+  //       if (graph.data[0].mode === "markers+lines") {
+  //         return graph;
+  //       }
+  //     } else {
+  //       return graph.data[0].type === type?.plotly;
+  //     }
+  //   });
+  //   renderGraph(graphJson);
+  // }, [graphType]);
 
   return (
     <Box sx={{ mt: "60px" }}>

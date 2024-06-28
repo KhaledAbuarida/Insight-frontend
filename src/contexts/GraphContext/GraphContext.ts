@@ -1,9 +1,9 @@
 import { createContext, useContext } from "react";
 
 interface graphContextType {
-  graph: string | null;
+  graph: any | null;
   graphType: string | null;
-  renderGraph: (graphJson: string) => void;
+  renderGraph: (graphJson: any) => void;
   selectGraphType: (type: string) => void;
 }
 

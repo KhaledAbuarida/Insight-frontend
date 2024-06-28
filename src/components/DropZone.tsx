@@ -1,6 +1,5 @@
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import csvtojson from "csvtojson";
 import {
   CircularProgress,
   Grid,
@@ -48,8 +47,13 @@ const DropZone = () => {
       return;
     }
 
-    const { preprocessed_data, categorical_columns, numerical_columns, title } =
-      await preprocessingAPI(selectedFile);
+    const {
+      preprocessed_data,
+      categorical_columns,
+      numerical_columns,
+      title,
+      id,
+    } = await preprocessingAPI(selectedFile);
 
     // adding file title
     addFileTitle(title);
@@ -58,7 +62,7 @@ const DropZone = () => {
     addHeaders(JSON.parse(numerical_columns), JSON.parse(categorical_columns));
 
     // setting the data
-    addData(JSON.parse(preprocessed_data));
+    addData(JSON.parse(preprocessed_data), id);
 
     // setting the loader off
     setLoader(false);
@@ -71,21 +75,6 @@ const DropZone = () => {
     },
     maxFiles: 1,
   });
-
-  const readFileAsText = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        if (event.target) {
-          resolve(event.target.result as string);
-        }
-      };
-      reader.onerror = (error) => {
-        reject(error);
-      };
-      reader.readAsText(file);
-    });
-  };
 
   const handleDeleteFile = () => {
     deleteFile();
@@ -175,18 +164,18 @@ const DropZone = () => {
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={() => handleClose("numerical")}
+            onClick={() => handleClose("numeric")}
             color="primary"
             variant="contained"
           >
-            Numerical
+            Numeric
           </Button>
           <Button
-            onClick={() => handleClose("categorical")}
+            onClick={() => handleClose("text")}
             color="primary"
             variant="contained"
           >
-            Categorical
+            Text
           </Button>
         </DialogActions>
       </Dialog>

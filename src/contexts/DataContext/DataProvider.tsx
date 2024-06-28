@@ -2,6 +2,7 @@ import { FC, PropsWithChildren, useState } from "react";
 import { DataContext } from "./DataContext";
 
 const DATA_KEY = "data";
+const DATAID_KEY = "data_id";
 const FILE_KEY = "file";
 const NUMERICAL_HEADERS_KEY = "numerical_headers";
 const CATEGORICAL_HEADERS_KEY = "categorical_headers";
@@ -30,13 +31,21 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   );
   const [dataType, setDataType] = useState<string>("");
+  const [dataId, setDataId] = useState<number | null>(() => {
+    const savedFile = localStorage.getItem(DATAID_KEY);
+    return savedFile ? JSON.parse(savedFile) : null;
+  });
+
+  const [columnPicker, setColumnPicker] = useState<string | null>(null);
+  const [rowPicker, setRowPicker] = useState<string | null>(null);
 
   const isDataUploaded = !!data;
 
-  const addData = (data: any) => {
+  const addData = (data: any, dataId: number) => {
     setData(data);
-
+    setDataId(dataId);
     localStorage.setItem(DATA_KEY, JSON.stringify(data));
+    localStorage.setItem(DATAID_KEY, JSON.stringify(dataId));
   };
 
   const addHeaders = (num_data: any[], cat_data: any[]) => {
@@ -60,6 +69,14 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
     );
   };
 
+  const addColumnPicker = (column: string) => {
+    setColumnPicker(column);
+  };
+
+  const addRowPicker = (row: string) => {
+    setRowPicker(row);
+  };
+
   const addDataType = (type: string) => {
     setDataType(type);
   };
@@ -75,8 +92,10 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
     setDataType("");
     setNumericalHeaders(null);
     setCategoricalHeaders(null);
+    setDataId(null);
     localStorage.removeItem(FILE_KEY);
     localStorage.removeItem(DATA_KEY);
+    localStorage.removeItem(DATAID_KEY);
     localStorage.removeItem(NUMERICAL_HEADERS_KEY);
     localStorage.removeItem(CATEGORICAL_HEADERS_KEY);
   };
@@ -85,12 +104,17 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
     <DataContext.Provider
       value={{
         data,
+        dataId,
+        columnPicker,
+        rowPicker,
         numericalHeaders,
         categoricalHeaders,
         isDataUploaded,
         fileTitle,
         dataType,
         addDataType,
+        addColumnPicker,
+        addRowPicker,
         addFileTitle,
         deleteFile,
         addData,

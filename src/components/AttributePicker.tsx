@@ -6,26 +6,54 @@ import {
   SelectChangeEvent,
   Grid,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useData } from "../contexts/DataContext/DataContext";
+import { filterAPI } from "../api/visualizationAPI";
 
 export const AttributesPicker = () => {
-  const [column, setColumn] = useState<string | null>(null);
-  const [row, setRow] = useState<string | null>(null);
-  const { numericalHeaders, categoricalHeaders } = useData();
+  // states
+
+  // contexts
+  const {
+    numericalHeaders,
+    categoricalHeaders,
+    dataId,
+    columnPicker,
+    addColumnPicker,
+    rowPicker,
+    addRowPicker,
+  } = useData();
 
   const headers = [...(numericalHeaders || []), ...(categoricalHeaders || [])];
 
   const handleColumnChange = (event: SelectChangeEvent) => {
-    setColumn(event.target.value);
+    addColumnPicker(event.target.value);
   };
   const handleRowChange = (event: SelectChangeEvent) => {
-    setRow(event.target.value);
+    addRowPicker(event.target.value);
   };
 
   if (!numericalHeaders || !categoricalHeaders) {
     return;
   }
+
+  useEffect(() => {
+    const fetchFilter = async () => {
+      if (!dataId) {
+        return;
+      }
+      if (!columnPicker) {
+        return;
+      }
+      if (!rowPicker) {
+        return;
+      }
+
+      await filterAPI(dataId, columnPicker, rowPicker);
+    };
+
+    fetchFilter();
+  }, [columnPicker, rowPicker]);
 
   return (
     <Grid container spacing={2}>
@@ -44,7 +72,7 @@ export const AttributesPicker = () => {
           <Select
             labelId="select-columns"
             id="column"
-            value={column || ""}
+            value={columnPicker || ""}
             label="column"
             onChange={handleColumnChange}
             sx={{ borderRadius: "5px" }}
@@ -75,7 +103,7 @@ export const AttributesPicker = () => {
           <Select
             labelId="select-rows"
             id="row"
-            value={row || ""}
+            value={rowPicker || ""}
             label="row"
             onChange={handleRowChange}
             sx={{ borderRadius: "5px" }}

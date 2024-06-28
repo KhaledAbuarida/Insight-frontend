@@ -2,10 +2,10 @@ import { FC, PropsWithChildren, useState } from "react";
 import { GraphContext } from "./GraphContext";
 
 const GraphProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [graph, setGraph] = useState<string | null>(null);
+  const [graph, setGraph] = useState<any | null>(null);
   const [graphType, setGraphType] = useState<string | null>(null);
 
-  const renderGraph = (graphJson: string) => {
+  const renderGraph = (graphJson: any) => {
     setGraph(graphJson);
   };
 
