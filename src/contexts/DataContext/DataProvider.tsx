@@ -3,7 +3,8 @@ import { DataContext } from "./DataContext";
 
 const DATA_KEY = "data";
 const FILE_KEY = "file";
-const HEADERS_KEY = "headers";
+const NUMERICAL_HEADERS_KEY = "numerical_headers";
+const CATEGORICAL_HEADERS_KEY = "categorical_headers";
 
 const DataProvider: FC<PropsWithChildren> = ({ children }) => {
   // states
@@ -12,39 +13,50 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
     return savedData ? JSON.parse(savedData) : null;
   });
 
-  const [file, setFile] = useState<File | null>(() => {
+  const [file, setFile] = useState<any | null>(() => {
     const savedFile = localStorage.getItem(FILE_KEY);
     return savedFile ? JSON.parse(savedFile) : null;
   });
 
-  const [headers, setHeaders] = useState<any[] | null>(() => {
-    const savedData = localStorage.getItem(HEADERS_KEY);
+  const [numericalHeaders, setNumericalHeaders] = useState<any[] | null>(() => {
+    const savedData = localStorage.getItem(NUMERICAL_HEADERS_KEY);
     return savedData ? JSON.parse(savedData) : null;
   });
+
+  const [categoricalHeaders, setCategoricalHeaders] = useState<any[] | null>(
+    () => {
+      const savedData = localStorage.getItem(CATEGORICAL_HEADERS_KEY);
+      return savedData ? JSON.parse(savedData) : null;
+    }
+  );
   const [dataType, setDataType] = useState<string>("");
 
   const isDataUploaded = !!data;
 
   const addData = (data: any) => {
     setData(data);
+    console.log("from addData function", data);
 
     localStorage.setItem(DATA_KEY, JSON.stringify(data));
   };
 
-  const addHeaders = (data: any[]) => {
-    const factoredData = data.map((i) => {
-      const lowercaseItem = i.toLowerCase();
-      return { field: lowercaseItem, headerName: i, width: 150 };
-    });
-    setHeaders(factoredData);
-    localStorage.setItem(HEADERS_KEY, JSON.stringify(factoredData));
+  const addHeaders = (num_data: any[], cat_data: any[]) => {
+    // const factoredData = num_data.map((i) => {
+    //   const lowercaseItem = i.toLowerCase();
+    //   return { field: lowercaseItem, headerName: i, width: 150 };
+    // });
+
+    setNumericalHeaders(num_data);
+    setCategoricalHeaders(cat_data);
+    localStorage.setItem(NUMERICAL_HEADERS_KEY, JSON.stringify(num_data));
+    localStorage.setItem(CATEGORICAL_HEADERS_KEY, JSON.stringify(cat_data));
   };
 
   const addDataType = (type: string) => {
     setDataType(type);
   };
 
-  const uploadFile = (file: File) => {
+  const uploadFile = (file: any) => {
     setFile(file);
     localStorage.setItem(FILE_KEY, JSON.stringify(file));
   };
@@ -53,17 +65,20 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
     setFile(null);
     setData(null);
     setDataType("");
-    setHeaders(null);
+    setNumericalHeaders(null);
+    setCategoricalHeaders(null);
     localStorage.removeItem(FILE_KEY);
     localStorage.removeItem(DATA_KEY);
-    localStorage.removeItem(HEADERS_KEY);
+    localStorage.removeItem(NUMERICAL_HEADERS_KEY);
+    localStorage.removeItem(CATEGORICAL_HEADERS_KEY);
   };
 
   return (
     <DataContext.Provider
       value={{
         data,
-        headers,
+        numericalHeaders,
+        categoricalHeaders,
         isDataUploaded,
         file,
         dataType,

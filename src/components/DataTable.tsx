@@ -4,8 +4,9 @@ import { NavLink } from "react-router-dom";
 import { useData } from "../contexts/DataContext/DataContext";
 
 const DataTable = () => {
-  const { data, headers } = useData();
+  const { data, numericalHeaders, categoricalHeaders } = useData();
 
+  // const headers = [...(numericalHeaders || []), ...(categoricalHeaders || [])];
   return (
     <Box pt="100px">
       <Grid container justifyContent="space-between">
@@ -31,7 +32,7 @@ const DataTable = () => {
       </Grid>
       <DataGrid
         rows={data || []}
-        columns={headers || []}
+        columns={numericalHeaders || []}
         initialState={{
           pagination: {
             paginationModel: {
@@ -43,6 +44,7 @@ const DataTable = () => {
         autoHeight
         checkboxSelection
         disableRowSelectionOnClick
+        getRowId={(data) => data.customerID}
       />
     </Box>
   );

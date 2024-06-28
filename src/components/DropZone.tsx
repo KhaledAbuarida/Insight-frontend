@@ -16,6 +16,7 @@ import {
 import { MdOutlineFileUpload } from "react-icons/md";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useData } from "../contexts/DataContext/DataContext";
+import { preprocessingAPI } from "../api/dataAPI";
 
 const DropZone = () => {
   const [uploadState, setUploadState] = useState<boolean>(false);
@@ -25,13 +26,9 @@ const DropZone = () => {
   const { addHeaders, addData, file, addDataType, uploadFile, deleteFile } =
     useData();
 
-  async function convertCsvFileToJson(file: File, type: string) {
+  async function convertCsvFileToJson(file: any, type: string) {
     try {
       setUploadState(true);
-
-      if (file.type !== "text/csv") {
-        throw new Error("Only CSV files are allowed");
-      }
 
       const csvString: string = await readFileAsText(file);
       let jsonArray = await csvtojson().fromString(csvString);
@@ -53,10 +50,7 @@ const DropZone = () => {
         }));
       }
 
-      addHeaders(Object.keys(jsonArray[0]));
-      addData(jsonArray);
-
-      uploadFile(file);
+      console.log(jsonArray);
       handleUploadState();
     } catch (error) {
       console.error("Error converting CSV file to JSON:", error);
@@ -70,12 +64,39 @@ const DropZone = () => {
     }
   }, []);
 
-  const handleClose = (type: string) => {
+  const handleClose = async (type: string) => {
     addDataType(type);
     setOpen(false);
-    if (selectedFile) {
-      convertCsvFileToJson(selectedFile, type);
+
+    if (!selectedFile) {
+      return;
     }
+
+    const { preprocessed_data, categorical_columns, numerical_columns, title } =
+      await preprocessingAPI(selectedFile);
+
+    let jsonArray = [...preprocessed_data];
+
+    jsonArray = jsonArray.map((data: any) => {
+      const newData: any = {};
+      for (const key in data) {
+        if (Object.hasOwnProperty.call(data, key)) {
+          newData[key.toLowerCase()] = data[key];
+        }
+      }
+      return newData;
+    });
+
+    if (!jsonArray[0].hasOwnProperty("id")) {
+      jsonArray = jsonArray.map((data: any, index: number) => ({
+        id: index + 1,
+        ...data,
+      }));
+    }
+    console.log(jsonArray);
+
+    addHeaders(numerical_columns, categorical_columns);
+    // addData(preprocessed_data);
   };
 
   const { getRootProps, getInputProps } = useDropzone({
