@@ -40,8 +40,9 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
     return savedFile ? JSON.parse(savedFile) : null;
   });
 
-  const [columnPicker, setColumnPicker] = useState<string | null>(null);
-  const [rowPicker, setRowPicker] = useState<string | null>(null);
+  const [columnPicker, setColumnPicker] = useState<string>("");
+  const [rowPicker, setRowPicker] = useState<string>("");
+  const [availableGraphs, setAvailableGraphs] = useState<string[]>([]);
 
   const isDataUploaded = !!data;
 
@@ -106,6 +107,11 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
     localStorage.removeItem(CATEGORICAL_HEADERS_KEY);
   };
 
+  const addAvailableGraphs = (list: string[]) => {
+    console.log(list);
+    setAvailableGraphs(list);
+  };
+
   return (
     <DataContext.Provider
       value={{
@@ -118,6 +124,7 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
         isDataUploaded,
         fileTitle,
         dataType,
+        availableGraphs,
         addDataType,
         addColumnPicker,
         addRowPicker,
@@ -125,6 +132,7 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
         deleteFile,
         addData,
         addHeaders,
+        addAvailableGraphs,
       }}
     >
       {children}

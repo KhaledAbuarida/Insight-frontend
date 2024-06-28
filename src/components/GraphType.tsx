@@ -19,7 +19,7 @@ interface Props {
 const GraphType = ({ TypeRef }: Props) => {
   // contexts
   const { selectGraphType, graphType, renderGraph } = useGraph();
-  const { dataId, columnPicker, rowPicker } = useData();
+  const { dataId, columnPicker, rowPicker, availableGraphs } = useData();
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -65,7 +65,6 @@ const GraphType = ({ TypeRef }: Props) => {
     if (TypeRef.name === "LineChart") {
       const { data } = await lineChartAPI(dataId, columnPicker, rowPicker);
       const { linechart } = data;
-
       const linechartJson = JSON.parse(`${linechart}`);
       renderGraph(linechartJson);
       return;
@@ -96,16 +95,20 @@ const GraphType = ({ TypeRef }: Props) => {
     }
   };
 
+  // check if the current graph type is available
+  const isAvailable = availableGraphs.includes(TypeRef.filter);
+
   return (
     <Box
       sx={{
-        backgroundColor: graphType === TypeRef.name ? "#387ADF" : "#B7C9F2",
+        backgroundColor: graphType === TypeRef.name ? "#387ADF" : "gray",
         width: "50px",
         height: "50px",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         borderRadius: "5px",
+        border: isAvailable ? "3px solid skyblue" : null,
       }}
     >
       <IconButton
@@ -114,9 +117,10 @@ const GraphType = ({ TypeRef }: Props) => {
         onClick={handleChooseGraph}
         sx={{
           transition: "transform 0.3s",
-          transform: isHovered ? "scale(1.3)" : "scale(1)",
-          color: graphType === TypeRef.name ? "#FFD23F" : "gray",
+          transform: isHovered && isAvailable ? "scale(1.3)" : "scale(1)",
+          color: graphType === TypeRef.name ? "#FFD23F" : "black",
         }}
+        disabled={!isAvailable} // disable the button if the graph type is not available
       >
         {<TypeRef.icon size={25} />}
       </IconButton>

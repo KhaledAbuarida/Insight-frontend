@@ -22,6 +22,7 @@ export const AttributesPicker = () => {
     addColumnPicker,
     rowPicker,
     addRowPicker,
+    addAvailableGraphs,
   } = useData();
 
   const headers = [...(numericalHeaders || []), ...(categoricalHeaders || [])];
@@ -33,23 +34,21 @@ export const AttributesPicker = () => {
     addRowPicker(event.target.value);
   };
 
-  if (!numericalHeaders || !categoricalHeaders) {
-    return;
-  }
+  // if (!numericalHeaders || !categoricalHeaders) {
+  //   return;
+  // }
 
   useEffect(() => {
     const fetchFilter = async () => {
       if (!dataId) {
         return;
       }
-      if (!columnPicker) {
-        return;
-      }
-      if (!rowPicker) {
-        return;
-      }
 
-      await filterAPI(dataId, columnPicker, rowPicker);
+      const { data } = await filterAPI(dataId, columnPicker, rowPicker);
+      const list = data.valid_charts.results;
+
+      addAvailableGraphs(list);
+      // console.log(data);
     };
 
     fetchFilter();

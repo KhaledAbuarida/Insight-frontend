@@ -5,12 +5,13 @@ interface DataContextType {
   data: any | null;
   dataId: number | null;
   numericalHeaders: any[] | null;
-  columnPicker: string | null;
-  rowPicker: string | null;
+  columnPicker: string;
+  rowPicker: string;
   categoricalHeaders: any[] | null;
   isDataUploaded: boolean;
   fileTitle: string | null;
   dataType: string | null;
+  availableGraphs: string[];
   addDataType: (type: string) => void;
   addColumnPicker: (column: string) => void;
   addRowPicker: (row: string) => void;
@@ -18,19 +19,21 @@ interface DataContextType {
   deleteFile: () => void;
   addData: (data: any, dataId: number) => void;
   addHeaders: (num_data: any[], cat_data: any[]) => void;
+  addAvailableGraphs: (list: string[]) => void;
 }
 
 // Create the context
 export const DataContext = createContext<DataContextType>({
   data: null,
   dataId: null,
-  columnPicker: null,
-  rowPicker: null,
+  columnPicker: "",
+  rowPicker: "",
   numericalHeaders: null,
   categoricalHeaders: null,
   isDataUploaded: false,
   fileTitle: null,
   dataType: null,
+  availableGraphs: [],
   addDataType: () => {},
   addColumnPicker: () => {},
   addRowPicker: () => {},
@@ -38,6 +41,7 @@ export const DataContext = createContext<DataContextType>({
   deleteFile: () => {},
   addData: () => {},
   addHeaders: () => {},
+  addAvailableGraphs: () => {},
 });
 
 export const useData = () => useContext(DataContext);
