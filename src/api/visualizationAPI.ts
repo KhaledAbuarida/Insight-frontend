@@ -59,3 +59,43 @@ export const pieChartAPI = async (
   const data = await response.json();
   return data;
 };
+
+export const lineChartAPI = async (id: number, x: string, y: string) => {
+  const response = await fetch(
+    `${API_BASE_URL}/visualization/create-line-chart`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+        x,
+        y,
+      }),
+    }
+  );
+
+  const data = await response.json();
+  return data;
+};
+
+export const barChartAPI = async (id: number, x: string, y: string) => {
+  const response = await fetch(
+    `${API_BASE_URL}/visualization/create-bar-chart`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+        x,
+        y,
+      }),
+    }
+  );
+
+  const data = await response.json();
+  return data;
+};

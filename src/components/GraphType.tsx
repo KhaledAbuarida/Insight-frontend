@@ -3,7 +3,12 @@ import { IGraphType } from "../types/graphsTypes";
 import { useState } from "react";
 import { useGraph } from "../contexts/GraphContext/GraphContext";
 import { useData } from "../contexts/DataContext/DataContext";
-import { HistogramAPI, pieChartAPI } from "../api/visualizationAPI";
+import {
+  HistogramAPI,
+  barChartAPI,
+  lineChartAPI,
+  pieChartAPI,
+} from "../api/visualizationAPI";
 import { Histogram } from "../utils/jsonGraphs";
 
 interface Props {
@@ -53,6 +58,22 @@ const GraphType = ({ TypeRef }: Props) => {
       const { piechart } = data;
       const piechartJson = JSON.parse(`${piechart}`);
       renderGraph(piechartJson);
+      return;
+    }
+
+    if (TypeRef.name === "LineChart") {
+      const { data } = await lineChartAPI(dataId, columnPicker, rowPicker);
+      const { linechart } = data;
+      const linechartJson = JSON.parse(`${linechart}`);
+      renderGraph(linechartJson);
+      return;
+    }
+
+    if (TypeRef.name === "BarChart") {
+      const { data } = await barChartAPI(dataId, columnPicker, rowPicker);
+      const { barchart } = data;
+      const barchartJson = JSON.parse(`${barchart}`);
+      renderGraph(barchartJson);
       return;
     }
   };
