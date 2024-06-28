@@ -10,23 +10,22 @@ import {
 } from "@mui/material";
 import { MdDashboardCustomize } from "react-icons/md";
 import { useGraph } from "../contexts/GraphContext/GraphContext";
+import { useData } from "../contexts/DataContext/DataContext";
 
 const CustomizeGraph = () => {
   // contexts
-  const { graphType } = useGraph();
+  const {
+    graphType,
+    xlabel,
+    ylabel,
+    changeXLabel,
+    changeYLabel,
+    graphTitle,
+    changeGraphTitle,
+  } = useGraph();
+  const { categoricalHeaders } = useData();
 
-  const [xLabel, setXLabel] = useState<string>("");
-  const [yLabel, setYLabel] = useState<string>("");
-  const [color, setColor] = useState<string>("#3498db");
-  const [numberOfBins, setNumberOfBins] = useState<number>(10);
-  const [lineshape, setLineshape] = useState<string>("linear");
-  const [Barmode, setBarmode] = useState<string>("relative");
-  const [columnToDistribute, setColumnToDistribute] = useState<string>("data");
-  const [normalizationType, setNormalizationType] = useState<string>("none");
-  const [dataPointsToShow, setDataPointsToShow] = useState<string>("all");
-  const [scatterSize, setScatterSize] = useState<number>(5);
-  const [scatterColor, setScatterColor] = useState<string>("");
-  const [scatterSymbols, setScatterSymbols] = useState<string>("");
+  const [columnToDistribute, setColumnToDistribute] = useState("");
 
   if (!graphType) {
     return (
@@ -76,8 +75,8 @@ const CustomizeGraph = () => {
         </InputLabel>
         <TextField
           variant="outlined"
-          // value={title}
-          // onChange={(e) => setTitle(e.target.value)}
+          value={graphTitle}
+          onChange={(e) => changeGraphTitle(e.target.value)}
           fullWidth
           size="small"
           sx={{ backgroundColor: "#e5e5e5", borderRadius: "5px" }}
@@ -92,8 +91,8 @@ const CustomizeGraph = () => {
             </InputLabel>
             <TextField
               variant="outlined"
-              value={xLabel}
-              onChange={(e) => setXLabel(e.target.value)}
+              value={xlabel}
+              onChange={(e) => changeXLabel(e.target.value)}
               fullWidth
               size="small"
               sx={{ backgroundColor: "#e5e5e5", borderRadius: "5px" }}
@@ -106,8 +105,8 @@ const CustomizeGraph = () => {
             </InputLabel>
             <TextField
               variant="outlined"
-              value={yLabel}
-              onChange={(e) => setYLabel(e.target.value)}
+              value={ylabel}
+              onChange={(e) => changeYLabel(e.target.value)}
               fullWidth
               size="small"
               sx={{ backgroundColor: "#e5e5e5", borderRadius: "5px" }}
@@ -129,7 +128,11 @@ const CustomizeGraph = () => {
               size="small"
               sx={{ backgroundColor: "#e5e5e5" }}
             >
-              <MenuItem value="data">data</MenuItem>
+              {categoricalHeaders?.map((column) => (
+                <MenuItem key={column.headerName} value={column.headerName}>
+                  {column.headerName}
+                </MenuItem>
+              ))}
             </Select>
           </Grid>
         </>
@@ -148,7 +151,11 @@ const CustomizeGraph = () => {
               fullWidth
               size="small"
             >
-              <MenuItem value="data">data</MenuItem>
+              {categoricalHeaders?.map((column) => (
+                <MenuItem key={column.headerName} value={column.headerName}>
+                  {column.headerName}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Grid>

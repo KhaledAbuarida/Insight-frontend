@@ -37,7 +37,7 @@ const DataTable = () => {
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 15,
+              pageSize: 18,
             },
           },
         }}

@@ -4,12 +4,13 @@ import { useState } from "react";
 import { useGraph } from "../contexts/GraphContext/GraphContext";
 import { useData } from "../contexts/DataContext/DataContext";
 import {
+  BoxPlotAPI,
   HistogramAPI,
   barChartAPI,
   lineChartAPI,
   pieChartAPI,
+  scatterPlotAPI,
 } from "../api/visualizationAPI";
-import { Histogram } from "../utils/jsonGraphs";
 
 interface Props {
   TypeRef: IGraphType;
@@ -64,6 +65,7 @@ const GraphType = ({ TypeRef }: Props) => {
     if (TypeRef.name === "LineChart") {
       const { data } = await lineChartAPI(dataId, columnPicker, rowPicker);
       const { linechart } = data;
+
       const linechartJson = JSON.parse(`${linechart}`);
       renderGraph(linechartJson);
       return;
@@ -74,6 +76,22 @@ const GraphType = ({ TypeRef }: Props) => {
       const { barchart } = data;
       const barchartJson = JSON.parse(`${barchart}`);
       renderGraph(barchartJson);
+      return;
+    }
+
+    if (TypeRef.name === "BoxPlot") {
+      const { data } = await BoxPlotAPI(dataId, columnPicker, rowPicker);
+      const { boxplot } = data;
+      const boxplotJson = JSON.parse(`${boxplot}`);
+      renderGraph(boxplotJson);
+      return;
+    }
+
+    if (TypeRef.name === "ScatterPlot") {
+      const { data } = await scatterPlotAPI(dataId, columnPicker, rowPicker);
+      const { scatterplot } = data;
+      const scatterplotJson = JSON.parse(`${scatterplot}`);
+      renderGraph(scatterplotJson);
       return;
     }
   };

@@ -31,10 +31,9 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
       return savedData ? JSON.parse(savedData) : null;
     }
   );
-  const [dataType, setDataType] = useState<string>(() => {
-    const savedFile = localStorage.getItem(DATATYPE_KEY);
-    return savedFile ? JSON.parse(savedFile) : null;
-  });
+  const [dataType, setDataType] = useState<string | null>(
+    localStorage.getItem(DATATYPE_KEY)
+  );
 
   const [dataId, setDataId] = useState<number | null>(() => {
     const savedFile = localStorage.getItem(DATAID_KEY);

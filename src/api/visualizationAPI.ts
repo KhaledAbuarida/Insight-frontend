@@ -99,3 +99,43 @@ export const barChartAPI = async (id: number, x: string, y: string) => {
   const data = await response.json();
   return data;
 };
+
+export const BoxPlotAPI = async (id: number, x: string, y: string) => {
+  const response = await fetch(
+    `${API_BASE_URL}/visualization/create-box-plot`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+        x,
+        y,
+      }),
+    }
+  );
+
+  const data = await response.json();
+  return data;
+};
+
+export const scatterPlotAPI = async (id: number, x: string, y: string) => {
+  const response = await fetch(
+    `${API_BASE_URL}/visualization/create-scatter-plot`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+        x,
+        y,
+      }),
+    }
+  );
+
+  const data = await response.json();
+  return data;
+};

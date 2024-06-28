@@ -10,7 +10,7 @@ interface DataContextType {
   categoricalHeaders: any[] | null;
   isDataUploaded: boolean;
   fileTitle: string | null;
-  dataType: string;
+  dataType: string | null;
   addDataType: (type: string) => void;
   addColumnPicker: (column: string) => void;
   addRowPicker: (row: string) => void;
@@ -30,7 +30,7 @@ export const DataContext = createContext<DataContextType>({
   categoricalHeaders: null,
   isDataUploaded: false,
   fileTitle: null,
-  dataType: "",
+  dataType: null,
   addDataType: () => {},
   addColumnPicker: () => {},
   addRowPicker: () => {},
