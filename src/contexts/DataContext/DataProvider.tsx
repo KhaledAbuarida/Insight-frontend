@@ -7,6 +7,8 @@ const DATATYPE_KEY = "data_type";
 const FILE_KEY = "file";
 const NUMERICAL_HEADERS_KEY = "numerical_headers";
 const CATEGORICAL_HEADERS_KEY = "categorical_headers";
+const NUMERICAL_STAT_KEY = "numerical_stat";
+const CATEGORICAL_STAT_KEY = "categorical_stat";
 
 const DataProvider: FC<PropsWithChildren> = ({ children }) => {
   // states
@@ -43,6 +45,14 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
   const [columnPicker, setColumnPicker] = useState<string>("");
   const [rowPicker, setRowPicker] = useState<string>("");
   const [availableGraphs, setAvailableGraphs] = useState<string[]>([]);
+  const [numericalStat, setNumericalStat] = useState<any | null>(() => {
+    const savedFile = localStorage.getItem(NUMERICAL_STAT_KEY);
+    return savedFile ? JSON.parse(savedFile) : null;
+  });
+  const [categoricalStat, setCategoricalStat] = useState<any | null>(() => {
+    const savedFile = localStorage.getItem(CATEGORICAL_STAT_KEY);
+    return savedFile ? JSON.parse(savedFile) : null;
+  });
 
   const isDataUploaded = !!data;
 
@@ -99,17 +109,34 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
     setNumericalHeaders(null);
     setCategoricalHeaders(null);
     setDataId(null);
+    setNumericalStat(null);
+    setCategoricalStat(null);
     localStorage.removeItem(FILE_KEY);
     localStorage.removeItem(DATA_KEY);
     localStorage.removeItem(DATAID_KEY);
     localStorage.removeItem(DATATYPE_KEY);
     localStorage.removeItem(NUMERICAL_HEADERS_KEY);
     localStorage.removeItem(CATEGORICAL_HEADERS_KEY);
+    localStorage.removeItem(NUMERICAL_STAT_KEY);
+    localStorage.removeItem(CATEGORICAL_STAT_KEY);
   };
 
   const addAvailableGraphs = (list: string[]) => {
     console.log(list);
     setAvailableGraphs(list);
+  };
+
+  const addNumericalStat = (data: any) => {
+    setNumericalStat(data);
+    console.log("numerical statistics", data);
+
+    localStorage.setItem(NUMERICAL_STAT_KEY, JSON.stringify(data));
+  };
+
+  const addCategoricalStat = (data: any) => {
+    setCategoricalStat(data);
+    console.log("categorical statistics", data);
+    localStorage.setItem(CATEGORICAL_STAT_KEY, JSON.stringify(data));
   };
 
   return (
@@ -125,6 +152,8 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
         fileTitle,
         dataType,
         availableGraphs,
+        numericalStat,
+        categoricalStat,
         addDataType,
         addColumnPicker,
         addRowPicker,
@@ -133,6 +162,8 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
         addData,
         addHeaders,
         addAvailableGraphs,
+        addNumericalStat,
+        addCategoricalStat,
       }}
     >
       {children}

@@ -15,6 +15,5 @@ export const preprocessingAPI = async (file: File) => {
   }
 
   const { data } = await response.json();
-
   return data;
 };

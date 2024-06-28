@@ -1,138 +1,52 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { Grid, Paper, Typography, Box } from "@mui/material";
+import { useData } from "../../contexts/DataContext/DataContext";
 
-interface DataEntry {
-  [key: string]: string | number;
-}
-
-interface Props {
-  data: DataEntry[];
-}
-
-const NumericalData: React.FC<Props> = ({ data }) => {
-  if (data.length === 0) {
-    return <div>No data available</div>;
-  }
-
-  const isNumeric = (value: string | number) => {
-    return value !== "" && !isNaN(parseFloat(value as string)) && isFinite(value as number);
-  };
-
-  const isExcludedColumn = (columnName: string) => {
-    const lowerCaseColumnName = columnName.toLowerCase();
-    return (
-      lowerCaseColumnName.includes("id") ||
-      lowerCaseColumnName.includes("date")
-    );
-  };
-
-  const numericalColumns = Object.keys(data[0]).filter(
-    (columnName) =>
-      !isExcludedColumn(columnName) &&
-      data.some((entry) => isNumeric(entry[columnName]))
-  );
-
-  const extractNumericalValues = (columnName: string) => {
-    return data
-      .map((entry) => parseFloat(entry[columnName] as string))
-      .filter((value) => !isNaN(value));
-  };
-
-  const calculateMean = (data: number[]) =>
-    data.reduce((acc, val) => acc + val, 0) / data.length;
-
-  const columnData = numericalColumns.map((columnName) =>
-    extractNumericalValues(columnName)
-  );
+const NumericalData: React.FC = () => {
+  const { numericalStat } = useData();
 
   return (
-    <div className="container mt-5">
-      <h2 className="mb-4 text-primary">Data Statistics</h2>
-      <div className="table-responsive">
-        <table className="table table-bordered">
-          <thead style={{ backgroundColor: "#007bff", color: "#ffffff" }}>
-            <tr>
-              <th scope="col" style={{ border: "none" }}>Statistic</th>
-              {numericalColumns.map((columnName, index) => (
-                <th
-                  scope="col"
-                  key={index}
-                  style={{
-                    backgroundColor: "#007bff",
-                    color: "#ffffff",
-                    border: "none",
-                  }}
-                >
-                  {columnName}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th
-                scope="row"
-                className="bg-secondary text-white"
-                style={{ border: "none" }}
-              >
-                Mean
-              </th>
-              {columnData.map((data, index) => (
-                <td
-                  key={index}
-                  style={{
-                    backgroundColor: "#e9ecef",
-                    border: "none",
-                  }}
-                >
-                  {calculateMean(data).toFixed(2)}
-                </td>
-              ))}
-            </tr>
-            <tr>
-              <th
-                scope="row"
-                className="bg-secondary text-white"
-                style={{ border: "none" }}
-              >
-                Minimum
-              </th>
-              {columnData.map((data, index) => (
-                <td
-                  key={index}
-                  style={{
-                    backgroundColor: "#e9ecef",
-                    border: "none",
-                  }}
-                >
-                  {Math.min(...data)}
-                </td>
-              ))}
-            </tr>
-            <tr>
-              <th
-                scope="row"
-                className="bg-secondary text-white"
-                style={{ border: "none" }}
-              >
-                Maximum
-              </th>
-              {columnData.map((data, index) => (
-                <td
-                  key={index}
-                  style={{
-                    backgroundColor: "#e9ecef",
-                    border: "none",
-                  }}
-                >
-                  {Math.max(...data)}
-                </td>
-              ))}
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <Paper
+      style={{
+        padding: "16px",
+        backgroundColor: "#f0f0f0",
+        borderRadius: "8px",
+        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+      }}
+    >
+      {Object.keys(numericalStat).map((key: string) => (
+        <Box key={key} mb={2}>
+          <Typography
+            variant="h6"
+            style={{ color: "#333", marginBottom: "8px" }}
+          >
+            <Typography variant="h4" color="green">
+              {key}
+            </Typography>
+          </Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={4}>
+              <Typography>Average:</Typography>
+            </Grid>
+            <Grid item xs={8}>
+              <Typography>{numericalStat[key].Average}</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography>Min:</Typography>
+            </Grid>
+            <Grid item xs={8}>
+              <Typography>{numericalStat[key].Min}</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography>Max:</Typography>
+            </Grid>
+            <Grid item xs={8}>
+              <Typography>{numericalStat[key].Max}</Typography>
+            </Grid>
+          </Grid>
+        </Box>
+      ))}
+    </Paper>
   );
 };
 

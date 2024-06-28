@@ -29,6 +29,8 @@ const DropZone = () => {
     addDataType,
     addFileTitle,
     deleteFile,
+    addNumericalStat,
+    addCategoricalStat,
   } = useData();
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -53,6 +55,8 @@ const DropZone = () => {
       numerical_columns,
       title,
       id,
+      numerical_statistics,
+      categorical_statistics,
     } = await preprocessingAPI(selectedFile);
 
     // adding file title
@@ -63,6 +67,9 @@ const DropZone = () => {
 
     // setting the data
     addData(JSON.parse(preprocessed_data), id);
+
+    addNumericalStat(JSON.parse(numerical_statistics));
+    addCategoricalStat(JSON.parse(categorical_statistics));
 
     // setting the loader off
     setLoader(false);

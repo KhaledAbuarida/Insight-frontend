@@ -12,6 +12,8 @@ interface DataContextType {
   fileTitle: string | null;
   dataType: string | null;
   availableGraphs: string[];
+  numericalStat: any | null;
+  categoricalStat: any | null;
   addDataType: (type: string) => void;
   addColumnPicker: (column: string) => void;
   addRowPicker: (row: string) => void;
@@ -20,6 +22,8 @@ interface DataContextType {
   addData: (data: any, dataId: number) => void;
   addHeaders: (num_data: any[], cat_data: any[]) => void;
   addAvailableGraphs: (list: string[]) => void;
+  addNumericalStat: (data: any) => void;
+  addCategoricalStat: (data: any) => void;
 }
 
 // Create the context
@@ -34,6 +38,8 @@ export const DataContext = createContext<DataContextType>({
   fileTitle: null,
   dataType: null,
   availableGraphs: [],
+  numericalStat: null,
+  categoricalStat: null,
   addDataType: () => {},
   addColumnPicker: () => {},
   addRowPicker: () => {},
@@ -42,6 +48,8 @@ export const DataContext = createContext<DataContextType>({
   addData: () => {},
   addHeaders: () => {},
   addAvailableGraphs: () => {},
+  addNumericalStat: () => {},
+  addCategoricalStat: () => {},
 });
 
 export const useData = () => useContext(DataContext);
