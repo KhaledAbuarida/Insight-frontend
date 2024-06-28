@@ -14,7 +14,7 @@ export const preprocessingAPI = async (file: File) => {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 
-  const {data} = await response.json();
+  const { data } = await response.json();
 
   return data;
 };

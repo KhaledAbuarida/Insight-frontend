@@ -26,7 +26,6 @@ const VisualizePage = () => {
         return graph.data[0].type === type?.plotly;
       }
     });
-    console.log(graphJson);
     renderGraph(graphJson);
   }, [graphType]);
 

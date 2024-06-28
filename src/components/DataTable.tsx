@@ -6,7 +6,7 @@ import { useData } from "../contexts/DataContext/DataContext";
 const DataTable = () => {
   const { data, numericalHeaders, categoricalHeaders } = useData();
 
-  // const headers = [...(numericalHeaders || []), ...(categoricalHeaders || [])];
+  const headers = [...(numericalHeaders || []), ...(categoricalHeaders || [])];
   return (
     <Box pt="100px">
       <Grid container justifyContent="space-between">
@@ -31,12 +31,13 @@ const DataTable = () => {
         </Grid>
       </Grid>
       <DataGrid
-        rows={data || []}
-        columns={numericalHeaders || []}
+        rows={data}
+        columns={headers}
+        density="compact"
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 12,
+              pageSize: 15,
             },
           },
         }}
@@ -44,7 +45,6 @@ const DataTable = () => {
         autoHeight
         checkboxSelection
         disableRowSelectionOnClick
-        getRowId={(data) => data.customerID}
       />
     </Box>
   );

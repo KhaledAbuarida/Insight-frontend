@@ -14,7 +14,7 @@ export const AttributesPicker = () => {
   const [row, setRow] = useState<string | null>(null);
   const { numericalHeaders, categoricalHeaders } = useData();
 
-  // const headers = [...(numericalHeaders || []), ...(categoricalHeaders || [])];
+  const headers = [...(numericalHeaders || []), ...(categoricalHeaders || [])];
 
   const handleColumnChange = (event: SelectChangeEvent) => {
     setColumn(event.target.value);
@@ -49,11 +49,13 @@ export const AttributesPicker = () => {
             onChange={handleColumnChange}
             sx={{ borderRadius: "5px" }}
           >
-            {numericalHeaders.map((at) => (
-              <MenuItem key={at.field} value={at.field}>
-                {at}
-              </MenuItem>
-            ))}
+            {headers.map((at) =>
+              at.headerName !== "id" ? (
+                <MenuItem key={at.field} value={at.field}>
+                  {at.headerName}
+                </MenuItem>
+              ) : null
+            )}
           </Select>
         </FormControl>
       </Grid>
@@ -78,11 +80,13 @@ export const AttributesPicker = () => {
             onChange={handleRowChange}
             sx={{ borderRadius: "5px" }}
           >
-            {categoricalHeaders.map((at) => (
-              <MenuItem key={at.field} value={at.field}>
-                {at}
-              </MenuItem>
-            ))}
+            {headers.map((at) =>
+              at.headerName !== "id" ? (
+                <MenuItem key={at.field} value={at.field}>
+                  {at.headerName}
+                </MenuItem>
+              ) : null
+            )}
           </Select>
         </FormControl>
       </Grid>

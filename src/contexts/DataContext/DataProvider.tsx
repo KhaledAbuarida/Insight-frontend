@@ -13,7 +13,7 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
     return savedData ? JSON.parse(savedData) : null;
   });
 
-  const [file, setFile] = useState<any | null>(() => {
+  const [fileTitle, setFileTitle] = useState<any | null>(() => {
     const savedFile = localStorage.getItem(FILE_KEY);
     return savedFile ? JSON.parse(savedFile) : null;
   });
@@ -35,34 +35,42 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const addData = (data: any) => {
     setData(data);
-    console.log("from addData function", data);
 
     localStorage.setItem(DATA_KEY, JSON.stringify(data));
   };
 
   const addHeaders = (num_data: any[], cat_data: any[]) => {
-    // const factoredData = num_data.map((i) => {
-    //   const lowercaseItem = i.toLowerCase();
-    //   return { field: lowercaseItem, headerName: i, width: 150 };
-    // });
+    const factoredNumericalData = num_data.map((i) => {
+      return { field: i, headerName: i, width: 150 };
+    });
 
-    setNumericalHeaders(num_data);
-    setCategoricalHeaders(cat_data);
-    localStorage.setItem(NUMERICAL_HEADERS_KEY, JSON.stringify(num_data));
-    localStorage.setItem(CATEGORICAL_HEADERS_KEY, JSON.stringify(cat_data));
+    const factoredCategoricalData = cat_data.map((i) => {
+      return { field: i, headerName: i, width: 150 };
+    });
+
+    setNumericalHeaders(factoredNumericalData);
+    setCategoricalHeaders(factoredCategoricalData);
+    localStorage.setItem(
+      NUMERICAL_HEADERS_KEY,
+      JSON.stringify(factoredNumericalData)
+    );
+    localStorage.setItem(
+      CATEGORICAL_HEADERS_KEY,
+      JSON.stringify(factoredCategoricalData)
+    );
   };
 
   const addDataType = (type: string) => {
     setDataType(type);
   };
 
-  const uploadFile = (file: any) => {
-    setFile(file);
+  const addFileTitle = (file: any) => {
+    setFileTitle(file);
     localStorage.setItem(FILE_KEY, JSON.stringify(file));
   };
 
   const deleteFile = () => {
-    setFile(null);
+    setFileTitle(null);
     setData(null);
     setDataType("");
     setNumericalHeaders(null);
@@ -80,10 +88,10 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
         numericalHeaders,
         categoricalHeaders,
         isDataUploaded,
-        file,
+        fileTitle,
         dataType,
         addDataType,
-        uploadFile,
+        addFileTitle,
         deleteFile,
         addData,
         addHeaders,

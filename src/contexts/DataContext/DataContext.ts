@@ -6,10 +6,10 @@ interface DataContextType {
   numericalHeaders: any[] | null;
   categoricalHeaders: any[] | null;
   isDataUploaded: boolean;
-  file: any | null;
+  fileTitle: string | null;
   dataType: string;
   addDataType: (type: string) => void;
-  uploadFile: (file: any) => void;
+  addFileTitle: (file: any) => void;
   deleteFile: () => void;
   addData: (data: any) => void;
   addHeaders: (num_data: any[], cat_data: any[]) => void;
@@ -21,10 +21,10 @@ export const DataContext = createContext<DataContextType>({
   numericalHeaders: null,
   categoricalHeaders: null,
   isDataUploaded: false,
-  file: null,
+  fileTitle: null,
   dataType: "",
   addDataType: () => {},
-  uploadFile: () => {},
+  addFileTitle: () => {},
   deleteFile: () => {},
   addData: () => {},
   addHeaders: () => {},

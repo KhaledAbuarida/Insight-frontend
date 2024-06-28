@@ -15,11 +15,9 @@ const ModelPage = () => {
 
   useEffect(() => {
     const type = modelTypes.find((type) => type.name === modelType);
-    console.log(type);
     const modelJson: any = models.find((model: any) => {
       return model.data[0].type === type?.plotly;
     });
-    console.log(modelJson);
     renderModel(modelJson);
   }, [modelType]);
 

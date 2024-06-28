@@ -23,39 +23,14 @@ const DropZone = () => {
   const [loader, setLoader] = useState<boolean>(true);
   const [open, setOpen] = useState<boolean>(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const { addHeaders, addData, file, addDataType, uploadFile, deleteFile } =
-    useData();
-
-  async function convertCsvFileToJson(file: any, type: string) {
-    try {
-      setUploadState(true);
-
-      const csvString: string = await readFileAsText(file);
-      let jsonArray = await csvtojson().fromString(csvString);
-
-      jsonArray = jsonArray.map((data: any) => {
-        const newData: any = {};
-        for (const key in data) {
-          if (Object.hasOwnProperty.call(data, key)) {
-            newData[key.toLowerCase()] = data[key];
-          }
-        }
-        return newData;
-      });
-
-      if (!jsonArray[0].hasOwnProperty("id")) {
-        jsonArray = jsonArray.map((data: any, index: number) => ({
-          id: index + 1,
-          ...data,
-        }));
-      }
-
-      console.log(jsonArray);
-      handleUploadState();
-    } catch (error) {
-      console.error("Error converting CSV file to JSON:", error);
-    }
-  }
+  const {
+    addHeaders,
+    addData,
+    fileTitle,
+    addDataType,
+    addFileTitle,
+    deleteFile,
+  } = useData();
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
@@ -65,6 +40,7 @@ const DropZone = () => {
   }, []);
 
   const handleClose = async (type: string) => {
+    setUploadState(true);
     addDataType(type);
     setOpen(false);
 
@@ -75,28 +51,17 @@ const DropZone = () => {
     const { preprocessed_data, categorical_columns, numerical_columns, title } =
       await preprocessingAPI(selectedFile);
 
-    let jsonArray = [...preprocessed_data];
+    // adding file title
+    addFileTitle(title);
 
-    jsonArray = jsonArray.map((data: any) => {
-      const newData: any = {};
-      for (const key in data) {
-        if (Object.hasOwnProperty.call(data, key)) {
-          newData[key.toLowerCase()] = data[key];
-        }
-      }
-      return newData;
-    });
+    // setting headers
+    addHeaders(JSON.parse(numerical_columns), JSON.parse(categorical_columns));
 
-    if (!jsonArray[0].hasOwnProperty("id")) {
-      jsonArray = jsonArray.map((data: any, index: number) => ({
-        id: index + 1,
-        ...data,
-      }));
-    }
-    console.log(jsonArray);
+    // setting the data
+    addData(JSON.parse(preprocessed_data));
 
-    addHeaders(numerical_columns, categorical_columns);
-    // addData(preprocessed_data);
+    // setting the loader off
+    setLoader(false);
   };
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -120,13 +85,6 @@ const DropZone = () => {
       };
       reader.readAsText(file);
     });
-  };
-
-  const handleUploadState = () => {
-    setLoader(false);
-    setTimeout(() => {
-      // navigate("/dataset");
-    }, 1000);
   };
 
   const handleDeleteFile = () => {
@@ -192,13 +150,13 @@ const DropZone = () => {
           </Grid>
         </Grid>
       </div>
-      {file && (
+      {fileTitle && (
         <List>
           <ListItem
-            key={file.path}
+            key={fileTitle}
             sx={{ display: "flex", justifyContent: "space-between" }}
           >
-            {file.path}
+            {fileTitle}
             <Button
               variant="contained"
               color="secondary"
