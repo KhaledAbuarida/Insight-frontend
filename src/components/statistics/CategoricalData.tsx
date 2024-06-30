@@ -20,7 +20,9 @@ const CategoricalData: React.FC = () => {
             variant="h6"
             style={{ color: "#333", marginBottom: "8px" }}
           >
-            {key}
+            <Typography variant="h4" color="green">
+              {key}
+            </Typography>
           </Typography>
           <Grid container spacing={2}>
             {categoricalStat[key].map((value: string, index: number) => (

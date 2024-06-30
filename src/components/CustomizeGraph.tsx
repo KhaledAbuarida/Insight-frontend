@@ -1,16 +1,6 @@
-import { useState } from "react";
-import {
-  Select,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  TextField,
-  Typography,
-  Grid,
-} from "@mui/material";
+import { InputLabel, TextField, Typography, Grid } from "@mui/material";
 import { MdDashboardCustomize } from "react-icons/md";
 import { useGraph } from "../contexts/GraphContext/GraphContext";
-import { useData } from "../contexts/DataContext/DataContext";
 
 const CustomizeGraph = () => {
   // contexts
@@ -23,9 +13,6 @@ const CustomizeGraph = () => {
     graphTitle,
     changeGraphTitle,
   } = useGraph();
-  const { categoricalHeaders } = useData();
-
-  const [columnToDistribute, setColumnToDistribute] = useState("");
 
   if (!graphType) {
     return (
@@ -113,52 +100,6 @@ const CustomizeGraph = () => {
             />
           </Grid>
         </>
-      )}
-
-      {graphType === "Histogram" && (
-        <>
-          <Grid item>
-            <InputLabel sx={{ color: "#fff", fontSize: "0.8rem" }}>
-              ColumnToDistribute
-            </InputLabel>
-            <Select
-              value={columnToDistribute}
-              onChange={(e) => setColumnToDistribute(e.target.value)}
-              fullWidth
-              size="small"
-              sx={{ backgroundColor: "#e5e5e5" }}
-            >
-              {categoricalHeaders?.map((column) => (
-                <MenuItem key={column.headerName} value={column.headerName}>
-                  {column.headerName}
-                </MenuItem>
-              ))}
-            </Select>
-          </Grid>
-        </>
-      )}
-
-      {graphType === "LineChart" && (
-        <Grid item>
-          <InputLabel sx={{ color: "#fff", fontSize: "0.8rem" }}>
-            Column to Distribute:
-          </InputLabel>
-          <FormControl style={{ marginBottom: "1rem" }}>
-            <Select
-              value={columnToDistribute}
-              onChange={(e) => setColumnToDistribute(e.target.value)}
-              sx={{ backgroundColor: "#e5e5e5" }}
-              fullWidth
-              size="small"
-            >
-              {categoricalHeaders?.map((column) => (
-                <MenuItem key={column.headerName} value={column.headerName}>
-                  {column.headerName}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
       )}
     </Grid>
   );

@@ -50,9 +50,9 @@ const GraphType = ({ TypeRef }: Props) => {
       return;
     }
 
-    if (!rowPicker) {
-      return;
-    }
+    // if (!rowPicker) {
+    //   return;
+    // }
 
     if (TypeRef.name === "PieChart") {
       const { data } = await pieChartAPI(dataId, columnPicker, rowPicker);

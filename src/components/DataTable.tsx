@@ -1,5 +1,6 @@
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Box, Button, Grid, Typography } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
+
 import { NavLink } from "react-router-dom";
 import { useData } from "../contexts/DataContext/DataContext";
 
@@ -41,7 +42,7 @@ const DataTable = () => {
             },
           },
         }}
-        slots={{ toolbar: GridToolbar }}
+        // slots={{ toolbar: GridToolbar }}
         autoHeight
         checkboxSelection
         disableRowSelectionOnClick

@@ -28,8 +28,10 @@ const ModelType = ({ TypeRef }: Props) => {
   const [targetColumn, setTargetColumn] = useState<string | null>(null);
 
   // contexts
-  const { headers } = useData();
+  const { numericalHeaders, categoricalHeaders } = useData();
   const { modelType, selectModelType } = useModel();
+
+  const headers = [...(numericalHeaders || []), ...(categoricalHeaders || [])];
 
   const validationSchema = Yup.object().shape({
     targetColumn: Yup.string().required("Target column is required"),

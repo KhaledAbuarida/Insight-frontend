@@ -18,6 +18,7 @@ const ModelPage = () => {
     const modelJson: any = models.find((model: any) => {
       return model.data[0].type === type?.plotly;
     });
+
     renderModel(modelJson);
   }, [modelType]);
 
@@ -65,7 +66,7 @@ const ModelPage = () => {
                   color={"gray"}
                   margin="5px 20px"
                 >
-                  Numerical Models
+                  Textual Models
                 </Typography>
                 {modelTypes.map((type) => {
                   return type.type === "Textual" ? (
@@ -81,7 +82,7 @@ const ModelPage = () => {
                   color={"gray"}
                   margin="5px 20px"
                 >
-                  Textual Models
+                  Numerical Models
                 </Typography>
                 {modelTypes.map((type) => {
                   return type.type === "Numerical" ? (
@@ -134,18 +135,6 @@ const ModelPage = () => {
                         useResizeHandler
                         style={{ width: "100%", height: "100%" }}
                       />
-
-                      <Box sx={{ display: "flex", justifyContent: "center" }}>
-                        <Button
-                          component="label"
-                          role={undefined}
-                          variant="contained"
-                          tabIndex={-1}
-                          startIcon={<PlayArrowIcon />}
-                        >
-                          RUN
-                        </Button>
-                      </Box>
                     </>
                   ) : (
                     <Grid

@@ -10,12 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.3",
-    "@emotion/styled": "^11.11.0",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@hookform/resolvers": "^3.6.0",
     "@mui/icons-material": "^5.15.9",
-    "@mui/material": "^5.15.9",
+    "@mui/material": "^5.15.21",
     "@mui/x-charts": "^6.19.5",
+    "@mui/x-data-grid": "^7.8.0",
     "@mui/x-data-grid-generator": "^6.19.4",
     "@mui/x-data-grid-premium": "^6.19.4",
     "bootstrap": "^5.3.3",

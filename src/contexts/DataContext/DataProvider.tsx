@@ -127,10 +127,11 @@ const DataProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   const addNumericalStat = (data: any) => {
-    setNumericalStat(data);
-    console.log("numerical statistics", data);
+    const { id, ...rest } = data; // Destructure and exclude 'id' from data
+    setNumericalStat(rest);
+    console.log("numerical statistics", rest);
 
-    localStorage.setItem(NUMERICAL_STAT_KEY, JSON.stringify(data));
+    localStorage.setItem(NUMERICAL_STAT_KEY, JSON.stringify(rest));
   };
 
   const addCategoricalStat = (data: any) => {

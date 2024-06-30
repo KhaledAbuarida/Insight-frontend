@@ -1,3 +1,3 @@
-import { ChurnPrediction } from "./jsonModels";
+import { EmotionAnalysis, TimeSeriesPrediction } from "./jsonModels";
 
-export const models = [ChurnPrediction];
+export const models = [EmotionAnalysis, TimeSeriesPrediction];
