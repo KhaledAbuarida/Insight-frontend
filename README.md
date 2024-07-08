@@ -45,9 +45,12 @@ You must have [Node.js](https://nodejs.org/en/) installed on your machine
    npm run dev
    ```
 
-
-
-
+## Screenshots
+<img width="1680" alt="Screenshot 2024-06-27 at 1 18 48 AM" src="https://github.com/KhaledAbuarida/Insight-frontend/assets/91624252/de343d50-f2d3-4b07-92e9-48d55342ccf3">
+<img width="1680" alt="Screenshot 2024-06-26 at 10 28 00 PM" src="https://github.com/KhaledAbuarida/Insight-frontend/assets/91624252/74a9ad68-dfdb-4ae4-9e93-3014cab81c78">
+<img width="1680" alt="Screenshot 2024-06-26 at 10 29 02 PM" src="https://github.com/KhaledAbuarida/Insight-frontend/assets/91624252/d08c0a75-6de7-4e50-957a-93a782812047"><img width="1680" alt="Screenshot 2024-06-27 at 1 19 15 AM" src="https://github.com/KhaledAbuarida/Insight-frontend/assets/91624252/5354a187-fcfe-4eb2-acf2-a73028d1c5ab">
+<img width="1680" alt="Screenshot 2024-06-27 at 1 17 26 AM" src="https://github.com/KhaledAbuarida/Insight-frontend/assets/91624252/229376de-0a81-441f-83be-ecf18ace938c">
+<img width="1680" alt="Screenshot 2024-06-26 at 10 38 37 PM" src="https://github.com/KhaledAbuarida/Insight-frontend/assets/91624252/edfeaeae-7573-4765-907b-9e05828a6c7f">
 
 
 
